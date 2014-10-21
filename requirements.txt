@@ -1,0 +1,9 @@
+# Requirements file for python3
+django==1.7
+celery==3.1.15
+sphinx
+redis==2.9.1
+flower==0.7
+django-grappelli==2.6
+djangorestframework==2.4
+django-filter==0.8

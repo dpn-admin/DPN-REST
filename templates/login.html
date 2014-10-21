@@ -1,0 +1,27 @@
+{% extends "site_base.html" %}
+
+{% block content-title %}DPN Node Login{% endblock %}
+
+{% block content-body %}
+
+<form method="post" action="{% url 'django.contrib.auth.views.login' %}" class="form-horizontal" role="form">
+
+    {% csrf_token %}
+
+{% for field in form %}
+    <div class="form-group">
+        {{ field.label_tag }}
+        {{ field }}
+        {% if field.errors %}
+            <div class="text-danger">{{ field.errors }}</div>
+        {% endif %}
+    </div>
+{% endfor %}
+
+<div>
+    <input type="submit" class="btn btn-default" value="login" />
+    <input type="hidden" name="next" value="{{ next }}" />
+</div>
+</form>
+
+{% endblock %}
