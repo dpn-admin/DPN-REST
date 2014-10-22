@@ -2,9 +2,9 @@ from rest_framework import generics
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import DjangoModelPermissions
 
-from dpn_api.serializers import RegistryEntrySerializer, TransferSerializer
-from dpn_api.serializers import NodeSerializer
-from dpn_data.models import RegistryEntry, Node, Transfer, UserProfile
+from dpn.api.serializers import RegistryEntrySerializer, TransferSerializer
+from dpn.api.serializers import NodeSerializer
+from dpn.data.models import RegistryEntry, Node, Transfer, UserProfile
 
 # List Views
 class RegistryListView(generics.ListCreateAPIView):

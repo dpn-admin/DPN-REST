@@ -3,9 +3,6 @@ from django.contrib import admin
 from django.conf import settings
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'dpnode.views.home', name='home'),
-    # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
 
@@ -23,7 +20,7 @@ urlpatterns = patterns('',
    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
    # API calls
-   url(r'^api-v0/', include('dpn_api.urls', namespace="api")),
+   url(r'^api-v0/', include('dpn.api.urls', namespace="api")),
 
    # API Documentation
    url(r'api-docs/', include('rest_framework_swagger.urls', namespace="api-docs"))

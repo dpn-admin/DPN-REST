@@ -26,7 +26,7 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
-AUTH_PROFILE_MODULE = 'dpn_data.UserProfile'
+AUTH_PROFILE_MODULE = 'dpn.data.UserProfile'
 
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',)
@@ -47,9 +47,8 @@ INSTALLED_APPS = (
     'rest_framework.authtoken',
     'rest_framework_swagger',
     # Core DPN modules
-    'dpn_data',
-    'dpn_tasks',
-    'dpn_api',
+    'dpn.data',
+    'dpn.api',
 
 )
 

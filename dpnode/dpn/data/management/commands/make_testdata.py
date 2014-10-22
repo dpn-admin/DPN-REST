@@ -3,8 +3,8 @@ from datetime import datetime
 
 from django.utils import timezone
 from django.core.management.base import BaseCommand, CommandError
-from dpn_data.models import  Node, DATA, SEND, RSYNC, PENDING
-from dpn_data.models import RegistryEntry, Transfer
+from dpn.data.models import  Node, DATA, SEND, RSYNC, PENDING
+from dpn.data.models import RegistryEntry, Transfer
 
 class Command(BaseCommand):
     help = 'Populates the DB with test data'

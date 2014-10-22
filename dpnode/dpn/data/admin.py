@@ -3,7 +3,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 
-from dpn_data import models
+from dpn.data import models
 
 class PortInline(admin.TabularInline):
     model = models.Port

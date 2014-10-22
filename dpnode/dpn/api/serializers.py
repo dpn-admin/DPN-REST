@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
-from dpn_data.models import Node, Transfer, PROTOCOL_CHOICES, STATE_CHOICES
-from dpn_data.models import RegistryEntry, ACTION_CHOICES
+from dpn.data.models import Node, Transfer, PROTOCOL_CHOICES, STATE_CHOICES
+from dpn.data.models import RegistryEntry, ACTION_CHOICES
 
 class NodeSerializer(serializers.ModelSerializer):
     port_set = serializers.RelatedField(many=True, read_only=True)

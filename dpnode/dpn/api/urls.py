@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url
-from dpn_api.views import TransferListView, RegistryListView, NodeListView
-from dpn_api.views import TransferDetailView, RegistryDetailView, NodeDetailView
+from dpn.api.views import TransferListView, RegistryListView, NodeListView
+from dpn.api.views import TransferDetailView, RegistryDetailView, NodeDetailView
 
 urlpatterns = patterns('',
       url(r'^data/$', RegistryListView.as_view(), name="data-list"),
