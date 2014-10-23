@@ -22,7 +22,7 @@ class TransferSerializer(serializers.ModelSerializer):
     class Meta:
         model = Transfer
         depth = 1
-        exclude = ('id', 'error')
+        exclude = ('id', 'error', 'exp_fixity')
         read_only_fields = ('dpn_object_id', 'link', 'size', 'fixity',
                             'event_id', 'action', 'protocol',)
 

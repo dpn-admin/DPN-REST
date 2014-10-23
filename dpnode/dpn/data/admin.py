@@ -26,7 +26,8 @@ class RegistryEntryAdmin(admin.ModelAdmin):
 
 @admin.register(models.Transfer)
 class TransferAdmin(admin.ModelAdmin):
-    list_display = ('dpn_object_id', 'action', 'node', 'status', 'fixity', 'valid')
+    list_display = ('event_id', 'dpn_object_id', 'action', 'node',
+                    'status', 'fixity', 'valid')
     list_filter = ('action', 'node', 'status', 'fixity', 'valid')
 
 @admin.register(models.Protocol)

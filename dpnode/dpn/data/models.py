@@ -158,6 +158,7 @@ class Transfer(models.Model):
     status = models.CharField(max_length=1, choices=STATE_CHOICES)
     size = models.BigIntegerField()
     receipt = models.CharField(max_length=128, null=True, blank=True)
+    exp_fixity = models.CharField(max_length=128)
     fixity = models.NullBooleanField()
     valid = models.NullBooleanField()
     error = models.TextField(null=True, blank=True)
@@ -167,6 +168,13 @@ class Transfer(models.Model):
 
     def __str__(self):
         return '%s' % self.__unicode__()
+
+    def save(self, *args, **kwargs):
+        if self.exp_fixity == self.receipt:
+            self.fixity = True
+        if self.exp_fixity != self.receipt and self.receipt is not None:
+            self.fixity = False
+        super(Transfer, self).save(args, kwargs)
 
 def create_event_id(sender, instance, created, **kwargs):
     """
