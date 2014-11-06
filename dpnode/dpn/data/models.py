@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.conf import settings
+from django.template.defaultfilters import slugify
 
 # Status
 PENDING = 'P'
@@ -64,6 +65,11 @@ class Node(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now_add=True, auto_now=True)
 
+    def save(self, *args, **kwargs):
+        if not self.namespace:
+            self.namespace = slugify(self.name)
+        super(Node, self).save(*args, **kwargs)
+
     def __unicode__(self):
         return '%s' % self.name
 
@@ -102,6 +108,13 @@ class Storage(models.Model):
     class Meta:
         unique_together = ('node', 'region')
 
+class RegistryManager(models.Manager):
+    """
+    Custom manager to return only published registry entries.
+    """
+    def get_queryset(self):
+        return super(RegistryManager, self).get_queryset().filter(published=True)
+
 class RegistryEntry(models.Model):
     """
     Data about DPN Bags.
@@ -135,23 +148,17 @@ class RegistryEntry(models.Model):
     published = models.BooleanField(default=False)
 
     # Custom manager to return only published records
-    published_objects = RegistryManager()
+    # published_objects = RegistryManager()
 
     class Meta:
         verbose_name_plural = "registry entries"
+        ordering = ['-updated_on']
 
     def __unicode__(self):
         return '%s' % self.dpn_object_id
 
     def __str__(self):
         return '%s' % self.__unicode__()
-
-class RegistryManager(models.Manager):
-    """
-    Custom manager to return only published registry entries.
-    """
-    def get_queryset(self):
-        return super(RegistryManager, self).get_queryset().filter(published=True)
 
 #  Transfer Events
 class Transfer(models.Model):
@@ -160,7 +167,7 @@ class Transfer(models.Model):
     protocol = models.CharField(max_length=1, choices=PROTOCOL_CHOICES)
     link = models.TextField(null=True, blank=True)
     node = models.ForeignKey(Node)
-    status = models.CharField(max_length=1, choices=STATE_CHOICES)
+    status = models.CharField(max_length=1, choices=STATE_CHOICES, default=PENDING)
     size = models.BigIntegerField()
     receipt = models.CharField(max_length=128, null=True, blank=True)
     exp_fixity = models.CharField(max_length=128)
@@ -170,6 +177,9 @@ class Transfer(models.Model):
 
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now_add=True, auto_now=True)
+
+    class Meta:
+        ordering = ['-created_on']
 
     def __unicode__(self):
         return '%s' % self.dpn_object_id

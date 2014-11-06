@@ -22,13 +22,16 @@ class RegistryEntryAdmin(admin.ModelAdmin):
     list_display = ('dpn_object_id', 'first_node', 'bag_size',
                     'object_type')
     list_display_links = ('dpn_object_id',)
-    list_filter = ('object_type', 'first_node', 'modified_on')
+    list_filter = ('object_type', 'first_node', 'updated_on')
+    search_fields = ['dpn_object_id',]
 
 @admin.register(models.Transfer)
 class TransferAdmin(admin.ModelAdmin):
-    list_display = ('event_id', 'dpn_object_id', 'action', 'node',
+    list_display = ('event_id', 'dpn_object_id', 'node',
                     'status', 'fixity', 'valid')
-    list_filter = ('action', 'node', 'status', 'fixity', 'valid')
+    list_filter = ('node', 'status', 'fixity', 'valid')
+    list_display_links = ['event_id']
+    search_fields = ['event_id',]
 
 @admin.register(models.Protocol)
 class ProtocolAdmin(admin.ModelAdmin):

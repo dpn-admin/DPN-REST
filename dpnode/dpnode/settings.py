@@ -24,12 +24,15 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
+# IMPORTANT SET ONLY TO TRUE IN DEVELOPMENT ENVIRONMENT
+DEV = False
+
 ALLOWED_HOSTS = []
 
 AUTH_PROFILE_MODULE = 'dpn.data.UserProfile'
 
 REST_FRAMEWORK = {
-    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',)
+    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',),
 }
 
 # Application definition

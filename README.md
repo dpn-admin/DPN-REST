@@ -1,7 +1,7 @@
 # Overview
 
 EarthDiver is a prototype for a REST based protocol for a node in the DPN
-network of replicating nodes.  Currently it shows datastructures and some
+network of replicating nodes.  Currently it shows data structures and some
 proposed REST calls that could be used to negotiate interactions in the DPN
 network.
 
@@ -25,13 +25,13 @@ To Setup just:
 Setting up test data:
 
 * Activate your virtual environment.
-* You can populate some data for nodes through the loaddata manage.py command
-  using the node.json file.  Add any port or storage data you want.
+* To populate with stub test data execute the following manage.py commands:
+    * `python manage.py make_nodes` Makes some stub node data, etc.
+    * `python manage.py make_testdata` Makes some test registry entries and
+       transfers.
 * Add a new user to use an auth token for and assign them to a node.
   Permissions are based on user permissions and they can only see their own node
   content for transfers.
-* Add fake transfers and registries entries by using the manage.py command
-  'make_testdata'
 
 To Run just:
 

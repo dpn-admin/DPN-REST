@@ -4,6 +4,8 @@ PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
 
 DEBUG = False # Always make False by default.
 TEMPLATE_DEBUG = DEBUG
+# IMPORTANT SET ONLY TO TRUE IN DEVELOPMENT ENVIRONMENT
+DEV = False
 
 ADMINS = (
 # ('Your Name', 'your_email@example.com'),
