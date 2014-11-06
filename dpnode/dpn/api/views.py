@@ -4,6 +4,7 @@ from rest_framework.permissions import DjangoModelPermissions
 
 from dpn.api.serializers import RegistryEntrySerializer, TransferSerializer
 from dpn.api.serializers import NodeSerializer
+from dpn.api.permissions import IsNodeUser
 from dpn.data.models import RegistryEntry, Node, Transfer, UserProfile
 
 # List Views
@@ -13,7 +14,7 @@ class RegistryListView(generics.ListCreateAPIView):
     """
     authentication_classes = (TokenAuthentication,)
     permission_classes = (DjangoModelPermissions,)
-    queryset = RegistryEntry.objects.all()
+    queryset = RegistryEntry.published_objects.all()
     paginate_by = 20
     serializer_class = RegistryEntrySerializer
 
@@ -54,6 +55,7 @@ class RegistryDetailView(generics.RetrieveAPIView):
     model = RegistryEntry
     lookup_field = "dpn_object_id"
 
+
 class NodeDetailView(generics.RetrieveUpdateAPIView):
     """
     Node details.
@@ -68,7 +70,7 @@ class TransferDetailView(generics.RetrieveUpdateAPIView):
     Details about a specific Transfer Action.
     """
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (DjangoModelPermissions,)
+    permission_classes = (DjangoModelPermissions, IsNodeUser)
     lookup_field = "event_id"
     model = Transfer
     serializer_class = TransferSerializer

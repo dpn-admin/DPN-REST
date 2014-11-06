@@ -27,9 +27,7 @@ class TransferSerializer(serializers.ModelSerializer):
                             'event_id', 'action', 'protocol',)
 
 class RegistryEntrySerializer(serializers.ModelSerializer):
-    exclude = ('created_on', 'modified_on')
+    exclude = ('created_on', 'modified_on', 'published')
     class Meta:
         model = RegistryEntry
         depth = 1
-
-# class RestoreSerializer(serializers.)

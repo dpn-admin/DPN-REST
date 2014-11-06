@@ -14,7 +14,6 @@ STATE_CHOICES = (
     (ACCEPT, "Accept"),
     (REJECT, "Reject"),
     (CONFIRMED, "Confirmed"),
-    (VALID, "Valid")
 )
 # Protocols
 HTTPS = 'H'
@@ -23,15 +22,7 @@ PROTOCOL_CHOICES = (
     (HTTPS, 'https'),
     (RSYNC, 'rsync')
 )
-# Actions
-SEND = 'S'
-RECEIVE = 'R'
-RECOVER = 'C'
-ACTION_CHOICES = (
-    (SEND, 'Send'),
-    (RECEIVE, 'Receive'),
-    (RECOVER, 'Recover')
-)
+
 # BAG TYPE INFORMATION
 DATA = 'D'
 RIGHTS = 'R'
@@ -59,15 +50,19 @@ class Protocol(models.Model):
 
 class Node(models.Model):
     """
-    Related model field to keep information about what is replicated where.
+    Profile for a specific DPN Node.
     """
     name = models.CharField(max_length=20, unique=True)
+    namespace = models.CharField(max_length=20, unique=True)
     api_endpoint = models.URLField(null=True, blank=True)
     ssh_username = models.CharField(max_length=20)
     ssh_pubkey = models.TextField(null=True, blank=True)
     pull_from = models.BooleanField(default=False)
     replicate_to = models.BooleanField(default=False)
     protocols = models.ManyToManyField(Protocol, blank=True, null=True)
+
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now_add=True, auto_now=True)
 
     def __unicode__(self):
         return '%s' % self.name
@@ -113,8 +108,8 @@ class RegistryEntry(models.Model):
     """
     dpn_object_id = models.CharField(max_length=64, primary_key=True)
     local_id = models.TextField(max_length=100, blank=True, null=True)
-    first_node = models.CharField(max_length=20)
-    version_number = models.PositiveIntegerField()
+    first_node = models.ForeignKey(Node)
+    version_number = models.PositiveIntegerField(default=1)
     fixity_algorithm = models.CharField(max_length=10)
     fixity_value = models.CharField(max_length=128)
     last_fixity_date = models.DateTimeField()
@@ -136,7 +131,11 @@ class RegistryEntry(models.Model):
     rights_objects = models.ManyToManyField("self", null=True, blank=True)
 
     created_on = models.DateTimeField(auto_now_add=True)
-    modified_on = models.DateTimeField(auto_now=True, auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True, auto_now_add=True)
+    published = models.BooleanField(default=False)
+
+    # Custom manager to return only published records
+    published_objects = RegistryManager()
 
     class Meta:
         verbose_name_plural = "registry entries"
@@ -147,11 +146,17 @@ class RegistryEntry(models.Model):
     def __str__(self):
         return '%s' % self.__unicode__()
 
+class RegistryManager(models.Manager):
+    """
+    Custom manager to return only published registry entries.
+    """
+    def get_queryset(self):
+        return super(RegistryManager, self).get_queryset().filter(published=True)
+
 #  Transfer Events
 class Transfer(models.Model):
     dpn_object_id = models.CharField(max_length=64)
     event_id = models.CharField(max_length=20, blank=True, null=True, unique=True)
-    action = models.CharField(max_length=1, choices=ACTION_CHOICES)
     protocol = models.CharField(max_length=1, choices=PROTOCOL_CHOICES)
     link = models.TextField(null=True, blank=True)
     node = models.ForeignKey(Node)
@@ -163,6 +168,9 @@ class Transfer(models.Model):
     valid = models.NullBooleanField()
     error = models.TextField(null=True, blank=True)
 
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now_add=True, auto_now=True)
+
     def __unicode__(self):
         return '%s' % self.dpn_object_id
 
@@ -172,6 +180,7 @@ class Transfer(models.Model):
     def save(self, *args, **kwargs):
         if self.exp_fixity == self.receipt:
             self.fixity = True
+            self.status = CONFIRMED
         if self.exp_fixity != self.receipt and self.receipt is not None:
             self.fixity = False
         super(Transfer, self).save(args, kwargs)
@@ -185,7 +194,7 @@ def create_event_id(sender, instance, created, **kwargs):
         instance.save()
 post_save.connect(create_event_id, sender=Transfer)
 
-# Users
+# Additional User Profile Info
 class UserProfile(models.Model):
         user = models.OneToOneField(User)
         node = models.ForeignKey(Node, blank=True, null=True)

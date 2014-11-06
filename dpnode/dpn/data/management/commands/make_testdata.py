@@ -1,4 +1,4 @@
-import uuid, random
+import uuid, random, hashlib
 from datetime import datetime
 
 from django.utils import timezone
@@ -34,6 +34,7 @@ class Command(BaseCommand):
             reg.object_type = DATA
             reg.first_version = id
             reg.bag_size = random.getrandbits(32)
+            reg.published = True
             reg.save()
 
         # Create Ingest Transfers
@@ -44,6 +45,7 @@ class Command(BaseCommand):
                 "protocol": RSYNC,
                 "status": PENDING,
                 "size": reg.bag_size,
+                "exp_fixity": "%x" % random.getrandbits(128)
             }
             for node in Node.objects.exclude(name="APTrust").order_by('?')[:3]:
                 xf = Transfer(**data)
