@@ -1,3 +1,9 @@
+"""
+    I can picture in my mind a world without war, a world without hate. And I
+    can picture us attacking that world, because they'd never expect it.
+        - JACK HANDY
+"""
+
 import django_filters
 from rest_framework import generics, filters
 from rest_framework.authentication import TokenAuthentication
@@ -61,8 +67,7 @@ class TransferListView(generics.ListAPIView):
     ordering_fields = ('created_on', 'updated_on')
 
     def get_queryset(self):
-        profile = UserProfile.objects.get(user=self.request.user)
-        return Transfer.objects.filter(node=profile.node)
+        return Transfer.objects.filter(node=self.request.user.profile.node)
 
 # Detail Views
 class RegistryDetailView(generics.RetrieveAPIView):

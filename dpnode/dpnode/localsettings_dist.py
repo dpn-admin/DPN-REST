@@ -1,3 +1,8 @@
+"""
+    I love deadlines. I like the whooshing sound they make as they fly by.
+            - Douglas Adams
+"""
+
 # Set a reasonable Project Path setting so I dont' have to use hard coded paths.
 import os
 PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
@@ -78,3 +83,6 @@ DPN_BAG_DIR = os.path.join(PROJECT_PATH, '../../files/bags')
 
 # node identifier used for namespacing.
 DPN_NAMESPACE = 'aptrust'
+
+# Number of nodes to replicate to.
+DPN_COPY_TOTAL = 2

@@ -1,3 +1,8 @@
+"""
+    Yeah, well, that's just, like, your opinion, man.
+
+            - The Dude
+"""
 from rest_framework import serializers
 
 from dpn.data.models import Node, Transfer, RegistryEntry
@@ -18,13 +23,18 @@ class NodeSerializer(serializers.ModelSerializer):
 class TransferSerializer(serializers.ModelSerializer):
 
     node = serializers.SlugRelatedField(slug_field="name")
+    dpn_object_id = serializers.SerializerMethodField('get_dpn_object_id')
 
     class Meta:
         model = Transfer
-        depth = 1
-        exclude = ('id', 'error', 'exp_fixity')
-        read_only_fields = ('dpn_object_id', 'link', 'size', 'fixity',
+        depth = 2
+        exclude = ('id', 'error', 'exp_fixity', 'registry_entry')
+        read_only_fields = ('link', 'size', 'fixity',
                             'event_id', 'protocol',)
+
+    def get_dpn_object_id(self, obj):
+        return obj.registry_entry.dpn_object_id
+
 
 class RegistryEntrySerializer(serializers.ModelSerializer):
 

@@ -1,4 +1,8 @@
-__author__ = 'swt8w'
+"""
+    Knowledge is knowing a tomato is a fruit; wisdom is not putting it in a
+    fruit salad.
+                - Miles Kington
+"""
 
 from rest_framework import permissions
 

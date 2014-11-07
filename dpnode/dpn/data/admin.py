@@ -1,3 +1,9 @@
+"""
+    Creativity is allowing yourself to make mistakes. Art is knowing which ones
+    to keep.
+                                    - Scott Adams
+"""
+
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
@@ -13,7 +19,8 @@ class StorageInline(admin.TabularInline):
 
 @admin.register(models.Node)
 class NodeAdmin(admin.ModelAdmin):
-    list_display = ('name', 'pull_from', 'replicate_to')
+    list_display = ('name', 'replicate_from', 'replicate_to',
+                    'restore_from', 'restore_to', 'me')
     list_display_links = ('name',)
     inlines = [PortInline, StorageInline]
 
@@ -32,6 +39,9 @@ class TransferAdmin(admin.ModelAdmin):
     list_filter = ('node', 'status', 'fixity', 'valid')
     list_display_links = ['event_id']
     search_fields = ['event_id',]
+
+    def dpn_object_id(self, object):
+        return object.registry_entry.dpn_object_id
 
 @admin.register(models.Protocol)
 class ProtocolAdmin(admin.ModelAdmin):

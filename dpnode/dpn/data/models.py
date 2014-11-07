@@ -1,3 +1,9 @@
+"""
+    I don't stop eating when I'm full. The meal isn't over when I'm full.
+    It's over when I hate myself.
+                                    - Louis C. K.
+"""
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
@@ -53,14 +59,38 @@ class Node(models.Model):
     """
     Profile for a specific DPN Node.
     """
-    name = models.CharField(max_length=20, unique=True)
-    namespace = models.CharField(max_length=20, unique=True)
-    api_endpoint = models.URLField(null=True, blank=True)
-    ssh_username = models.CharField(max_length=20)
-    ssh_pubkey = models.TextField(null=True, blank=True)
-    pull_from = models.BooleanField(default=False)
-    replicate_to = models.BooleanField(default=False)
+    nh = "Human readable name of the node."
+    name = models.CharField(max_length=20, unique=True, help_text=nh)
+
+    nsh = "namespace value used to identify the node in important references."
+    namespace = models.CharField(max_length=20, unique=True, help_text=nsh)
+
+    ah = "Root url for node api endpoints"
+    api_root = models.URLField(null=True, blank=True, help_text=ah)
+
+    suh = "Username this node will use for ssh connections to local servers."
+    ssh_username = models.CharField(max_length=20, help_text=suh)
+
+    sph = "SSL public key this node ssh user will use to connect."
+    ssh_pubkey = models.TextField(null=True, blank=True, help_text=sph)
+
+    rfh = "Select to enable querying to this node for content to replicate."
+    replicate_from = models.BooleanField(default=False, help_text=rfh)
+
+    rth = "Select to include this node as a choice to replicate to."
+    replicate_to = models.BooleanField(default=False, help_text=rth)
+
+    sfh = "Select to include this node as a choice to restore content from."
+    restore_from = models.BooleanField(default=False, help_text=sfh)
+
+    sth = "Select to allow node to request restore from you."
+    restore_to = models.BooleanField(default=False, help_text=sth)
+
+    ph = "List of transfer protocols this node supports."
     protocols = models.ManyToManyField(Protocol, blank=True, null=True)
+
+    sh = "Mark if this node is you."
+    me = models.BooleanField(default=False, help_text=sh)
 
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now_add=True, auto_now=True)
@@ -121,7 +151,7 @@ class RegistryEntry(models.Model):
     """
     dpn_object_id = models.CharField(max_length=64, primary_key=True)
     local_id = models.TextField(max_length=100, blank=True, null=True)
-    first_node = models.ForeignKey(Node)
+    first_node = models.ForeignKey(Node, related_name="first_node")
     version_number = models.PositiveIntegerField(default=1)
     fixity_algorithm = models.CharField(max_length=10)
     fixity_value = models.CharField(max_length=128)
@@ -147,6 +177,9 @@ class RegistryEntry(models.Model):
     updated_on = models.DateTimeField(auto_now=True, auto_now_add=True)
     published = models.BooleanField(default=False)
 
+    rnh = "Nodes that have confirmed successful transfers."
+    replicating_nodes = models.ManyToManyField(Node, related_name="replicating_nodes")
+
     # Custom manager to return only published records
     # published_objects = RegistryManager()
 
@@ -162,9 +195,9 @@ class RegistryEntry(models.Model):
 
 #  Transfer Events
 class Transfer(models.Model):
-    dpn_object_id = models.CharField(max_length=64)
+    registry_entry = models.ForeignKey(RegistryEntry)
     event_id = models.CharField(max_length=20, blank=True, null=True, unique=True)
-    protocol = models.CharField(max_length=1, choices=PROTOCOL_CHOICES)
+    protocol = models.CharField(max_length=1, choices=PROTOCOL_CHOICES, default=RSYNC)
     link = models.TextField(null=True, blank=True)
     node = models.ForeignKey(Node)
     status = models.CharField(max_length=1, choices=STATE_CHOICES, default=PENDING)
@@ -182,7 +215,7 @@ class Transfer(models.Model):
         ordering = ['-created_on']
 
     def __unicode__(self):
-        return '%s' % self.dpn_object_id
+        return '%s' % self.event_id
 
     def __str__(self):
         return '%s' % self.__unicode__()
@@ -195,6 +228,26 @@ class Transfer(models.Model):
             self.fixity = False
         super(Transfer, self).save(args, kwargs)
 
+class UserProfile(models.Model):
+    """
+    Additional Profile information.
+    """
+    user = models.OneToOneField(User, related_name="profile")
+    # Connects a user to a node for authorization.
+    node = models.ForeignKey(Node, blank=True, null=True)
+
+# ********** SIGNALS ***************************
+# see: https://docs.djangoproject.com/en/dev/ref/signals/
+
+def _register_node_xfer(sender, instance, created, **kwargs):
+    """
+    If a transfer is marked as CONFIRMED it should add that node to the
+    registry entry for replicating nodes.
+    """
+    if instance.status == CONFIRMED:
+        instance.registry_entry.replicating_nodes.add(instance.node)
+post_save.connect(_register_node_xfer, sender=Transfer)
+
 def create_event_id(sender, instance, created, **kwargs):
     """
     Creates a namespaced id for the event based on the record id.
@@ -204,13 +257,10 @@ def create_event_id(sender, instance, created, **kwargs):
         instance.save()
 post_save.connect(create_event_id, sender=Transfer)
 
-# Additional User Profile Info
-class UserProfile(models.Model):
-        user = models.OneToOneField(User)
-        node = models.ForeignKey(Node, blank=True, null=True)
-
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         UserProfile.objects.create(user=instance)
 
 post_save.connect(create_user_profile, sender=User)
+
+# slkdnflknsdlfknsd
