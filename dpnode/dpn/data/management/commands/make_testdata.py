@@ -9,7 +9,7 @@ from django.conf import settings
 
 from dpn.data.models import  Node, DATA, RSYNC, PENDING
 from dpn.data.models import RegistryEntry, Transfer
-from dpn.data.tests import make_test_registry_entries, make_test_transfers
+from dpn.data.tests.utils import make_test_registry_entries, make_test_transfers
 
 class Command(BaseCommand):
     help = 'Populates the DB with test data'

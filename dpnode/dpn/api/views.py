@@ -52,7 +52,7 @@ class NodeListView(generics.ListCreateAPIView):
     paginate_by = 20
     serializer_class = NodeSerializer
 
-class TransferListView(generics.ListAPIView):
+class TransferListView(generics.ListCreateAPIView):
     """
     Transfer actions between DPN nodes.
     """
@@ -70,7 +70,7 @@ class TransferListView(generics.ListAPIView):
         return Transfer.objects.filter(node=self.request.user.profile.node)
 
 # Detail Views
-class RegistryDetailView(generics.RetrieveAPIView):
+class RegistryDetailView(generics.RetrieveUpdateAPIView):
     """
     Registry Entry details.
     """

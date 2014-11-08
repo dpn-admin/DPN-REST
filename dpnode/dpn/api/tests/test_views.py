@@ -5,6 +5,7 @@
 
 """
 import json
+from unittest import expectedFailure
 from django.contrib.auth.models import User, Group
 from django.core.urlresolvers import reverse
 from rest_framework.test import APITestCase, APIClient
@@ -12,17 +13,16 @@ from rest_framework import status
 from rest_framework.authtoken.models import Token
 
 from dpn.data.models import Node, RegistryEntry, Transfer, UserProfile
-from dpn.data.tests import make_test_transfers, make_test_registry_entries
-from dpn.data.tests import make_test_nodes
-from dpn.api import views
+from dpn.data.tests.utils import make_test_transfers, make_test_registry_entries
+from dpn.data.tests.utils import make_test_nodes, make_registry_postdata
 
-def _make_api_user():
+def _make_user(uname, pwd, eml, groupname):
     # setup API user
 
     api_user = User(
-        username="apiuser",
-        password="apiuser",
-        email="apiuser@email.com"
+        username=uname,
+        password=pwd,
+        email=eml
     )
     api_user.save()
 
@@ -30,11 +30,16 @@ def _make_api_user():
     profile.node = Node.objects.exclude(me=True)[0]
     profile.save()
 
-    group = Group.objects.get(name='api_users')
+    group = Group.objects.get(name=groupname)
     group.user_set.add(api_user)
     Token.objects.create(user=api_user)
     return api_user
 
+def _make_api_user():
+    return _make_user("apiuser", "apiuser", "me@email.com", "api_users")
+
+def _make_api_admin():
+    return _make_user("adminuser", "adminuser", "me@email.com", "api_admins")
 
 class RegistryView(APITestCase):
 
@@ -50,7 +55,7 @@ class RegistryView(APITestCase):
 
         # setup Non API user
         self.api_user = _make_api_user()
-
+        self.api_admin = _make_api_admin()
 
     def test_get(self):
         # It should not authorize an unauthenticated user
@@ -82,13 +87,20 @@ class RegistryView(APITestCase):
         rsp = self.client.put(self.url)
         self.assertEqual(rsp.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
+    @expectedFailure # TODO get post method to take expected dict
     def test_post(self):
+        data = make_registry_postdata()
+        # It should forbid api_users from creating record
         token = Token.objects.get(user=self.api_user)
-        data = {}
         self.client.credentials(HTTP_AUTHORIZATION="Token %s" % token.key)
         rsp = self.client.post(self.url, data)
         self.assertEqual(rsp.status_code, status.HTTP_403_FORBIDDEN)
 
+        # It should allow api_admins to create a record.
+        token = Token.objects.get(user=self.api_admin)
+        self.client.credentials(HTTP_AUTHORIZATION="Token %s" % token.key)
+        rsp = self.client.post(self.url, data)
+        self.assertEqual(rsp.status_code, status.HTTP_201_CREATED)
 
 class TransferListView(APITestCase):
 

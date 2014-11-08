@@ -7,7 +7,7 @@
 from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
 from dpn.data.models import Node, Protocol, Port, Storage
-from dpn.data.tests import make_test_nodes
+from dpn.data.tests.utils import make_test_nodes
 
 class Command(BaseCommand):
     help = 'Populates the DB with stub Node data'
