@@ -82,6 +82,14 @@ class RegistryView(APITestCase):
         rsp = self.client.put(self.url)
         self.assertEqual(rsp.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
+    def test_post(self):
+        token = Token.objects.get(user=self.api_user)
+        data = {}
+        self.client.credentials(HTTP_AUTHORIZATION="Token %s" % token.key)
+        rsp = self.client.post(self.url, data)
+        self.assertEqual(rsp.status_code, status.HTTP_403_FORBIDDEN)
+
+
 class TransferListView(APITestCase):
 
     fixtures = ['../data/GroupPermissions.json',]
@@ -105,3 +113,12 @@ class TransferListView(APITestCase):
         data = json.loads(rsp.content.decode('utf8'))
         self.assertEqual(data['count'], xfers.count())
         self.assertEqual(rsp.status_code, status.HTTP_200_OK)
+
+    def test_post(self):
+        pass
+
+    def test_put(self):
+        pass
+
+    def test_patch(self):
+        pass
