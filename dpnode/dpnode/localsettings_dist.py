@@ -85,8 +85,15 @@ DPN_MAX_SIZE = 1099511627776 # 1 TB
 # Directory to be monitored for new added bags
 DPN_BAG_DIR = os.path.join(PROJECT_PATH, '../../files/bags')
 
-# node identifier used for namespacing.
+# node identifier, should match the namespace entry in the Node entry.
 DPN_NAMESPACE = 'aptrust'
 
 # Number of nodes to replicate to.
 DPN_COPY_TOTAL = 2
+
+# local rest framework settings
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',),
+    'DATETIME_FORMAT': DPN_DATE_FORMAT,
+    'DATETIME_INPUT_FORMAT': DPN_DATE_FORMAT,
+}

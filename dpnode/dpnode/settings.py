@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 
 AUTH_PROFILE_MODULE = 'dpn.data.UserProfile'
 
+# Default Settings.  Make real changes in localsettings
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',),
 }
