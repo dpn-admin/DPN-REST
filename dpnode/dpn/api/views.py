@@ -10,7 +10,7 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import DjangoModelPermissions
 
 from dpn.api.serializers import RegistryEntrySerializer, BasicTransferSerializer
-from dpn.api.serializers import NodeSerializer, AdminTransferSerializer
+from dpn.api.serializers import NodeSerializer, NewTransferSerializer
 from dpn.api.permissions import IsNodeUser
 from dpn.data.models import RegistryEntry, Node, Transfer, UserProfile
 
@@ -66,11 +66,13 @@ class TransferListView(generics.ListCreateAPIView):
     ordering_fields = ('created_on', 'updated_on')
 
     def get_queryset(self):
-        return Transfer.objects.filter(node=self.request.user.profile.node)
+        profile = UserProfile.objects.get(user=self.request.user)
+        return Transfer.objects.filter(node=profile.node)
 
     def get_serializer_class(self):
-        if self.request.user.has_perm('data.add_transfer'):
-            return AdminTransferSerializer
+        if self.request.user.has_perm('data.add_transfer')\
+                and self.request.method == 'POST':
+            return NewTransferSerializer
         return BasicTransferSerializer
 
 # Detail Views

@@ -5,7 +5,7 @@
 """
 from rest_framework import serializers
 
-from dpn.data.models import Node, Transfer, RegistryEntry
+from dpn.data.models import Node, Transfer, RegistryEntry, PENDING, ACCEPT, REJECT
 
 class NodeSerializer(serializers.ModelSerializer):
 
@@ -23,17 +23,22 @@ class NodeSerializer(serializers.ModelSerializer):
 
 class BasicTransferSerializer(serializers.ModelSerializer):
 
-    node = serializers.SlugRelatedField(source="node", slug_field="namespace")
-    dpn_object_id = serializers.SlugRelatedField(source="registry_entry", slug_field="dpn_object_id")
+    node = serializers.SlugRelatedField(source="node", slug_field="namespace", read_only=True)
+    dpn_object_id = serializers.SlugRelatedField(source="registry_entry", slug_field="dpn_object_id", read_only=True)
+    status = serializers.ChoiceField(choices=(
+        (PENDING, "Pending"),
+        (ACCEPT, "Accept"),
+        (REJECT, "Reject")
+    ))
 
     class Meta:
         model = Transfer
-        depth = 2
+        depth = 1
         exclude = ('id', 'error', 'exp_fixity', 'registry_entry')
-        read_only_fields = ('link', 'size', 'fixity',
-                            'event_id', 'protocol',)
+        read_only_fields = ('link', 'size', 'fixity', 'event_id', 'protocol',
+                            "created_on", "updated_on")
 
-class AdminTransferSerializer(serializers.ModelSerializer):
+class NewTransferSerializer(serializers.ModelSerializer):
 
     node = serializers.SlugRelatedField(slug_field="namespace")
     dpn_object_id = serializers.SlugRelatedField(source="registry_entry", slug_field="dpn_object_id")
@@ -41,7 +46,7 @@ class AdminTransferSerializer(serializers.ModelSerializer):
     class Meta:
         model = Transfer
         depth = 1
-        fields = ('node','dpn_object_id', 'exp_fixity', 'size', 'link')
+        fields = ('node', 'dpn_object_id', 'exp_fixity', 'size', 'link')
 
 class RegistryEntrySerializer(serializers.ModelSerializer):
 
