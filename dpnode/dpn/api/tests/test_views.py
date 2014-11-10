@@ -234,32 +234,24 @@ class TransferListViewTest(APITestCase):
         profile = UserProfile.objects.get(user=self.api_user)
         xfer = Transfer.objects.filter(node=profile.node)[0]
         item_url = reverse('api:transfer-detail', kwargs={'event_id': xfer.event_id,})
-        data = {
-            "node": xfer.node.namespace,
-            "dpn_object_id": xfer.registry_entry.dpn_object_id,
-            "status": ACCEPT,
-            "event_id": xfer.event_id,
-            "protocol": xfer.protocol,
-            "link": xfer.link,
-            "size": xfer.size,
-            "receipt": xfer.receipt,
-            "fixity": xfer.fixity,
-            "valid": xfer.valid,
-            "created_on": dpn_strftime(xfer.created_on),
-            "updated_on": dpn_strftime(xfer.updated_on)
-        }
+
 
         # It should not allow anonymous user to edit.
-        rsp = self.client.put(item_url, data)
+        rsp = self.client.put(item_url, {})
         self.assertEqual(rsp.status_code, status.HTTP_401_UNAUTHORIZED)
 
         # It should allow chanegs for users with edit permissions.
         token = Token.objects.get(user=self.api_user)
         self.client.credentials(HTTP_AUTHORIZATION="Token %s" % token.key)
-        rsp = self.client.put(item_url, data)
+        # Get the data to edit.
+        rsp = self.client.get(item_url)
+        data = rsp.data
+        data["status"] = "A" # set data to accept for update
+        rsp = self.client.put(item_url, data, format="json")
         self.assertEqual(rsp.status_code, status.HTTP_200_OK)
-        self.assertEqual(rsp.data, data, "\n\n%r\n\n%r\n"
-                         % (rsp.data, data))
+        for k, v in rsp.data.items():
+            if k !="updated_on":
+                self.assertEqual(data[k], v)
 
     def test_patch(self):
         pass

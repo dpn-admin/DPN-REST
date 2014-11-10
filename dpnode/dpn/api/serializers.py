@@ -36,7 +36,7 @@ class BasicTransferSerializer(serializers.ModelSerializer):
         depth = 1
         exclude = ('id', 'error', 'exp_fixity', 'registry_entry')
         read_only_fields = ('link', 'size', 'fixity', 'event_id', 'protocol',
-                            "created_on", "updated_on")
+                            "created_on", "updated_on", "valid")
 
 class NewTransferSerializer(serializers.ModelSerializer):
 
