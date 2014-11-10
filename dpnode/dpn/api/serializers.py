@@ -4,6 +4,7 @@
             - The Dude
 """
 from rest_framework import serializers
+from django.conf import settings
 
 from dpn.data.models import Node, Transfer, RegistryEntry, PENDING, ACCEPT, REJECT
 
@@ -38,7 +39,7 @@ class BasicTransferSerializer(serializers.ModelSerializer):
         read_only_fields = ('link', 'size', 'fixity', 'event_id', 'protocol',
                             "created_on", "updated_on", "valid")
 
-class NewTransferSerializer(serializers.ModelSerializer):
+class CreateTransferSerializer(serializers.ModelSerializer):
 
     node = serializers.SlugRelatedField(slug_field="namespace")
     dpn_object_id = serializers.SlugRelatedField(source="registry_entry", slug_field="dpn_object_id")
@@ -52,6 +53,7 @@ class RegistryEntrySerializer(serializers.ModelSerializer):
 
     exclude = ('created_on', 'updated_on', 'published')
     first_node = serializers.SlugRelatedField(slug_field="namespace")
+    last_fixity_date = serializers.DateTimeField(format=settings.DPN_DATE_FORMAT)
 
     class Meta:
         model = RegistryEntry

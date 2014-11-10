@@ -82,7 +82,7 @@ def make_test_nodes(mynode=settings.DPN_NAMESPACE):
 
 # Makes some registry entries
 def make_registry_data():
-    id = uuid.uuid4()
+    id = "%s" % uuid.uuid4()
     return {
         "dpn_object_id": id,
         "first_node": Node.objects.order_by('?')[0],
@@ -103,6 +103,9 @@ def make_registry_postdata():
     data["last_fixity_date"] = dpn_strftime(data["last_fixity_date"])
     data["creation_date"] = dpn_strftime(data["creation_date"])
     data["last_modified_date"] = dpn_strftime(data["last_modified_date"])
+    data["rights_objects"] = []
+    data["brightening_objects"] = []
+    data["replicating_nodes"] = []
     return data
 
 def make_test_registry_entries(num=10):

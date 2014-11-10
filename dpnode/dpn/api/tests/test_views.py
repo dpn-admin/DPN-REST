@@ -4,18 +4,20 @@
                     - Patton Oswalt
 
 """
-import json, random
+import json
+import random
 from unittest import expectedFailure
+
 from django.contrib.auth.models import User, Group
 from django.core.urlresolvers import reverse
-from rest_framework.test import APITestCase, APIClient
+from rest_framework.test import APITestCase
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 
-from dpn.data.models import Node, RegistryEntry, Transfer, UserProfile, RSYNC, ACCEPT
+from dpn.data.models import Node, RegistryEntry, Transfer, UserProfile
 from dpn.data.tests.utils import make_test_transfers, make_test_registry_entries
 from dpn.data.tests.utils import make_test_nodes, make_registry_postdata
-from dpn.data.utils import dpn_strftime
+
 
 def _make_user(uname, pwd, eml, groupname):
     # setup API user
@@ -39,21 +41,24 @@ def _make_user(uname, pwd, eml, groupname):
 
     return api_user
 
+
 def _make_api_user():
     "Makes a user with a token in the api_user group."
     return _make_user("apiuser", "apiuser", "me@email.com", "api_users")
+
 
 def _make_api_admin():
     "Makes a user with a token in the api_admin group."
     return _make_user("adminuser", "adminuser", "me@email.com", "api_admins")
 
+
 def _make_auth_user():
     "Makes a user with a token but no group."
     return _make_user("authuser", "authuser", "auth@email.com", None)
 
-class RegistryView(APITestCase):
 
-    fixtures = ['../data/GroupPermissions.json',]
+class RegistryView(APITestCase):
+    fixtures = ['../data/GroupPermissions.json', ]
 
     def setUp(self):
         # Setup Test Data
@@ -97,9 +102,9 @@ class RegistryView(APITestCase):
         rsp = self.client.put(self.url)
         self.assertEqual(rsp.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
-    @expectedFailure # TODO get post method to take expected dict
     def test_post(self):
         data = make_registry_postdata()
+
         # It should forbid api_users from creating record
         token = Token.objects.get(user=self.api_user)
         self.client.credentials(HTTP_AUTHORIZATION="Token %s" % token.key)
@@ -109,12 +114,13 @@ class RegistryView(APITestCase):
         # It should allow api_admins to create a record.
         token = Token.objects.get(user=self.api_admin)
         self.client.credentials(HTTP_AUTHORIZATION="Token %s" % token.key)
-        rsp = self.client.post(self.url, data)
-        self.assertEqual(rsp.status_code, status.HTTP_201_CREATED)
+        rsp = self.client.post(self.url, data, format="json")
+        self.assertEqual(rsp.status_code, status.HTTP_201_CREATED,
+                         "posted: %s\n\nresponse: %s" % (data, rsp.content))
+
 
 class NodeListViewTest(APITestCase):
-
-    fixtures = ["../data/GroupPermissions.json",]
+    fixtures = ["../data/GroupPermissions.json", ]
 
     def setUp(self):
         make_test_nodes()
@@ -128,7 +134,7 @@ class NodeListViewTest(APITestCase):
         rsp = self.client.get(self.url)
         self.assertEqual(rsp.status_code, status.HTTP_401_UNAUTHORIZED)
 
-        def _test_each_group(u):# It should list nodes for authorized users
+        def _test_each_group(u):  # It should list nodes for authorized users
             profile = UserProfile.objects.get(user=u)
             token = Token.objects.get(user=u)
             self.client.credentials(HTTP_AUTHORIZATION="Token %s" % token.key)
@@ -163,22 +169,26 @@ class NodeListViewTest(APITestCase):
         self.assertEqual(rsp.status_code, status.HTTP_201_CREATED)
 
     def test_bad_requests(self):
-        tokens = [Token.objects.get(user=self.api_admin), Token.objects.get(user=self.api_user)]
+        tokens = [Token.objects.get(user=self.api_admin),
+                  Token.objects.get(user=self.api_user)]
         for token in tokens:
             self.client.credentials(HTTP_AUTHORIZATION="Token %s" % token.key)
             # put not allowed
             rsp = self.client.put(self.url)
-            self.assertEqual(rsp.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+            self.assertEqual(rsp.status_code,
+                             status.HTTP_405_METHOD_NOT_ALLOWED)
             # patch not allowed
             rsp = self.client.patch(self.url)
-            self.assertEqual(rsp.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+            self.assertEqual(rsp.status_code,
+                             status.HTTP_405_METHOD_NOT_ALLOWED)
             # delete not allowed
             rsp = self.client.delete(self.url)
-            self.assertEqual(rsp.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+            self.assertEqual(rsp.status_code,
+                             status.HTTP_405_METHOD_NOT_ALLOWED)
+
 
 class TransferListViewTest(APITestCase):
-
-    fixtures = ['../data/GroupPermissions.json',]
+    fixtures = ['../data/GroupPermissions.json', ]
 
     def setUp(self):
         # Setup Test Data
@@ -233,25 +243,30 @@ class TransferListViewTest(APITestCase):
 
         profile = UserProfile.objects.get(user=self.api_user)
         xfer = Transfer.objects.filter(node=profile.node)[0]
-        item_url = reverse('api:transfer-detail', kwargs={'event_id': xfer.event_id,})
+        item_url = reverse('api:transfer-detail',
+                           kwargs={'event_id': xfer.event_id, })
 
 
         # It should not allow anonymous user to edit.
         rsp = self.client.put(item_url, {})
         self.assertEqual(rsp.status_code, status.HTTP_401_UNAUTHORIZED)
 
-        # It should allow chanegs for users with edit permissions.
+        # It should allow changes for users with edit permissions.
         token = Token.objects.get(user=self.api_user)
         self.client.credentials(HTTP_AUTHORIZATION="Token %s" % token.key)
         # Get the data to edit.
         rsp = self.client.get(item_url)
-        data = rsp.data
-        data["status"] = "A" # set data to accept for update
-        rsp = self.client.put(item_url, data, format="json")
+        good_data = rsp.data.copy()
+        bad_data = rsp.data.copy()
+        good_data["status"] = "A"
+        bad_data["status"] = "C"
+        # It should not allow a user to set a status of complete.
+        rsp = self.client.put(item_url, bad_data)
+        self.assertEqual(rsp.status_code, status.HTTP_400_BAD_REQUEST)
+
+        # It should allow a user to edit a record with good data.
+        rsp = self.client.put(item_url, good_data, format="json")
         self.assertEqual(rsp.status_code, status.HTTP_200_OK)
         for k, v in rsp.data.items():
-            if k !="updated_on":
-                self.assertEqual(data[k], v)
-
-    def test_patch(self):
-        pass
+            if k != "updated_on":  # updated on always changes.
+                self.assertEqual(good_data[k], v)
