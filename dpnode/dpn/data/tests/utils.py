@@ -9,8 +9,12 @@ from datetime import datetime
 
 from django.utils import timezone
 from django.conf import settings
+from django.contrib.auth.models import User
+
+from rest_framework.authtoken.models import Token
 
 from dpn.data.models import RegistryEntry, Node, Transfer, DATA, Protocol
+from dpn.data.models import UserProfile
 from dpn.data.utils import dpn_strftime
 
 # Provide ways to autogenerate data so we don't have to reply on fixtures.
