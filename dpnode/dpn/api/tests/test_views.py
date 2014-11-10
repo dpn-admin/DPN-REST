@@ -4,7 +4,7 @@
                     - Patton Oswalt
 
 """
-import json
+import json, random
 from unittest import expectedFailure
 from django.contrib.auth.models import User, Group
 from django.core.urlresolvers import reverse
@@ -12,7 +12,7 @@ from rest_framework.test import APITestCase, APIClient
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 
-from dpn.data.models import Node, RegistryEntry, Transfer, UserProfile
+from dpn.data.models import Node, RegistryEntry, Transfer, UserProfile, RSYNC
 from dpn.data.tests.utils import make_test_transfers, make_test_registry_entries
 from dpn.data.tests.utils import make_test_nodes, make_registry_postdata
 
@@ -183,12 +183,13 @@ class TransferListViewTest(APITestCase):
         # Setup Test Data
         make_test_nodes()
         make_test_registry_entries(100)
-        make_test_transfers()
         self.url = reverse('api:transfer-list')
         self.api_user = _make_api_user()
+        self.api_admin = _make_api_admin()
 
     def test_get(self):
         profile = UserProfile.objects.get(user=self.api_user)
+        make_test_transfers()
         xfers = Transfer.objects.filter(node=profile.node)
         token = Token.objects.get(user=self.api_user)
         self.client.credentials(HTTP_AUTHORIZATION="Token %s" % token.key)
@@ -198,7 +199,33 @@ class TransferListViewTest(APITestCase):
         self.assertEqual(rsp.status_code, status.HTTP_200_OK)
 
     def test_post(self):
-        pass
+        # It should not allow anoymous users from posting
+        rsp = self.client.post(self.url, {})
+        self.assertEqual(rsp.status_code, status.HTTP_401_UNAUTHORIZED)
+
+        # It should not allow api_users to create transfers.
+        token = Token.objects.get(user=self.api_user)
+        self.client.credentials(HTTP_AUTHORIZATION="Token %s" % token.key)
+        rsp = self.client.post(self.url, {})
+        self.assertEqual(rsp.status_code, status.HTTP_403_FORBIDDEN)
+
+        # Create a test transfer post.
+        reg = RegistryEntry.objects.filter(first_node__me=True)[0]
+        data = {
+            "dpn_object_id": reg.dpn_object_id,
+            "link": "sshaccount@dpnserver.test.org:%s.tar" % reg.dpn_object_id,
+            "node": Node.objects.exclude(me=True)[0].namespace,
+            "size": random.getrandbits(32),
+            "exp_fixity": "%x" % random.getrandbits(128),
+        }
+
+        # It should allow api_admins to create transfers.
+        token = Token.objects.get(user=self.api_admin)
+        self.client.credentials(HTTP_AUTHORIZATION="Token %s" % token.key)
+        rsp = self.client.post(self.url, data, format="json")
+        self.assertEqual(rsp.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(rsp.data, data)
+
 
     def test_put(self):
         pass

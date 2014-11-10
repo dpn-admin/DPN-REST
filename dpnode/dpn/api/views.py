@@ -9,8 +9,8 @@ from rest_framework import generics, filters
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import DjangoModelPermissions
 
-from dpn.api.serializers import RegistryEntrySerializer, TransferSerializer
-from dpn.api.serializers import NodeSerializer
+from dpn.api.serializers import RegistryEntrySerializer, BasicTransferSerializer
+from dpn.api.serializers import NodeSerializer, AdminTransferSerializer
 from dpn.api.permissions import IsNodeUser
 from dpn.data.models import RegistryEntry, Node, Transfer, UserProfile
 
@@ -61,13 +61,17 @@ class TransferListView(generics.ListCreateAPIView):
 
     queryset = Transfer.objects.none() # as required by model permissions
     paginate_by = 20
-    serializer_class = TransferSerializer
     filter_fields = ("status", "fixity", "valid")
     filter_backends = (filters.OrderingFilter,)
     ordering_fields = ('created_on', 'updated_on')
 
     def get_queryset(self):
         return Transfer.objects.filter(node=self.request.user.profile.node)
+
+    def get_serializer_class(self):
+        if self.request.user.has_perm('data.add_transfer'):
+            return AdminTransferSerializer
+        return BasicTransferSerializer
 
 # Detail Views
 class RegistryDetailView(generics.RetrieveUpdateAPIView):
@@ -99,7 +103,7 @@ class TransferDetailView(generics.RetrieveUpdateAPIView):
     permission_classes = (DjangoModelPermissions, IsNodeUser)
     lookup_field = "event_id"
     model = Transfer
-    serializer_class = TransferSerializer
+    serializer_class = BasicTransferSerializer
 
 # # services views
 # class RestoreView(generics.APIView):

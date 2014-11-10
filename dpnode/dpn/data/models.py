@@ -226,7 +226,7 @@ class Transfer(models.Model):
             self.status = CONFIRMED
         if self.exp_fixity != self.receipt and self.receipt is not None:
             self.fixity = False
-        super(Transfer, self).save(args, kwargs)
+        super(Transfer, self).save(*args, **kwargs)
 
 class UserProfile(models.Model):
     """

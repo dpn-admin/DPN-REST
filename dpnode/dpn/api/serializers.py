@@ -21,10 +21,10 @@ class NodeSerializer(serializers.ModelSerializer):
                             'replicate_from', 'replicate_to',
                             'restore_from', 'restore_to', 'me')
 
-class TransferSerializer(serializers.ModelSerializer):
+class BasicTransferSerializer(serializers.ModelSerializer):
 
-    node = serializers.SlugRelatedField(slug_field="name")
-    dpn_object_id = serializers.SerializerMethodField('get_dpn_object_id')
+    node = serializers.SlugRelatedField(source="node", slug_field="namespace")
+    dpn_object_id = serializers.SlugRelatedField(source="registry_entry", slug_field="dpn_object_id")
 
     class Meta:
         model = Transfer
@@ -33,9 +33,15 @@ class TransferSerializer(serializers.ModelSerializer):
         read_only_fields = ('link', 'size', 'fixity',
                             'event_id', 'protocol',)
 
-    def get_dpn_object_id(self, obj):
-        return obj.registry_entry.dpn_object_id
+class AdminTransferSerializer(serializers.ModelSerializer):
 
+    node = serializers.SlugRelatedField(slug_field="namespace")
+    dpn_object_id = serializers.SlugRelatedField(source="registry_entry", slug_field="dpn_object_id")
+
+    class Meta:
+        model = Transfer
+        depth = 1
+        fields = ('node','dpn_object_id', 'exp_fixity', 'size', 'link')
 
 class RegistryEntrySerializer(serializers.ModelSerializer):
 
