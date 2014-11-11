@@ -48,6 +48,7 @@ class CreateTransferSerializer(serializers.ModelSerializer):
         model = Transfer
         depth = 1
         fields = ('node', 'dpn_object_id', 'exp_fixity', 'size', 'link')
+        read_only_fields = ('event_id',)
 
 class RegistryEntrySerializer(serializers.ModelSerializer):
 

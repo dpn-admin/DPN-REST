@@ -8,6 +8,7 @@ import json
 import random
 
 from django.core.urlresolvers import reverse
+from django.contrib.auth.models import User
 from rest_framework.test import APITestCase
 from rest_framework import status
 from rest_framework.authtoken.models import Token
@@ -216,8 +217,7 @@ class TransferListViewTest(APITestCase):
     def test_put(self):
         make_test_transfers()
 
-        profile = UserProfile.objects.get(user=self.api_user)
-        xfer = Transfer.objects.filter(node=profile.node)[0]
+        xfer = Transfer.objects.filter(node=self.api_user.profile.node)[0]
         item_url = reverse('api:transfer-detail',
                            kwargs={'event_id': xfer.event_id, })
 
@@ -226,7 +226,6 @@ class TransferListViewTest(APITestCase):
         rsp = self.client.put(item_url, {})
         self.assertEqual(rsp.status_code, status.HTTP_401_UNAUTHORIZED)
 
-        # It should allow changes for users with edit permissions.
         token = Token.objects.get(user=self.api_user)
         self.client.credentials(HTTP_AUTHORIZATION="Token %s" % token.key)
         # Get the data to edit.
@@ -235,6 +234,7 @@ class TransferListViewTest(APITestCase):
         bad_data = rsp.data.copy()
         good_data["status"] = "A"
         bad_data["status"] = "C"
+
         # It should not allow a user to set a status of complete.
         rsp = self.client.put(item_url, bad_data)
         self.assertEqual(rsp.status_code, status.HTTP_400_BAD_REQUEST)
@@ -304,6 +304,52 @@ class RegistryDetailViewTest(APITestCase):
             rsp = self.client.delete(self.url)
             self.assertEqual(rsp.status_code, exp_code)
 
-        # It should not allow deleting for users.
+        # It should not allow deleting for api users or admins.
         _test_expected_codes(self.api_user, status.HTTP_401_UNAUTHORIZED)
         _test_expected_codes(self.api_admin, status.HTTP_401_UNAUTHORIZED)
+
+class TransferDetailViewTest(APITestCase):
+
+    fixtures = ['../data/GroupPermissions.json']
+
+    def setUp(self):
+        make_test_nodes()
+        make_test_registry_entries(100)
+        make_test_transfers()
+
+        self.api_user = _make_api_user()
+        self.api_admin = _make_api_admin()
+        self.superuser = User.objects.create_superuser(
+            username="supertest",
+            password="supertest",
+            email="superuser@email.com"
+        )
+
+    def test_get(self):
+
+        def _test_own_node(key, node):
+            xfer = node.transfer_set.all()[0]
+            api_user_url = reverse('api:transfer-detail',
+                                        kwargs={"event_id": xfer.event_id})
+            self.client.credentials(HTTP_AUTHORIZATION="Token %s"
+                                                       % key)
+            url = reverse('api:transfer-detail',
+                          kwargs={"event_id": xfer.event_id})
+            rsp = self.client.get(url)
+            self.assertEqual(rsp.status_code, status.HTTP_401_UNAUTHORIZED)
+
+        _test_own_node(Token.objects.get(user=self.api_user), self.api_user.profile.node)
+        #_test_own_node(self.api_admin)
+
+        # def _test_other_node(usr):
+        #     xfer = Transfer.objects.exclude(node=usr.profile.node)[0]
+        #     url = reverse('api:transfer-detail',
+        #                   kwargs={'event_id': xfer.event_id})
+        #     token = Token.objects.get(user=usr)
+        #     self.client.credentials(HTTP_AUTHORIZATION="Token %s"
+        #                                                % token.key)
+        #     rsp = self.client.get(url)
+        #     self.assertEqual(rsp.status_code, status.HTTP_200_OK)
+
+        # _test_other_node(self.api_user)
+        # _test_other_node(self.api_admin)

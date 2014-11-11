@@ -84,23 +84,22 @@ def make_test_nodes(mynode=settings.DPN_NAMESPACE):
             node.port_set.create(**{"ip": "127.0.0.1", "port": "443"})
             node.protocols.add(rsync)
             node.storage_set.create(**storage_data[k])
+            node.save()
 
 def make_test_user(uname, pwd, eml, groupname=None, nodename=None):
     # setup API user
 
-    api_user = User(
+    api_user = User.objects.create_user(
         username=uname,
         password=pwd,
         email=eml
     )
-    api_user.save()
 
-    profile = UserProfile.objects.get(user=api_user)
+    api_user.profile.node = Node.objects.exclude(me=True).order_by('?')[0]
     if nodename:
-        profile.node = Node.objects.get(namespace=nodename)
-    else:
-        profile.node = Node.objects.exclude(me=True)[0]
-    profile.save()
+        api_user.profile.node = Node.objects.get(namespace=nodename)
+
+    api_user.save()
 
     Token.objects.create(user=api_user)
 

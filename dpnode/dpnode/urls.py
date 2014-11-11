@@ -29,5 +29,5 @@ urlpatterns = patterns('',
    url(r'^api-v0/', include('dpn.api.urls', namespace="api")),
 
    # API Documentation
-   url(r'api-docs/', include('rest_framework_swagger.urls', namespace="api-docs"))
+   url(r'^docs/', include('rest_framework_swagger.urls', namespace="api-docs"))
 )
