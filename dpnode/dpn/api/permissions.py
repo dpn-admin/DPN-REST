@@ -11,7 +11,8 @@ from dpn.data.models import UserProfile
 class IsNodeUser(permissions.BasePermission):
 
     def has_object_permission(self, request, view, obj):
-        profile = UserProfile.objects.get(user=request.user)
-        if profile.node == obj.node:
+        if request.user.is_superuser:
+            return True
+        if request.user.profile.node == obj.node:
             return True
         return False
