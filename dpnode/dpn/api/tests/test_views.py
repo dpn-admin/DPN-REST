@@ -6,9 +6,7 @@
 """
 import json
 import random
-from unittest import expectedFailure
 
-from django.contrib.auth.models import User, Group
 from django.core.urlresolvers import reverse
 from rest_framework.test import APITestCase
 from rest_framework import status
@@ -17,45 +15,23 @@ from rest_framework.authtoken.models import Token
 from dpn.data.models import Node, RegistryEntry, Transfer, UserProfile
 from dpn.data.tests.utils import make_test_transfers, make_test_registry_entries
 from dpn.data.tests.utils import make_test_nodes, make_registry_postdata
-
-
-def _make_user(uname, pwd, eml, groupname):
-    # setup API user
-
-    api_user = User(
-        username=uname,
-        password=pwd,
-        email=eml
-    )
-    api_user.save()
-
-    profile = UserProfile.objects.get(user=api_user)
-    profile.node = Node.objects.exclude(me=True)[0]
-    profile.save()
-
-    Token.objects.create(user=api_user)
-
-    if groupname:
-        group = Group.objects.get(name=groupname)
-        group.user_set.add(api_user)
-
-    return api_user
+from dpn.data.tests.utils import make_test_user
 
 
 def _make_api_user():
     "Makes a user with a token in the api_user group."
-    return _make_user("apiuser", "apiuser", "me@email.com", "api_users")
-
+    return make_test_user("apiuser", "apiuser", "me@email.com", "api_users")
 
 def _make_api_admin():
     "Makes a user with a token in the api_admin group."
-    return _make_user("adminuser", "adminuser", "me@email.com", "api_admins")
-
+    return make_test_user("adminuser", "adminuser", "me@email.com",
+                          "api_admins")
 
 def _make_auth_user():
     "Makes a user with a token but no group."
-    return _make_user("authuser", "authuser", "auth@email.com", None)
+    return make_test_user("authuser", "authuser", "auth@email.com", None)
 
+# # List Views
 
 class RegistryView(APITestCase):
     fixtures = ['../data/GroupPermissions.json', ]
@@ -92,20 +68,20 @@ class RegistryView(APITestCase):
         # It should not allow this method.
         token = Token.objects.get(user=self.api_user)
         self.client.credentials(HTTP_AUTHORIZATION="Token %s" % token.key)
-        rsp = self.client.put(self.url)
-        self.assertEqual(rsp.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+        rsp = self.client.put(self.url, {})
+        self.assertEqual(rsp.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_patch(self):
         # It should not allow this method.
         token = Token.objects.get(user=self.api_user)
         self.client.credentials(HTTP_AUTHORIZATION="Token %s" % token.key)
-        rsp = self.client.put(self.url)
-        self.assertEqual(rsp.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+        rsp = self.client.patch(self.url, {})
+        self.assertEqual(rsp.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_post(self):
         data = make_registry_postdata()
 
-        # It should forbid api_users from creating record
+        # It should not allows api_users to create a record
         token = Token.objects.get(user=self.api_user)
         self.client.credentials(HTTP_AUTHORIZATION="Token %s" % token.key)
         rsp = self.client.post(self.url, data)
@@ -115,8 +91,7 @@ class RegistryView(APITestCase):
         token = Token.objects.get(user=self.api_admin)
         self.client.credentials(HTTP_AUTHORIZATION="Token %s" % token.key)
         rsp = self.client.post(self.url, data, format="json")
-        self.assertEqual(rsp.status_code, status.HTTP_201_CREATED,
-                         "posted: %s\n\nresponse: %s" % (data, rsp.content))
+        self.assertEqual(rsp.status_code, status.HTTP_201_CREATED)
 
 
 class NodeListViewTest(APITestCase):
@@ -270,3 +245,65 @@ class TransferListViewTest(APITestCase):
         for k, v in rsp.data.items():
             if k != "updated_on":  # updated on always changes.
                 self.assertEqual(good_data[k], v)
+
+
+## Detail Views
+class RegistryDetailViewTest(APITestCase):
+
+    fixtures = ['../data/GroupPermissions.json',]
+
+    def setUp(self):
+        make_test_nodes()
+        make_test_registry_entries(100)
+        self.api_user = _make_api_user()
+        self.api_admin = _make_api_admin()
+        entry = RegistryEntry.objects.filter(first_node__me=True)[0]
+        self.url = reverse('api:registry-detail',
+                           kwargs={'dpn_object_id': entry.dpn_object_id})
+    def test_get(self):
+        token = Token.objects.get(user=self.api_user)
+        self.client.credentials(HTTP_AUTHORIZATION='token %s' % token.key)
+        rsp = self.client.get(self.url)
+        self.assertEqual(rsp.status_code, status.HTTP_200_OK)
+
+    def _test_status(self, usr, fn, exp_code):
+        # It should not allow this method.
+        token = Token.objects.get(user=usr)
+        self.client.credentials(HTTP_AUTHORIZATION='Token %s' % token.key)
+        rsp = fn(self.url, {})
+        self.assertEqual(rsp.status_code, exp_code)
+
+    def test_post(self):
+        self._test_status(self.api_admin, self.client.post, status.HTTP_405_METHOD_NOT_ALLOWED)
+        self._test_status(self.api_user, self.client.post, status.HTTP_403_FORBIDDEN)
+
+    def test_patch(self):
+        #self._test_status(self.api_admin, self.client.patch, status.HTTP_405_METHOD_NOT_ALLOWED)
+        self._test_status(self.api_user, self.client.patch, status.HTTP_403_FORBIDDEN)
+
+    def test_put(self):
+
+        def _test_expected_codes(usr, exp_code):
+            token = Token.objects.get(user=usr)
+            self.client.credentials(HTTP_AUTHORIZATION="Token %s" % token.key)
+            rsp = self.client.get(self.url)
+            data = rsp.data.copy()
+            data["bag_size"] = "100"
+            rsp = self.client.put(self.url, data)
+            self.assertEqual(rsp.status_code, exp_code)
+
+        # It should allow api_admins to update entries
+        _test_expected_codes(self.api_user, status.HTTP_403_FORBIDDEN)
+        _test_expected_codes(self.api_admin, status.HTTP_200_OK)
+
+    def test_delete(self):
+
+        def _test_expected_codes(usr, exp_code):
+            token = Token.objects.get(user=usr)
+            self.client.credentials(HTTP_AUTHORIZATION="Token %s" % exp_code)
+            rsp = self.client.delete(self.url)
+            self.assertEqual(rsp.status_code, exp_code)
+
+        # It should not allow deleting for users.
+        _test_expected_codes(self.api_user, status.HTTP_401_UNAUTHORIZED)
+        _test_expected_codes(self.api_admin, status.HTTP_401_UNAUTHORIZED)

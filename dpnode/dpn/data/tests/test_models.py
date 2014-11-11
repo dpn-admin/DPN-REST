@@ -7,12 +7,12 @@ from django.test import TestCase
 from django.conf import settings
 from django.contrib.auth.models import User
 
-from dpn.data.models import Transfer, RegistryEntry, CONFIRMED, PENDING
+from dpn.data.models import Transfer
+from dpn.data.tests.utils import make_test_nodes, make_test_transfers, \
+    make_test_registry_entries
 
-from . import make_test_nodes, make_test_transfers, make_test_registry_entries
 
 class TransferTest(TestCase):
-
     def setUp(self):
         make_test_nodes()
         make_test_registry_entries(30)
@@ -47,8 +47,8 @@ class TransferTest(TestCase):
         self.assertTrue(xfer.node in nodes,
                         "%s not listed as replication node!" % xfer.node)
 
-class TestUserProfile(TestCase):
 
+class TestUserProfile(TestCase):
     def test_create_user_profile(self):
         u = User(username="testuser", password="nothing", email="me@email.com")
         u.save()

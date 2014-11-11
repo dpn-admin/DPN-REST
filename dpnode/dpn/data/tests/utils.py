@@ -9,7 +9,7 @@ from datetime import datetime
 
 from django.utils import timezone
 from django.conf import settings
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 
 from rest_framework.authtoken.models import Token
 
@@ -38,6 +38,7 @@ def make_test_nodes(mynode=settings.DPN_NAMESPACE):
                 "api_root": "https://dpn-dev.aptrust.org/dpnrest/",
                 "ssh_username": "aptdpn",
                 "replicate_to": True,
+                "replicate_from": True,
             },
             "tdr": {
                 "name": "TDR",
@@ -83,6 +84,31 @@ def make_test_nodes(mynode=settings.DPN_NAMESPACE):
             node.port_set.create(**{"ip": "127.0.0.1", "port": "443"})
             node.protocols.add(rsync)
             node.storage_set.create(**storage_data[k])
+
+def make_test_user(uname, pwd, eml, groupname=None, nodename=None):
+    # setup API user
+
+    api_user = User(
+        username=uname,
+        password=pwd,
+        email=eml
+    )
+    api_user.save()
+
+    profile = UserProfile.objects.get(user=api_user)
+    if nodename:
+        profile.node = Node.objects.get(namespace=nodename)
+    else:
+        profile.node = Node.objects.exclude(me=True)[0]
+    profile.save()
+
+    Token.objects.create(user=api_user)
+
+    if groupname:
+        group = Group.objects.get(name=groupname)
+        group.user_set.add(api_user)
+
+    return api_user
 
 # Makes some registry entries
 def make_registry_data():
