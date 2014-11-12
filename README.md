@@ -1,9 +1,16 @@
+
+
 # Overview
 
 EarthDiver is a prototype for a REST based protocol for a node in the DPN
 network of replicating nodes.  Currently it shows data structures and some
 proposed REST calls that could be used to negotiate interactions in the DPN
 network.
+
+## Build Status
+
+* Master: [![Build Status](https://travis-ci.org/APTrust/EarthDiver.svg?branch=master)](https://travis-ci.org/APTrust/EarthDiver)
+* Develop: [![Build Status](https://travis-ci.org/APTrust/EarthDiver.svg?branch=develop)](https://travis-ci.org/APTrust/EarthDiver)
 
 # Installation
 
