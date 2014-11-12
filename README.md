@@ -42,7 +42,7 @@ directory, which is usually /usr/lib/python3.4
 * From EarthDiver/dpnode/ run `python manage.py migrate` **twice** the first
   time (It needs to run the base migrations than the local ones).
     
-### Dependencies
+### System Dependencies
 
 * In development it will frequently require you to have some development
   libraries installed as well.
