@@ -9,8 +9,13 @@ PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
 
 DEBUG = False # Always make False by default.
 TEMPLATE_DEBUG = DEBUG
+
 # IMPORTANT SET ONLY TO TRUE IN DEVELOPMENT ENVIRONMENT
 DEV = False
+
+# Setting for Travis-CI.  You should never need to change this.
+TRAVIS_ENV = False
+
 
 ADMINS = (
 # ('Your Name', 'your_email@example.com'),
@@ -97,3 +102,19 @@ REST_FRAMEWORK = {
     'DATETIME_FORMAT': DPN_DATE_FORMAT,
     'DATETIME_INPUT_FORMAT': DPN_DATE_FORMAT,
 }
+
+# Travis-ci settings
+if 'TRAVIS' in os.environ:
+    DEBUG = True
+    TEMPLATE_DEBUG = True
+    DATABASES = {
+        'default': {
+            'ENGINE':   'django.db.backends.postgresql_psycopg2',
+            'NAME':     'travisdb',  # Must match travis.yml setting
+            'USER':     'postgres',
+            'PASSWORD': '',
+            'HOST':     'localhost',
+            'PORT':     '',
+        }
+    }
+    SECRET_KEY = 'travis^+ej(nd681q9+9tsblti0-zq4$+8+lvfrnfv!)&ayqoum6uu9$'
