@@ -141,13 +141,6 @@ class Storage(models.Model):
     class Meta:
         unique_together = ('node', 'region')
 
-class RegistryManager(models.Manager):
-    """
-    Custom manager to return only published registry entries.
-    """
-    def get_queryset(self):
-        return super(RegistryManager, self).get_queryset().filter(published=True)
-
 class RegistryEntry(models.Model):
     """
     Data about DPN Bags.
@@ -182,9 +175,6 @@ class RegistryEntry(models.Model):
 
     rnh = "Nodes that have confirmed successful transfers."
     replicating_nodes = models.ManyToManyField(Node, related_name="replicating_nodes")
-
-    # Custom manager to return only published records
-    # published_objects = RegistryManager()
 
     class Meta:
         verbose_name_plural = "registry entries"
