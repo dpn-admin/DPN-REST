@@ -62,7 +62,7 @@ class Node(models.Model):
     nh = "Human readable name of the node."
     name = models.CharField(max_length=20, unique=True, help_text=nh)
 
-    nsh = "namespace value used to identify the node in important references."
+    nsh = "namespace identifier used for references to the node."
     namespace = models.CharField(max_length=20, unique=True, help_text=nsh)
 
     ah = "Root url for node api endpoints"
@@ -92,7 +92,10 @@ class Node(models.Model):
     sh = "Mark if this node is you."
     me = models.BooleanField(default=False, help_text=sh)
 
-    created_on = models.DateTimeField(auto_now_add=True)
+    coh = "Auto updated field of the record creation datetime."
+    created_on = models.DateTimeField(auto_now_add=True, help_text=coh)
+
+    uoh = "Auto updated filed of the last updated datetime."
     updated_on = models.DateTimeField(auto_now_add=True, auto_now=True)
 
     def save(self, *args, **kwargs):
@@ -185,7 +188,7 @@ class RegistryEntry(models.Model):
 
     class Meta:
         verbose_name_plural = "registry entries"
-        ordering = ['-updated_on']
+        ordering = ['last_modified_date']
 
     def __unicode__(self):
         return '%s' % self.dpn_object_id

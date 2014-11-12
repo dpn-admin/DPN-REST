@@ -10,9 +10,15 @@ from dpn.data.models import Node, Transfer, RegistryEntry, PENDING, ACCEPT, REJE
 
 class NodeSerializer(serializers.ModelSerializer):
 
-    port_set = serializers.RelatedField(many=True, read_only=True)
-    storage_set = serializers.RelatedField(many=True, read_only=True)
-    protocols = serializers.SlugRelatedField(many=True, slug_field="name")
+    help = "List of important IP numbers and ports that need access."
+    port_set = serializers.RelatedField(many=True, read_only=True,
+                                        help_text=help)
+    help = "list of storage locations and descriptions used by node."
+    storage_set = serializers.RelatedField(many=True, read_only=True,
+                                           help_text=help)
+    help = "List of transfer protocols this node supports."
+    protocols = serializers.SlugRelatedField(many=True, slug_field="name",
+                                             help_text=help)
 
     class Meta:
         model = Node

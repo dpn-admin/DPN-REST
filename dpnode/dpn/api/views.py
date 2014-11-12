@@ -34,7 +34,10 @@ class RegistryFilter(django_filters.FilterSet):
 # List Views
 class RegistryListView(generics.ListCreateAPIView):
     """
-    Registry Entries for DPN Objects.
+    Returns a paged list of Registry Entries Registry Entries for DPN Objects.
+
+    GET Restricted to authenticated users
+    POST Restricted to api_admins
     """
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated, DjangoModelPermissions,)
@@ -42,10 +45,14 @@ class RegistryListView(generics.ListCreateAPIView):
     paginate_by = 20
     serializer_class = RegistryEntrySerializer
     filter_class = RegistryFilter
+    ordering_fields = ('-last_modified_date')
 
 class NodeListView(generics.ListCreateAPIView):
     """
-    Nodes in the DPN Network.
+    Returns a paged list of Nodes in the DPN network and their configurations.
+
+    GET restricted to authenticated users.
+    POST restricted to api_admins
     """
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated, DjangoModelPermissions,)
@@ -55,15 +62,21 @@ class NodeListView(generics.ListCreateAPIView):
 
 class TransferListView(generics.ListCreateAPIView):
     """
-    Transfer actions between DPN nodes.
+    Returns a paged list of transfers from this node to others.
+
+    GET restricted to authenticated users with transfer list automatically
+    filtered to the users node. Superusers have no filter applied.
+
+    POST restricted to api_admins.
+
     """
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated, DjangoModelPermissions,)
 
     queryset = Transfer.objects.none() # as required by model permissions
     paginate_by = 20
-    filter_fields = ("status", "fixity", "valid", "node")
-    filter_backends = (filters.OrderingFilter,)
+    filter_fields = ("status", "fixity", "valid", "node",)
+    filter_backends = (filters.OrderingFilter, filters.DjangoFilterBackend)
     ordering_fields = ('created_on', 'updated_on')
 
     def get_queryset(self):
@@ -85,7 +98,10 @@ class TransferListView(generics.ListCreateAPIView):
 # Detail Views
 class RegistryDetailView(generics.RetrieveUpdateAPIView):
     """
-    Registry Entry details.
+    Returns details about an individual registry entry.
+
+    GET restricted to authenticated users.
+    PUT restricted to api_admins
     """
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated, DjangoModelPermissions,)
@@ -96,7 +112,10 @@ class RegistryDetailView(generics.RetrieveUpdateAPIView):
 
 class NodeDetailView(generics.RetrieveUpdateAPIView):
     """
-    Node details.
+    Returns details about an individual node.
+
+    GET restricted to authenticated users.
+    PUT restricted to api_admins.
     """
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated, DjangoModelPermissions,)
@@ -106,7 +125,14 @@ class NodeDetailView(generics.RetrieveUpdateAPIView):
 
 class TransferDetailView(generics.RetrieveUpdateAPIView):
     """
-    Details about a specific Transfer Action.
+    Returns details about a specific Transfer.
+
+    GET restricted to authenticated users belonging to the same node as the
+     Transfer.  Superusers can see all Transfers.
+
+    PUT restricted to api_users belonging to the transfer node.  Superusers have
+    no node restriction.
+
     """
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated, DjangoModelPermissions, IsNodeUser)

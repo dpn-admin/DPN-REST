@@ -99,7 +99,7 @@ def make_test_user(uname, pwd, eml, groupname=None, nodename=None):
     if nodename:
         api_user.profile.node = Node.objects.get(namespace=nodename)
 
-    api_user.save()
+    api_user.profile.save()
 
     Token.objects.create(user=api_user)
 

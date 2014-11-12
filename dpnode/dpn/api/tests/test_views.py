@@ -14,6 +14,7 @@ from rest_framework import status
 from rest_framework.authtoken.models import Token
 
 from dpn.data.models import Node, RegistryEntry, Transfer, UserProfile
+from dpn.data.utils import dpn_strptime
 from dpn.data.tests.utils import make_test_transfers, make_test_registry_entries
 from dpn.data.tests.utils import make_test_nodes, make_registry_postdata
 from dpn.data.tests.utils import make_test_user
@@ -34,7 +35,8 @@ def _make_auth_user():
 
 # # List Views
 
-class RegistryView(APITestCase):
+class RegistryListViewTest(APITestCase):
+
     fixtures = ['../data/GroupPermissions.json', ]
 
     def setUp(self):
@@ -64,6 +66,12 @@ class RegistryView(APITestCase):
 
         # It should contain the right count of registry entries.
         self.assertEqual(data['count'], entries.count())
+        previous = None
+        for result in data['results']:
+            current = dpn_strptime(result["last_modified_date"])
+            if previous:
+                self.assertTrue(current > previous)
+            previous = current
 
     def test_put(self):
         # It should not allow this method.
@@ -164,20 +172,20 @@ class NodeListViewTest(APITestCase):
 
 
 class TransferListViewTest(APITestCase):
+
     fixtures = ['../data/GroupPermissions.json', ]
 
     def setUp(self):
         # Setup Test Data
         make_test_nodes()
         make_test_registry_entries(100)
+        make_test_transfers()
         self.url = reverse('api:transfer-list')
         self.api_user = _make_api_user()
         self.api_admin = _make_api_admin()
 
     def test_get(self):
-        profile = UserProfile.objects.get(user=self.api_user)
-        make_test_transfers()
-        xfers = Transfer.objects.filter(node=profile.node)
+        xfers = Transfer.objects.filter(node=self.api_user.profile.node)
         token = Token.objects.get(user=self.api_user)
         self.client.credentials(HTTP_AUTHORIZATION="Token %s" % token.key)
         rsp = self.client.get(self.url)
@@ -215,36 +223,10 @@ class TransferListViewTest(APITestCase):
 
 
     def test_put(self):
-        make_test_transfers()
-
-        xfer = Transfer.objects.filter(node=self.api_user.profile.node)[0]
-        item_url = reverse('api:transfer-detail',
-                           kwargs={'event_id': xfer.event_id, })
-
-
-        # It should not allow anonymous user to edit.
-        rsp = self.client.put(item_url, {})
-        self.assertEqual(rsp.status_code, status.HTTP_401_UNAUTHORIZED)
-
-        token = Token.objects.get(user=self.api_user)
+        token = Token.objects.get(user=self.api_admin)
         self.client.credentials(HTTP_AUTHORIZATION="Token %s" % token.key)
-        # Get the data to edit.
-        rsp = self.client.get(item_url)
-        good_data = rsp.data.copy()
-        bad_data = rsp.data.copy()
-        good_data["status"] = "A"
-        bad_data["status"] = "C"
-
-        # It should not allow a user to set a status of complete.
-        rsp = self.client.put(item_url, bad_data)
-        self.assertEqual(rsp.status_code, status.HTTP_400_BAD_REQUEST)
-
-        # It should allow a user to edit a record with good data.
-        rsp = self.client.put(item_url, good_data, format="json")
-        self.assertEqual(rsp.status_code, status.HTTP_200_OK)
-        for k, v in rsp.data.items():
-            if k != "updated_on":  # updated on always changes.
-                self.assertEqual(good_data[k], v)
+        rsp = self.client.put(self.url)
+        self.assertEqual(rsp.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
 ## Detail Views
@@ -327,18 +309,19 @@ class TransferDetailViewTest(APITestCase):
 
     def test_get(self):
 
-        def _test_own_node(key, node):
-            xfer = node.transfer_set.all()[0]
-            api_user_url = reverse('api:transfer-detail',
-                                        kwargs={"event_id": xfer.event_id})
-            self.client.credentials(HTTP_AUTHORIZATION="Token %s"
-                                                       % key)
-            url = reverse('api:transfer-detail',
-                          kwargs={"event_id": xfer.event_id})
-            rsp = self.client.get(url)
-            self.assertEqual(rsp.status_code, status.HTTP_401_UNAUTHORIZED)
+        token = Token.objects.get(user=self.api_user)
+        self.client.credentials(HTTP_AUTHORIZATION="Token %s" % token.key)
+        # It should allow authenticated users to see xfers from their own node
+        xfer = self.api_user.profile.node.transfer_set.all()[0]
+        url = reverse('api:transfer-detail',
+                      kwargs={"event_id": xfer.event_id})
+        rsp = self.client.get(url)
 
-        _test_own_node(Token.objects.get(user=self.api_user), self.api_user.profile.node)
+        self.assertEqual(rsp.status_code, status.HTTP_200_OK,  rsp.content)
+
+        # It should not allow authenticated user to see xfers from other nodes
+        # xfer = Transfer.objects.exlude(node=self.api_user.profile.node)[0]
+
         #_test_own_node(self.api_admin)
 
         # def _test_other_node(usr):

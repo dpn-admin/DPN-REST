@@ -41,6 +41,13 @@ directory, which is usually /usr/lib/python3.4
   EarthDover/dpnode/localsettings.py and configure as needed.
 * From EarthDiver/dpnode/ run `python manage.py migrate` **twice** the first
   time (It needs to run the base migrations than the local ones).
+    
+### Dependencies
+
+* In development it will frequently require you to have some development
+  libraries installed as well.
+  
+  `>sudo apt-get install libpython3-dev, libyaml-dev`
 
 ## Setup SuperUser & Groups
 
