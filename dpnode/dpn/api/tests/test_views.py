@@ -27,7 +27,7 @@ def _make_api_user():
 def _make_api_admin():
     "Makes a user with a token in the api_admin group."
     return make_test_user("adminuser", "adminuser", "me@email.com",
-                          "api_admins")
+                          "api_admins", superuser=True)
 
 def _make_auth_user():
     "Makes a user with a token but no group."
@@ -185,13 +185,50 @@ class TransferListViewTest(APITestCase):
         self.api_admin = _make_api_admin()
 
     def test_get(self):
+
+        def _test_return_count(user, url, exp_count):
+            # Tests for expected object count.
+            token = Token.objects.get(user=user)
+            self.client.credentials(HTTP_AUTHORIZATION="Token %s" % token.key)
+            rsp = self.client.get(url)
+            data = json.loads(rsp.content.decode('utf8'))
+            self.assertEqual(data['count'], exp_count)
+            self.assertEqual(rsp.status_code, status.HTTP_200_OK)
+
+        # It should return only transfers for the users node.
         xfers = Transfer.objects.filter(node=self.api_user.profile.node)
-        token = Token.objects.get(user=self.api_user)
-        self.client.credentials(HTTP_AUTHORIZATION="Token %s" % token.key)
-        rsp = self.client.get(self.url)
-        data = json.loads(rsp.content.decode('utf8'))
-        self.assertEqual(data['count'], xfers.count())
-        self.assertEqual(rsp.status_code, status.HTTP_200_OK)
+        _test_return_count(self.api_user, self.url, xfers.count())
+
+        # It should return all transfers for superusers.
+        xfers = Transfer.objects.all()
+        _test_return_count(self.api_admin, self.url, xfers.count())
+
+        mynode = Node.objects.get(me=True)
+        # It should filter transfers by dpn_object_id
+        reg = RegistryEntry.objects.filter(first_node=mynode).order_by('?')[0]
+        xfers = Transfer.objects.filter(registry_entry=reg)
+        url = "%s?dpn_object_id=%s" % (reverse('api:transfer-list'),
+                                       reg.dpn_object_id)
+        _test_return_count(self.api_admin, url, xfers.count())
+
+        # It should filter transfers by status
+        xfer = Transfer.objects.filter(node=self.api_user.profile.node)[0]
+        xfer.status = "A"
+        xfer.save()
+        url = "%s?status=A" % reverse('api:transfer-list')
+        _test_return_count(self.api_user, url, 1)
+
+        # It should filter based on Fixity.
+        xfer.receipt = xfer.exp_fixity
+        xfer.save()
+        url = "%s?fixity=True" % reverse('api:transfer-list')
+        _test_return_count(self.api_user, url, 1)
+
+        # It should filter based on Node
+        node = self.api_user.profile.node
+        xfers = Transfer.objects.filter(node=node)
+        url = "%s?node=%s" % (reverse('api:transfer-list'), node.namespace)
+        _test_return_count(self.api_admin, url, xfers.count())
 
     def test_post(self):
         # It should not allow anoymous users from posting
@@ -214,13 +251,12 @@ class TransferListViewTest(APITestCase):
             "exp_fixity": "%x" % random.getrandbits(128),
         }
 
-        # It should allow api_admins to create transfers.
+        # It should allow api_admins  to create transfers.
         token = Token.objects.get(user=self.api_admin)
         self.client.credentials(HTTP_AUTHORIZATION="Token %s" % token.key)
         rsp = self.client.post(self.url, data, format="json")
         self.assertEqual(rsp.status_code, status.HTTP_201_CREATED)
         self.assertEqual(rsp.data, data)
-
 
     def test_put(self):
         token = Token.objects.get(user=self.api_admin)
@@ -256,12 +292,16 @@ class RegistryDetailViewTest(APITestCase):
         self.assertEqual(rsp.status_code, exp_code)
 
     def test_post(self):
-        self._test_status(self.api_admin, self.client.post, status.HTTP_405_METHOD_NOT_ALLOWED)
-        self._test_status(self.api_user, self.client.post, status.HTTP_403_FORBIDDEN)
+        self._test_status(self.api_admin, self.client.post,
+                          status.HTTP_405_METHOD_NOT_ALLOWED)
+        self._test_status(self.api_user, self.client.post,
+                          status.HTTP_403_FORBIDDEN)
 
     def test_patch(self):
-        #self._test_status(self.api_admin, self.client.patch, status.HTTP_405_METHOD_NOT_ALLOWED)
-        self._test_status(self.api_user, self.client.patch, status.HTTP_403_FORBIDDEN)
+        #self._test_status(self.api_admin, self.client.patch,
+                            # status.HTTP_405_METHOD_NOT_ALLOWED)
+        self._test_status(self.api_user, self.client.patch,
+                          status.HTTP_403_FORBIDDEN)
 
     def test_put(self):
 

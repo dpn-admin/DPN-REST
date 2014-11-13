@@ -86,10 +86,14 @@ def make_test_nodes(mynode=settings.DPN_NAMESPACE):
             node.storage_set.create(**storage_data[k])
             node.save()
 
-def make_test_user(uname, pwd, eml, groupname=None, nodename=None):
+def make_test_user(uname, pwd, eml, groupname=None, nodename=None, superuser=False):
     # setup API user
 
-    api_user = User.objects.create_user(
+    create_method = User.objects.create_user
+    if superuser:
+        create_method = User.objects.create_superuser
+
+    api_user = create_method(
         username=uname,
         password=pwd,
         email=eml

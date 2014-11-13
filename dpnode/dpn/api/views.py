@@ -31,7 +31,14 @@ class RegistryFilter(django_filters.FilterSet):
         model = RegistryEntry
         fields = ['before', 'after', 'first_node', 'object_type']
 
-# class TransferFilterSet(
+class TransferFilterSet(django_filters.FilterSet):
+    dpn_object_id = django_filters.CharFilter(
+        name='registry_entry__dpn_object_id'
+    )
+    node = django_filters.CharFilter(name="node__namespace")
+    class Meta:
+        model = Transfer
+        fields = ["dpn_object_id", "status", "fixity", "valid", "node"]
 
 class NodeMemberFilterBackend(filters.BaseFilterBackend):
     """
@@ -86,9 +93,10 @@ class TransferListView(generics.ListCreateAPIView):
 
     queryset = Transfer.objects.all() # as required by model permissions
     paginate_by = 20
-    filter_fields = ("status", "fixity", "valid", "node",)
+    # filter_fields = ("status", "fixity", "valid", "node",)
     filter_backends = (NodeMemberFilterBackend, filters.OrderingFilter,
                        filters.DjangoFilterBackend)
+    filter_class = TransferFilterSet
     ordering_fields = ('created_on', 'updated_on')
 
     def get_serializer_class(self):
