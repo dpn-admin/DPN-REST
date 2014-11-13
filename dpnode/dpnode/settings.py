@@ -34,6 +34,9 @@ AUTH_PROFILE_MODULE = 'dpn.data.UserProfile'
 # Default Settings.  Make real changes in localsettings
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',),
+    'PAGINATE_BY': 20,
+    'PAGINATE_BY_PARAM': 'page_size',
+    'MAX_PAGINATE_BY': 500,
 }
 
 # Application definition

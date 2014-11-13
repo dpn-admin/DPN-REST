@@ -60,7 +60,6 @@ class RegistryListView(generics.ListCreateAPIView):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated, DjangoModelPermissions,)
     queryset = RegistryEntry.objects.filter(published=True)
-    paginate_by = 20
     serializer_class = RegistryEntrySerializer
     filter_class = RegistryFilter
     ordering_fields = ('last_modified_date')
@@ -75,7 +74,6 @@ class NodeListView(generics.ListCreateAPIView):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated, DjangoModelPermissions,)
     queryset = Node.objects.all()
-    paginate_by = 20
     serializer_class = NodeSerializer
 
 class TransferListView(generics.ListCreateAPIView):
@@ -91,9 +89,7 @@ class TransferListView(generics.ListCreateAPIView):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated, DjangoModelPermissions,)
 
-    queryset = Transfer.objects.all() # as required by model permissions
-    paginate_by = 20
-    # filter_fields = ("status", "fixity", "valid", "node",)
+    queryset = Transfer.objects.all()
     filter_backends = (NodeMemberFilterBackend, filters.OrderingFilter,
                        filters.DjangoFilterBackend)
     filter_class = TransferFilterSet

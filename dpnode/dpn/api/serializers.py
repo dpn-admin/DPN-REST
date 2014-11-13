@@ -68,3 +68,4 @@ class RegistryEntrySerializer(serializers.ModelSerializer):
     class Meta:
         model = RegistryEntry
         depth = 1
+        exclude = ('created_on', 'updated_on', 'published')

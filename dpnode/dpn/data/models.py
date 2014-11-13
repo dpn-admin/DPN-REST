@@ -20,7 +20,7 @@ STATE_CHOICES = (
     (PENDING, "Pending"),
     (ACCEPT, "Accept"),
     (REJECT, "Reject"),
-    (CONFIRMED, "Confirmed"),
+    (CONFIRMED, "Confirm"),
 )
 # Protocols
 HTTPS = 'H'
