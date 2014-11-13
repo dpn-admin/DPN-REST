@@ -26,7 +26,7 @@ urlpatterns = patterns('',
    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
    # API calls
-   url(r'^api-v0/', include('dpn.api.urls', namespace="api")),
+   url(r'^api-v1/', include('dpn.api.urls', namespace="api")),
 
    # API Documentation
    url(r'^docs/', include('rest_framework_swagger.urls', namespace="api-docs"))
