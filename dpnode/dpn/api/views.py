@@ -31,6 +31,17 @@ class RegistryFilter(django_filters.FilterSet):
         model = RegistryEntry
         fields = ['before', 'after', 'first_node', 'object_type']
 
+# class TransferFilterSet(
+
+class NodeMemberFilterBackend(filters.BaseFilterBackend):
+    """
+    Filter that only allows users to see transfers for their own node.
+    """
+    def filter_queryset(self, request, queryset, view):
+        if request.user.is_superuser: # Do not apply to superusers
+            return queryset
+        return queryset.filter(node=request.user.profile.node)
+
 # List Views
 class RegistryListView(generics.ListCreateAPIView):
     """
@@ -45,7 +56,7 @@ class RegistryListView(generics.ListCreateAPIView):
     paginate_by = 20
     serializer_class = RegistryEntrySerializer
     filter_class = RegistryFilter
-    ordering_fields = ('-last_modified_date')
+    ordering_fields = ('last_modified_date')
 
 class NodeListView(generics.ListCreateAPIView):
     """
@@ -73,18 +84,12 @@ class TransferListView(generics.ListCreateAPIView):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated, DjangoModelPermissions,)
 
-    queryset = Transfer.objects.none() # as required by model permissions
+    queryset = Transfer.objects.all() # as required by model permissions
     paginate_by = 20
     filter_fields = ("status", "fixity", "valid", "node",)
-    filter_backends = (filters.OrderingFilter, filters.DjangoFilterBackend)
+    filter_backends = (NodeMemberFilterBackend, filters.OrderingFilter,
+                       filters.DjangoFilterBackend)
     ordering_fields = ('created_on', 'updated_on')
-
-    def get_queryset(self):
-        if self.request.user.is_superuser:
-            return Transfer.objects.all()
-        if self.request.user.profile.node:
-           return Transfer.objects.filter(node=self.request.user.profile.node)
-        return Transfer.objects.none()
 
     def get_serializer_class(self):
         try:
