@@ -6,17 +6,22 @@
 from rest_framework import serializers
 from django.conf import settings
 
-from dpn.data.models import Node, Transfer, RegistryEntry, PENDING, ACCEPT, \
-    REJECT
+from dpn.data.models import Node, Transfer, RegistryEntry, PENDING, ACCEPT
+from dpn.data.models import Port, Storage, REJECT
 
+class PortSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Port
+        exclude = ('id', 'node')
+
+class StorageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Storage
+        exclude = ('id', 'node')
 
 class NodeSerializer(serializers.ModelSerializer):
-    help = "List of important IP numbers and ports that need access."
-    port_set = serializers.RelatedField(many=True, read_only=True,
-                                        help_text=help)
-    help = "list of storage locations and descriptions used by node."
-    storage_set = serializers.RelatedField(many=True, read_only=True,
-                                           help_text=help)
+    # ports = PortSerializer(source="port_set", many=True)
+    storage = StorageSerializer(source="storage_set", many=True)
     help = "List of transfer protocols this node supports."
     protocols = serializers.SlugRelatedField(many=True, slug_field="name",
                                              help_text=help)
@@ -24,7 +29,7 @@ class NodeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Node
         depth = 1
-        exclude = ('ssh_username', 'id')
+        exclude = ('ssh_username', 'id', 'me')
         read_only_fields = ('id', 'name', 'ssh_username',
                             'replicate_from', 'replicate_to',
                             'restore_from', 'restore_to', 'me')

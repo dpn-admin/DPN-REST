@@ -74,6 +74,7 @@ class NodeListView(generics.ListCreateAPIView):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated, DjangoModelPermissions,)
     queryset = Node.objects.all()
+    filter_fields = ('replicate_to', 'replicate_from',)
     serializer_class = NodeSerializer
 
 class TransferListView(generics.ListCreateAPIView):
