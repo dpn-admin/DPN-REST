@@ -62,12 +62,11 @@ class RegistryListViewTest(APITestCase):
         response = self.client.get(self.url)
 
         entries = RegistryEntry.objects.all()
-        data = json.loads(response.content.decode('utf8'))
 
         # It should contain the right count of registry entries.
-        self.assertEqual(data['count'], entries.count())
+        self.assertEqual(response.data['count'], entries.count())
         previous = None
-        for result in data['results']:
+        for result in response.data['results']:
             current = dpn_strptime(result["last_modified_date"])
             if previous:
                 self.assertTrue(current > previous)
@@ -119,12 +118,10 @@ class NodeListViewTest(APITestCase):
         self.assertEqual(rsp.status_code, status.HTTP_401_UNAUTHORIZED)
 
         def _test_each_group(u):  # It should list nodes for authorized users
-            profile = UserProfile.objects.get(user=u)
             token = Token.objects.get(user=u)
             self.client.credentials(HTTP_AUTHORIZATION="Token %s" % token.key)
             rsp = self.client.get(self.url)
-            data = json.loads(rsp.content.decode('utf8'))
-            self.assertEqual(data['count'], 5)
+            self.assertEqual(rsp.data['count'], 5)
 
         _test_each_group(self.api_user)
         _test_each_group(self.api_admin)
@@ -192,8 +189,7 @@ class TransferListViewTest(APITestCase):
             token = Token.objects.get(user=user)
             self.client.credentials(HTTP_AUTHORIZATION="Token %s" % token.key)
             rsp = self.client.get(url)
-            data = json.loads(rsp.content.decode('utf8'))
-            self.assertEqual(data["count"], exp_count, "%r" % data)
+            self.assertEqual(rsp.data['count'], exp_count)
             self.assertEqual(rsp.status_code, status.HTTP_200_OK)
 
         # It should return only transfers for the users node.
