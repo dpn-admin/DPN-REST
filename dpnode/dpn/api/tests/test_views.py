@@ -193,7 +193,7 @@ class TransferListViewTest(APITestCase):
             self.client.credentials(HTTP_AUTHORIZATION="Token %s" % token.key)
             rsp = self.client.get(url)
             data = json.loads(rsp.content.decode('utf8'))
-            self.assertEqual(data["count"], exp_count)
+            self.assertEqual(data["count"], exp_count, "%s" % data["count"])
             self.assertEqual(rsp.status_code, status.HTTP_200_OK)
 
         # It should return only transfers for the users node.
