@@ -134,7 +134,8 @@ class NodeListViewTest(APITestCase):
             "name": "TestNode",
             "namespace": "testnode",
             "api_root": "https://test.api.org/",
-            "ssh_username": "dpntestnode",
+            "storage": [{"region": "NJ", "type": "Test storage"},],
+            # "ssh_username": "dpntestnode",
         }
         # It should deny an unauthorized user.
         rsp = self.client.post(self.url, data)
@@ -150,7 +151,7 @@ class NodeListViewTest(APITestCase):
         token = Token.objects.get(user=self.api_admin)
         self.client.credentials(HTTP_AUTHORIZATION="Token %s" % token.key)
         rsp = self.client.post(self.url, data)
-        self.assertEqual(rsp.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(rsp.status_code, status.HTTP_201_CREATED, rsp.content)
 
     def test_bad_requests(self):
         tokens = [Token.objects.get(user=self.api_admin),
@@ -192,7 +193,7 @@ class TransferListViewTest(APITestCase):
             self.client.credentials(HTTP_AUTHORIZATION="Token %s" % token.key)
             rsp = self.client.get(url)
             data = json.loads(rsp.content.decode('utf8'))
-            self.assertEqual(data['count'], exp_count)
+            self.assertEqual(data["count"], exp_count)
             self.assertEqual(rsp.status_code, status.HTTP_200_OK)
 
         # It should return only transfers for the users node.

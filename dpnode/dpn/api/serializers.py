@@ -21,7 +21,7 @@ class StorageSerializer(serializers.ModelSerializer):
 
 class NodeSerializer(serializers.ModelSerializer):
     # ports = PortSerializer(source="port_set", many=True)
-    storage = StorageSerializer(source="storage_set", many=True)
+    storage = StorageSerializer(source="storage_set", many=True, read_only=True)
     help = "List of transfer protocols this node supports."
     protocols = serializers.SlugRelatedField(many=True, slug_field="name",
                                              help_text=help)
