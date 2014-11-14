@@ -52,7 +52,7 @@ class BasicTransferSerializer(serializers.ModelSerializer):
         depth = 1
         exclude = ('id', 'error', 'exp_fixity', 'registry_entry')
         read_only_fields = ('link', 'size', 'fixity', 'event_id', 'protocol',
-                            "created_on", "updated_on", "valid")
+                            "created_on", "updated_on", "valid", "fixity_type")
 
 
 class CreateTransferSerializer(serializers.ModelSerializer):
@@ -63,7 +63,8 @@ class CreateTransferSerializer(serializers.ModelSerializer):
     class Meta:
         model = Transfer
         depth = 1
-        fields = ('node', 'dpn_object_id', 'exp_fixity', 'size', 'link')
+        fields = ('node', 'dpn_object_id', 'exp_fixity',
+                  'size', 'link')
         read_only_fields = ('event_id',)
 
 

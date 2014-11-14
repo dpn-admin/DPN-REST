@@ -38,6 +38,7 @@ class TransferTest(TestCase):
 
         # It should read fixity true.
         xfer.receipt = xfer.exp_fixity
+        xfer.receipt_type = xfer.fixity_type
         xfer.save()
         self.assertTrue(xfer.fixity,
                         "Expected True fixity but returned %s" % xfer.fixity)

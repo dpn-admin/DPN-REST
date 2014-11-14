@@ -39,12 +39,17 @@ TYPE_CHOICES = (
     (RIGHTS, 'Rights'),
     (BRIGHTENING, 'Brightening')
 )
+SHA256 = 'sha256'
+FIXITY_CHOICES = (
+    (SHA256, SHA256),
+)
 US_STATES = ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DC", "DE", "FL", "GA",
-          "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD",
-          "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ",
-          "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC",
-          "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"]
+             "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD",
+             "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ",
+             "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC",
+             "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"]
 US_STATE_CHOICES = ((code, code) for code in US_STATES)
+
 
 class Protocol(models.Model):
     name = models.CharField(max_length=20, primary_key=True)
@@ -54,6 +59,7 @@ class Protocol(models.Model):
 
     def __str__(self):
         return '%s' % self.__unicode__()
+
 
 class Node(models.Model):
     """
@@ -109,6 +115,7 @@ class Node(models.Model):
     def __str__(self):
         return '%s' % self.__unicode__()
 
+
 class Port(models.Model):
     """
     List of important IP numbers and ports needed for firewall rules.
@@ -127,6 +134,7 @@ class Port(models.Model):
     class Meta:
         unique_together = ("node", "ip", "port")
 
+
 class Storage(models.Model):
     node = models.ForeignKey(Node)
     region = models.CharField(max_length=2, choices=US_STATE_CHOICES)
@@ -140,6 +148,7 @@ class Storage(models.Model):
 
     class Meta:
         unique_together = ('node', 'region')
+
 
 class RegistryEntry(models.Model):
     """
@@ -156,14 +165,15 @@ class RegistryEntry(models.Model):
     last_modified_date = models.DateTimeField()
     bag_size = models.BigIntegerField()
 
-    object_type = models.CharField(max_length=1, choices=TYPE_CHOICES, default=DATA)
+    object_type = models.CharField(max_length=1, choices=TYPE_CHOICES,
+                                   default=DATA)
 
     # Note in the future we should build lose validation.  We don't want to
     # make it a foreign key because we always want to record the registry entry
     # but we should set state to suspect if any of these don't have a match
     # in the registry.
     previous_version = models.CharField(max_length=64, null=True, blank=True)
-    forward_version =  models.CharField(max_length=64, null=True, blank=True)
+    forward_version = models.CharField(max_length=64, null=True, blank=True)
     first_version = models.CharField(max_length=64, null=True, blank=True)
 
     brightening_objects = models.ManyToManyField("self", null=True, blank=True)
@@ -174,7 +184,8 @@ class RegistryEntry(models.Model):
     published = models.BooleanField(default=False)
 
     rnh = "Nodes that have confirmed successful transfers."
-    replicating_nodes = models.ManyToManyField(Node, related_name="replicating_nodes")
+    replicating_nodes = models.ManyToManyField(Node,
+                                               related_name="replicating_nodes")
 
     class Meta:
         verbose_name_plural = "registry entries"
@@ -186,16 +197,23 @@ class RegistryEntry(models.Model):
     def __str__(self):
         return '%s' % self.__unicode__()
 
-#  Transfer Events
+
+# Transfer Events
 class Transfer(models.Model):
     registry_entry = models.ForeignKey(RegistryEntry)
-    event_id = models.CharField(max_length=20, blank=True, null=True, unique=True)
-    protocol = models.CharField(max_length=1, choices=PROTOCOL_CHOICES, default=RSYNC)
+    event_id = models.CharField(max_length=20, blank=True, null=True,
+                                unique=True)
+    protocol = models.CharField(max_length=1, choices=PROTOCOL_CHOICES,
+                                default=RSYNC)
     link = models.TextField(null=True, blank=True)
     node = models.ForeignKey(Node)
-    status = models.CharField(max_length=1, choices=STATE_CHOICES, default=PENDING)
+    status = models.CharField(max_length=1, choices=STATE_CHOICES,
+                              default=PENDING)
     size = models.BigIntegerField()
+
     receipt = models.CharField(max_length=128, null=True, blank=True)
+    fixity_type = models.CharField(max_length=6, choices=FIXITY_CHOICES,
+                                   default=SHA256)
     exp_fixity = models.CharField(max_length=128)
     fixity = models.NullBooleanField()
     valid = models.NullBooleanField()
@@ -221,6 +239,7 @@ class Transfer(models.Model):
             self.fixity = False
         super(Transfer, self).save(*args, **kwargs)
 
+
 class UserProfile(models.Model):
     """
     Additional Profile information.
@@ -228,6 +247,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, related_name="profile")
     # Connects a user to a node for authorization.
     node = models.ForeignKey(Node, blank=True, null=True)
+
 
 # ********** SIGNALS ***************************
 # see: https://docs.djangoproject.com/en/dev/ref/signals/
@@ -239,7 +259,10 @@ def _register_node_xfer(sender, instance, created, **kwargs):
     """
     if instance.status == CONFIRMED:
         instance.registry_entry.replicating_nodes.add(instance.node)
+
+
 post_save.connect(_register_node_xfer, sender=Transfer)
+
 
 def create_event_id(sender, instance, created, **kwargs):
     """
@@ -248,11 +271,15 @@ def create_event_id(sender, instance, created, **kwargs):
     if created and not instance.event_id:
         instance.event_id = "%s-%d" % (settings.DPN_NAMESPACE, instance.pk)
         instance.save()
+
+
 post_save.connect(create_event_id, sender=Transfer)
+
 
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         UserProfile.objects.create(user=instance)
+
 
 post_save.connect(create_user_profile, sender=User)
 
