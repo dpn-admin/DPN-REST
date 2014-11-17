@@ -1,5 +1,5 @@
 """
-    'Turing Test Extra Credit: Convince the examiner that he's a computer.'
+    'Turing Test Extra Credit: Convince the examiner that he is a computer.'
                         - xkcd
 """
 
