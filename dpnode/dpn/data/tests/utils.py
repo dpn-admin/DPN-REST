@@ -120,9 +120,6 @@ def make_registry_data():
         "dpn_object_id": id,
         "first_node": Node.objects.order_by('?')[0],
         "version_number": 1,
-        "fixity_algorithm": "sha256",
-        "fixity_value": "%x" % random.getrandbits(128),
-        "last_fixity_date": timezone.now(),
         "creation_date": timezone.now(),
         "last_modified_date": timezone.now(),
         "object_type": DATA,
@@ -133,7 +130,6 @@ def make_registry_data():
 def make_registry_postdata():
     data = make_registry_data()
     data["first_node"] = data["first_node"].namespace
-    data["last_fixity_date"] = dpn_strftime(data["last_fixity_date"])
     data["creation_date"] = dpn_strftime(data["creation_date"])
     data["last_modified_date"] = dpn_strftime(data["last_modified_date"])
     data["rights_objects"] = []
@@ -144,7 +140,6 @@ def make_registry_postdata():
 def make_test_registry_entries(num=10):
     for i in range(num):
         reg = RegistryEntry(**make_registry_data())
-        reg.published = True
         reg.save()
 
 

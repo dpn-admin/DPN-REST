@@ -69,10 +69,7 @@ class CreateTransferSerializer(serializers.ModelSerializer):
 
 
 class RegistryEntrySerializer(serializers.ModelSerializer):
-    exclude = ('created_on', 'updated_on', 'published')
     first_node = serializers.SlugRelatedField(slug_field="namespace")
-    last_fixity_date = serializers.DateTimeField(
-        format=settings.DPN_DATE_FORMAT)
     brightening_objects = serializers.SlugRelatedField(
         slug_field='dpn_object_id', many=True, required=False)
     rights_objects = serializers.SlugRelatedField(slug_field='dpn_object_id',
@@ -83,4 +80,4 @@ class RegistryEntrySerializer(serializers.ModelSerializer):
     class Meta:
         model = RegistryEntry
         depth = 1
-        exclude = ('created_on', 'updated_on', 'published')
+        exclude = ('created_on', 'updated_on',)

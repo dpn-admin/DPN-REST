@@ -59,7 +59,7 @@ class RegistryListView(generics.ListCreateAPIView):
     """
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated, DjangoModelPermissions,)
-    queryset = RegistryEntry.objects.filter(published=True)
+    queryset = RegistryEntry.objects.all()
     serializer_class = RegistryEntrySerializer
     filter_class = RegistryFilter
     ordering_fields = ('last_modified_date')

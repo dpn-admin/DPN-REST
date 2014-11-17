@@ -158,9 +158,6 @@ class RegistryEntry(models.Model):
     local_id = models.TextField(max_length=100, blank=True, null=True)
     first_node = models.ForeignKey(Node, related_name="first_node")
     version_number = models.PositiveIntegerField(default=1)
-    fixity_algorithm = models.CharField(max_length=10)
-    fixity_value = models.CharField(max_length=128)
-    last_fixity_date = models.DateTimeField()
     creation_date = models.DateTimeField()
     last_modified_date = models.DateTimeField()
     bag_size = models.BigIntegerField()
@@ -181,7 +178,6 @@ class RegistryEntry(models.Model):
 
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True, auto_now_add=True)
-    published = models.BooleanField(default=False)
 
     rnh = "Nodes that have confirmed successful transfers."
     replicating_nodes = models.ManyToManyField(Node,
@@ -280,7 +276,4 @@ def create_user_profile(sender, instance, created, **kwargs):
     if created:
         UserProfile.objects.create(user=instance)
 
-
 post_save.connect(create_user_profile, sender=User)
-
-# slkdnflknsdlfknsd
