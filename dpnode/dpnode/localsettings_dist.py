@@ -16,7 +16,6 @@ DEV = False
 # Setting for Travis-CI.  You should never need to change this.
 TRAVIS_ENV = False
 
-
 ADMINS = (
 # ('Your Name', 'your_email@example.com'),
 )
@@ -99,6 +98,9 @@ DPN_COPY_TOTAL = 2
 # local rest framework settings
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',),
+    'PAGINATE_BY': 20,
+    'PAGINATE_BY_PARAM': 'page_size',
+    'MAX_PAGINATE_BY': 500,
     'DATETIME_FORMAT': DPN_DATE_FORMAT,
     'DATETIME_INPUT_FORMAT': DPN_DATE_FORMAT,
 }
