@@ -9,6 +9,7 @@ from datetime import datetime
 
 from django.utils import timezone
 from django.conf import settings
+from django.test.utils import override_settings
 from django.contrib.auth.models import User, Group
 
 from rest_framework.authtoken.models import Token
@@ -18,6 +19,7 @@ from dpn.data.models import UserProfile
 from dpn.data.utils import dpn_strftime
 
 # Provide ways to autogenerate data so we don't have to reply on fixtures.
+@override_settings(DPN_NAMESPACE='aptrust')
 def make_test_nodes(mynode=settings.DPN_NAMESPACE):
     # create rsync as protocol
         rsync = Protocol(name='rsync')

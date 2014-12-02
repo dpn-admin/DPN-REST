@@ -56,6 +56,7 @@ INSTALLED_APPS = (
     # Core DPN modules
     'dpn.data',
     'dpn.api',
+    'dpn.client',
 
 )
 

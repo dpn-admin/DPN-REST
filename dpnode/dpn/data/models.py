@@ -104,6 +104,9 @@ class Node(models.Model):
     uoh = "Auto updated filed of the last updated datetime."
     updated_on = models.DateTimeField(auto_now_add=True, auto_now=True)
 
+    help = "Date of most recent updated registry entry"
+    last_pull_date = models.DateTimeField(help_text=help, null=True, blank=True)
+
     def save(self, *args, **kwargs):
         if not self.namespace:
             self.namespace = slugify(self.name)

@@ -9,6 +9,7 @@ import random
 
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+from django.test.utils import override_settings
 from rest_framework.test import APITestCase
 from rest_framework import status
 from rest_framework.authtoken.models import Token
@@ -35,13 +36,14 @@ def _make_auth_user():
 
 # # List Views
 
+@override_settings(DPN_NAMESPACE='aptrust')
 class RegistryListViewTest(APITestCase):
 
     fixtures = ['../data/GroupPermissions.json', ]
 
     def setUp(self):
         # Setup Test Data
-        make_test_nodes()
+        make_test_nodes('aptrust')
         make_test_registry_entries(100)
         make_test_transfers()
 
@@ -101,12 +103,12 @@ class RegistryListViewTest(APITestCase):
         rsp = self.client.post(self.url, data, format="json")
         self.assertEqual(rsp.status_code, status.HTTP_201_CREATED)
 
-
+@override_settings(DPN_NAMESPACE='aptrust')
 class NodeListViewTest(APITestCase):
     fixtures = ["../data/GroupPermissions.json", ]
 
     def setUp(self):
-        make_test_nodes()
+        make_test_nodes('aptrust')
         self.url = reverse('api:node-list')
         self.api_user = _make_api_user()
         self.api_admin = _make_api_admin()
@@ -168,14 +170,14 @@ class NodeListViewTest(APITestCase):
             self.assertEqual(rsp.status_code,
                              status.HTTP_405_METHOD_NOT_ALLOWED)
 
-
+@override_settings(DPN_NAMESPACE='aptrust')
 class TransferListViewTest(APITestCase):
 
     fixtures = ['../data/GroupPermissions.json', ]
 
     def setUp(self):
         # Setup Test Data
-        make_test_nodes()
+        make_test_nodes('aptrust')
         make_test_registry_entries(100)
         make_test_transfers()
         self.url = reverse('api:transfer-list')
@@ -263,12 +265,13 @@ class TransferListViewTest(APITestCase):
 
 
 ## Detail Views
+@override_settings(DPN_NAMESPACE='aptrust')
 class RegistryDetailViewTest(APITestCase):
 
     fixtures = ['../data/GroupPermissions.json',]
 
     def setUp(self):
-        make_test_nodes()
+        make_test_nodes('aptrust')
         make_test_registry_entries(100)
         self.api_user = _make_api_user()
         self.api_admin = _make_api_admin()
@@ -327,12 +330,13 @@ class RegistryDetailViewTest(APITestCase):
         _test_expected_codes(self.api_user, status.HTTP_401_UNAUTHORIZED)
         _test_expected_codes(self.api_admin, status.HTTP_401_UNAUTHORIZED)
 
+@override_settings(DPN_NAMESPACE='aptrust')
 class TransferDetailViewTest(APITestCase):
 
     fixtures = ['../data/GroupPermissions.json']
 
     def setUp(self):
-        make_test_nodes()
+        make_test_nodes('aptrust')
         make_test_registry_entries(100)
         make_test_transfers()
 

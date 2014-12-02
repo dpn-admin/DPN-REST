@@ -6,15 +6,16 @@
 from django.test import TestCase
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.test.utils import override_settings
 
 from dpn.data.models import Transfer
 from dpn.data.tests.utils import make_test_nodes, make_test_transfers, \
     make_test_registry_entries
 
-
+@override_settings(DPN_NAMESPACE='aptrust')
 class TransferTest(TestCase):
     def setUp(self):
-        make_test_nodes()
+        make_test_nodes('aptrust')
         make_test_registry_entries(30)
         make_test_transfers()
 
@@ -48,7 +49,7 @@ class TransferTest(TestCase):
         self.assertTrue(xfer.node in nodes,
                         "%s not listed as replication node!" % xfer.node)
 
-
+@override_settings(DPN_NAMESPACE='aptrust')
 class TestUserProfile(TestCase):
     def test_create_user_profile(self):
         u = User(username="testuser", password="nothing", email="me@email.com")
