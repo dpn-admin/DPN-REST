@@ -118,6 +118,7 @@ class RegistryDetailView(generics.RetrieveUpdateAPIView):
     serializer_class = RegistryEntrySerializer
     model = RegistryEntry
     lookup_field = "dpn_object_id"
+    queryset = RegistryEntry.objects.all()
 
 
 class NodeDetailView(generics.RetrieveUpdateAPIView):
@@ -132,6 +133,7 @@ class NodeDetailView(generics.RetrieveUpdateAPIView):
     model = Node
     serializer_class = NodeSerializer
     lookup_field = "namespace"
+    queryset = Node.objects.all()
 
 class TransferDetailView(generics.RetrieveUpdateAPIView):
     """
@@ -149,7 +151,4 @@ class TransferDetailView(generics.RetrieveUpdateAPIView):
     lookup_field = "event_id"
     model = Transfer
     serializer_class = BasicTransferSerializer
-
-# # services views
-# class RestoreView(generics.APIView):
-#     pass
+    queryset = Transfer.objects.all()

@@ -7,8 +7,17 @@ from rest_framework import serializers
 from django.conf import settings
 
 from dpn.data.models import Node, Transfer, RegistryEntry, PENDING, ACCEPT
-from dpn.data.models import Port, Storage, REJECT
+from dpn.data.models import Port, Storage, REJECT, Protocol
 
+# Custom Field Serializers
+# class RegistryIDField(serializers.RelatedField):
+#      def to_representation(self, value):
+#         return value.dpn_object_id
+#
+#      def to_internal_value(self, data):
+#
+
+# Model Serializers
 class PortSerializer(serializers.ModelSerializer):
     class Meta:
         model = Port
@@ -20,11 +29,11 @@ class StorageSerializer(serializers.ModelSerializer):
         exclude = ('id', 'node')
 
 class NodeSerializer(serializers.ModelSerializer):
-    # ports = PortSerializer(source="port_set", many=True)
     storage = StorageSerializer(source="storage_set", many=True, read_only=True)
-    help = "List of transfer protocols this node supports."
-    protocols = serializers.SlugRelatedField(many=True, slug_field="name",
-                                             help_text=help)
+    protocols = serializers.SlugRelatedField(
+        queryset=Protocol.objects.all(),
+        many=True,
+        slug_field="name")
 
     class Meta:
         model = Node
@@ -36,29 +45,28 @@ class NodeSerializer(serializers.ModelSerializer):
 
 
 class BasicTransferSerializer(serializers.ModelSerializer):
-    node = serializers.SlugRelatedField(source="node", slug_field="namespace",
-                                        read_only=True)
-    dpn_object_id = serializers.SlugRelatedField(source="registry_entry",
-                                                 slug_field="dpn_object_id",
-                                                 read_only=True)
-    status = serializers.ChoiceField(choices=(
-        (PENDING, "Pending"),
-        (ACCEPT, "Accept"),
-        (REJECT, "Reject")
-    ))
+    node = serializers.SlugRelatedField(slug_field="namespace", read_only=True)
+    dpn_object_id = serializers.SlugRelatedField(
+                                    source="registry_entry",
+                                    slug_field="dpn_object_id",
+                                    read_only=True)
 
     class Meta:
         model = Transfer
-        depth = 1
+        depth = 2
         exclude = ('id', 'error', 'exp_fixity', 'registry_entry')
         read_only_fields = ('link', 'size', 'fixity', 'event_id', 'protocol',
                             "created_on", "updated_on", "valid", "fixity_type")
 
 
 class CreateTransferSerializer(serializers.ModelSerializer):
-    node = serializers.SlugRelatedField(slug_field="namespace")
-    dpn_object_id = serializers.SlugRelatedField(source="registry_entry",
-                                                 slug_field="dpn_object_id")
+    node = serializers.SlugRelatedField(
+        queryset=Node.objects.all(),
+        slug_field="namespace")
+    dpn_object_id = serializers.SlugRelatedField(
+        queryset=RegistryEntry.objects.all(),
+        source="registry_entry",
+        slug_field="dpn_object_id")
 
     class Meta:
         model = Transfer
@@ -69,13 +77,24 @@ class CreateTransferSerializer(serializers.ModelSerializer):
 
 
 class RegistryEntrySerializer(serializers.ModelSerializer):
-    first_node = serializers.SlugRelatedField(slug_field="namespace")
+    first_node = serializers.SlugRelatedField(
+        queryset=Node.objects.all(),
+        slug_field="namespace")
     brightening_objects = serializers.SlugRelatedField(
-        slug_field='dpn_object_id', many=True, required=False)
-    rights_objects = serializers.SlugRelatedField(slug_field='dpn_object_id',
-                                                  many=True, required=False)
-    replicating_nodes = serializers.SlugRelatedField(slug_field='namespace',
-                                                     many=True, required=False)
+        queryset=RegistryEntry.objects.all(),
+        slug_field='dpn_object_id',
+        many=True,
+        required=False)
+    rights_objects = serializers.SlugRelatedField(
+        queryset=RegistryEntry.objects.all(),
+        slug_field='dpn_object_id',
+        many=True,
+        required=False)
+    replicating_nodes = serializers.SlugRelatedField(
+        queryset=Node.objects.all(),
+        slug_field='namespace',
+        many=True,
+        required=False)
 
     class Meta:
         model = RegistryEntry

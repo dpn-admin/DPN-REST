@@ -253,7 +253,7 @@ class TransferListViewTest(APITestCase):
         # It should allow api_admins  to create transfers.
         token = Token.objects.get(user=self.api_admin)
         self.client.credentials(HTTP_AUTHORIZATION="Token %s" % token.key)
-        rsp = self.client.post(self.url, data, format="json")
+        rsp = self.client.post(self.url, data)
         self.assertEqual(rsp.status_code, status.HTTP_201_CREATED)
         self.assertEqual(rsp.data, data)
 

@@ -1,6 +1,10 @@
 from django.conf.urls import patterns, url
+
+from rest_framework import routers
 from dpn.api.views import TransferListView, RegistryListView, NodeListView
 from dpn.api.views import TransferDetailView, RegistryDetailView, NodeDetailView
+
+
 
 urlpatterns = patterns('',
       url(r'^registry/$', RegistryListView.as_view(), name="registry-list"),
