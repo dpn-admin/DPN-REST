@@ -11,84 +11,83 @@ from django.utils import timezone
 from django.conf import settings
 from django.test.utils import override_settings
 from django.contrib.auth.models import User, Group
-
 from rest_framework.authtoken.models import Token
 
 from dpn.data.models import RegistryEntry, Node, Transfer, DATA, Protocol
 from dpn.data.models import UserProfile
 from dpn.data.utils import dpn_strftime
 
+
 # Provide ways to autogenerate data so we don't have to reply on fixtures.
-@override_settings(DPN_NAMESPACE='aptrust')
-def make_test_nodes(mynode=settings.DPN_NAMESPACE):
+def make_test_nodes():
     # create rsync as protocol
-        rsync = Protocol(name='rsync')
-        rsync.save()
+    rsync = Protocol(name='rsync')
+    rsync.save()
 
-        storage_data = {
-            "aptrust": {"region": 'VA', "type": "Amazon S3"},
-            "tdr": {"region": 'TX', "type": "Solaris In Memory"},
-            "sdr": {"region": 'CA', "type": "Stanford Superdisk"},
-            "hathi": {"region": 'MI', "type": "Thumbdrive"},
-            "chron": {"region": 'CA', "type": "CDROM under David's Desk"},
-        }
+    storage_data = {
+        "aptrust": {"region": 'VA', "type": "Amazon S3"},
+        "tdr": {"region": 'TX', "type": "Solaris In Memory"},
+        "sdr": {"region": 'CA', "type": "Stanford Superdisk"},
+        "hathi": {"region": 'MI', "type": "Thumbdrive"},
+        "chron": {"region": 'CA', "type": "CDROM under David's Desk"},
+    }
 
-        node_data = {
-            "aptrust": {
-                "name": "APTrust",
-                "namespace": "aptrust",
-                "api_root": "https://dpn-dev.aptrust.org/dpnrest/",
-                "ssh_username": "aptdpn",
-                "replicate_to": True,
-                "replicate_from": True,
-            },
-            "tdr": {
-                "name": "TDR",
-                "namespace": "tdr",
-                "api_root": "https://dpn.utexas.edu/dpnrest/",
-                "ssh_username": "tdrdpn",
-                "replicate_from": True,
-                "replicate_to": True,
-            },
-            "sdr": {
-                "name": "SDR",
-                "namespace": "sdr",
-                "api_root": "https://dpn.stanford.edu/dpnrest/",
-                "ssh_username": "sdrdpn",
-                "replicate_from": True,
-                "replicate_to": True,
-            },
-            "hathi": {
-                "name": "HathiTrust",
-                "namespace": "hathi",
-                "api_root": "https://dpn.hathitrust.org/dpnrest/",
-                "ssh_username": "hathidpn",
-                "replicate_from": True,
-                "replicate_to": True,
-            },
-            "chron": {
-                "name": "Chronopolis",
-                "namespace": "chron",
-                "api_root": "https://dpn.chronopolis.org/dpnrest/",
-                "ssh_username": "chrondpn",
-                "replicate_from": True,
-                "replicate_to": True,
-            },
-        }
+    node_data = {
+        "aptrust": {
+            "name": "APTrust",
+            "namespace": "aptrust",
+            "api_root": "https://dpn-dev.aptrust.org/dpnrest/",
+            "ssh_username": "aptdpn",
+            "replicate_to": True,
+            "replicate_from": True,
+        },
+        "tdr": {
+            "name": "TDR",
+            "namespace": "tdr",
+            "api_root": "https://dpn.utexas.edu/dpnrest/",
+            "ssh_username": "tdrdpn",
+            "replicate_from": True,
+            "replicate_to": True,
+        },
+        "sdr": {
+            "name": "SDR",
+            "namespace": "sdr",
+            "api_root": "https://dpn.stanford.edu/dpnrest/",
+            "ssh_username": "sdrdpn",
+            "replicate_from": True,
+            "replicate_to": True,
+        },
+        "hathi": {
+            "name": "HathiTrust",
+            "namespace": "hathi",
+            "api_root": "https://dpn.hathitrust.org/dpnrest/",
+            "ssh_username": "hathidpn",
+            "replicate_from": True,
+            "replicate_to": True,
+        },
+        "chron": {
+            "name": "Chronopolis",
+            "namespace": "chron",
+            "api_root": "https://dpn.chronopolis.org/dpnrest/",
+            "ssh_username": "chrondpn",
+            "replicate_from": True,
+            "replicate_to": True,
+        },
+    }
 
-        for k, v in node_data.items():
-            node = Node(**v)
-            if node.namespace == mynode:
-                node.me = True
-            node.save()
+    for k, v in node_data.items():
+        node = Node(**v)
+        node.save()
 
-            node.port_set.create(**{"ip": "127.0.0.1", "port": "22"})
-            node.port_set.create(**{"ip": "127.0.0.1", "port": "443"})
-            node.protocols.add(rsync)
-            node.storage_set.create(**storage_data[k])
-            node.save()
+        node.port_set.create(**{"ip": "127.0.0.1", "port": "22"})
+        node.port_set.create(**{"ip": "127.0.0.1", "port": "443"})
+        node.protocols.add(rsync)
+        node.storage_set.create(**storage_data[k])
+        node.save()
 
-def make_test_user(uname, pwd, eml, groupname=None, nodename=None, superuser=False):
+
+def make_test_user(uname, pwd, eml, groupname=None, nodename=None,
+                   superuser=False):
     # setup API user
 
     create_method = User.objects.create_user
@@ -101,7 +100,7 @@ def make_test_user(uname, pwd, eml, groupname=None, nodename=None, superuser=Fal
         email=eml
     )
 
-    api_user.profile.node = Node.objects.exclude(me=True).order_by('?')[0]
+    api_user.profile.node = Node.objects.exclude(namespace=settings.DPN_NAMESPACE).order_by('?')[0]
     if nodename:
         api_user.profile.node = Node.objects.get(namespace=nodename)
 
@@ -114,6 +113,7 @@ def make_test_user(uname, pwd, eml, groupname=None, nodename=None, superuser=Fal
         group.user_set.add(api_user)
 
     return api_user
+
 
 # Makes some registry entries
 def make_registry_data():
@@ -129,6 +129,7 @@ def make_registry_data():
         "bag_size": random.getrandbits(32),
     }
 
+
 def make_registry_postdata():
     data = make_registry_data()
     data["first_node"] = data["first_node"].namespace
@@ -139,6 +140,7 @@ def make_registry_postdata():
     data["replicating_nodes"] = []
     return data
 
+
 def make_test_registry_entries(num=10):
     for i in range(num):
         reg = RegistryEntry(**make_registry_data())
@@ -146,15 +148,18 @@ def make_test_registry_entries(num=10):
 
 
 def make_test_transfers():
-    for reg in RegistryEntry.objects.filter(first_node__me=True):
+    for reg in RegistryEntry.objects.filter(
+            first_node__namespace=settings.DPN_NAMESPACE):
         data = {
             "registry_entry": reg,
             "size": reg.bag_size,
             "exp_fixity": "%x" % random.getrandbits(128)
         }
-        for node in Node.objects.exclude(me=True).order_by('?')[:settings.DPN_COPY_TOTAL]:
+        for node in Node.objects.exclude(
+                namespace=settings.DPN_NAMESPACE).order_by('?')[
+                    :settings.DPN_COPY_TOTAL]:
             xf = Transfer(**data)
             xf.node = node
             xf.link = "%s@dpn.nodename.org:outgoing/%s.tar" % (
-            node.ssh_username, xf.registry_entry.dpn_object_id)
+                node.ssh_username, xf.registry_entry.dpn_object_id)
             xf.save()

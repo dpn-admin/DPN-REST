@@ -15,7 +15,7 @@ from dpn.data.tests.utils import make_test_nodes, make_test_transfers, \
 @override_settings(DPN_NAMESPACE='aptrust')
 class TransferTest(TestCase):
     def setUp(self):
-        make_test_nodes('aptrust')
+        make_test_nodes()
         make_test_registry_entries(30)
         make_test_transfers()
 

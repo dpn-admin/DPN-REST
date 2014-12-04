@@ -9,6 +9,7 @@ import random
 
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+from django.conf import settings
 from django.test.utils import override_settings
 from rest_framework.test import APITestCase
 from rest_framework import status
@@ -43,7 +44,7 @@ class RegistryListViewTest(APITestCase):
 
     def setUp(self):
         # Setup Test Data
-        make_test_nodes('aptrust')
+        make_test_nodes()
         make_test_registry_entries(100)
         make_test_transfers()
 
@@ -108,7 +109,7 @@ class NodeListViewTest(APITestCase):
     fixtures = ["../data/GroupPermissions.json", ]
 
     def setUp(self):
-        make_test_nodes('aptrust')
+        make_test_nodes()
         self.url = reverse('api:node-list')
         self.api_user = _make_api_user()
         self.api_admin = _make_api_admin()
@@ -177,7 +178,7 @@ class TransferListViewTest(APITestCase):
 
     def setUp(self):
         # Setup Test Data
-        make_test_nodes('aptrust')
+        make_test_nodes()
         make_test_registry_entries(100)
         make_test_transfers()
         self.url = reverse('api:transfer-list')
@@ -202,7 +203,7 @@ class TransferListViewTest(APITestCase):
         xfers = Transfer.objects.all()
         _test_return_count(self.api_admin, self.url, xfers.count())
 
-        mynode = Node.objects.get(me=True)
+        mynode = Node.objects.get(namespace=settings.DPN_NAMESPACE)
         # It should filter transfers by dpn_object_id
         reg = RegistryEntry.objects.filter(first_node=mynode).order_by('?')[0]
         xfers = Transfer.objects.filter(registry_entry=reg)
@@ -241,11 +242,11 @@ class TransferListViewTest(APITestCase):
         self.assertEqual(rsp.status_code, status.HTTP_403_FORBIDDEN)
 
         # Create a test transfer post.
-        reg = RegistryEntry.objects.filter(first_node__me=True)[0]
+        reg = RegistryEntry.objects.filter(first_node__namespace=settings.DPN_NAMESPACE)[0]
         data = {
             "dpn_object_id": reg.dpn_object_id,
             "link": "sshaccount@dpnserver.test.org:%s.tar" % reg.dpn_object_id,
-            "node": Node.objects.exclude(me=True)[0].namespace,
+            "node": Node.objects.exclude(namespace=settings.DPN_NAMESPACE)[0].namespace,
             "size": random.getrandbits(32),
             "exp_fixity": "%x" % random.getrandbits(128),
         }
@@ -271,11 +272,11 @@ class RegistryDetailViewTest(APITestCase):
     fixtures = ['../data/GroupPermissions.json',]
 
     def setUp(self):
-        make_test_nodes('aptrust')
+        make_test_nodes()
         make_test_registry_entries(100)
         self.api_user = _make_api_user()
         self.api_admin = _make_api_admin()
-        entry = RegistryEntry.objects.filter(first_node__me=True)[0]
+        entry = RegistryEntry.objects.filter(first_node__namespace=settings.DPN_NAMESPACE)[0]
         self.url = reverse('api:registry-detail',
                            kwargs={'dpn_object_id': entry.dpn_object_id})
     def test_get(self):
@@ -336,7 +337,7 @@ class TransferDetailViewTest(APITestCase):
     fixtures = ['../data/GroupPermissions.json']
 
     def setUp(self):
-        make_test_nodes('aptrust')
+        make_test_nodes()
         make_test_registry_entries(100)
         make_test_transfers()
 

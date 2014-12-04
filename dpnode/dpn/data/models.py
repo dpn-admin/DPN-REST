@@ -95,9 +95,6 @@ class Node(models.Model):
     ph = "List of transfer protocols this node supports."
     protocols = models.ManyToManyField(Protocol, blank=True, null=True)
 
-    sh = "Mark if this node is you."
-    me = models.BooleanField(default=False, help_text=sh)
-
     coh = "Auto updated field of the record creation datetime."
     created_on = models.DateTimeField(auto_now_add=True, help_text=coh)
 

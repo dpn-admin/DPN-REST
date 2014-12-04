@@ -20,7 +20,7 @@ class StorageInline(admin.TabularInline):
 @admin.register(models.Node)
 class NodeAdmin(admin.ModelAdmin):
     list_display = ('name', 'replicate_from', 'replicate_to',
-                    'restore_from', 'restore_to', 'me')
+                    'restore_from', 'restore_to', 'last_pull_date')
     list_display_links = ('name',)
     inlines = [PortInline, StorageInline]
 

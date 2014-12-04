@@ -38,7 +38,7 @@ class NodeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Node
         depth = 1
-        exclude = ('ssh_username', 'id', 'me', 'last_pull_date')
+        exclude = ('ssh_username', 'id', 'last_pull_date')
         read_only_fields = ('id', 'name', 'ssh_username',
                             'replicate_from', 'replicate_to',
                             'restore_from', 'restore_to', 'me')
