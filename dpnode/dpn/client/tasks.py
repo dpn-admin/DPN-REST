@@ -28,7 +28,7 @@ def pull_registry_entries(node):
     client = APIClient(node.api_root, token)
     qs = {
         'page_size': 2,
-        'ordering': "-last_modified_date",
+        'ordering': "last_modified_date",
         'first_node': node.namespace,
     }
     if last_modified:

@@ -1,3 +1,4 @@
+from os.path import normpath
 from http.client import HTTPSConnection, HTTPConnection
 from urllib.parse import urlencode, urlparse
 
@@ -42,10 +43,15 @@ class APIClient:
         self.api_token = token
 
     def _get_path(self, path):
-        return "%s%s" % (self.basepath, path)
+        url = normpath("%s%s" % (self.basepath, path))
+        url = url.replace('//', '/')
+        if path.endswith('/'):
+            url += '/'
+        return url
 
     def _request(self, method, path, data=None, params=None):
         url = self._get_path(path)
+        print(url)
         if params:
             url = "%s?%s" % (url, urlencode(params))
         print(url)
