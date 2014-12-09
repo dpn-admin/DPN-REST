@@ -27,7 +27,7 @@ def pull_registry_entries(node):
     last_modified = node.last_pull_date if node.last_pull_date else None
     client = APIClient(node.api_root, token)
     qs = {
-        'page_size': 2,
+        'page_size': 300,
         'ordering': "last_modified_date",
         'first_node': node.namespace,
     }
