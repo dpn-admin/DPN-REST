@@ -95,6 +95,9 @@ DPN_NAMESPACE = 'aptrust'
 # Number of nodes to replicate to.
 DPN_COPY_TOTAL = 2
 
+# Maxiumum number of transfers to accept at a time from each node.
+DPN_MAX_ACCEPT = 10
+
 # local rest framework settings
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',),

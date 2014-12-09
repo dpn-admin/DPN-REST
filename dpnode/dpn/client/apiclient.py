@@ -1,3 +1,4 @@
+import json
 from os.path import normpath
 from http.client import HTTPSConnection, HTTPConnection
 from urllib.parse import urlencode, urlparse
@@ -51,11 +52,9 @@ class APIClient:
 
     def _request(self, method, path, data=None, params=None):
         url = self._get_path(path)
-        print(url)
         if params:
             url = "%s?%s" % (url, urlencode(params))
-        print(url)
-        self.conn.request(method, url, headers=self.headers)
+        self.conn.request(method, url, body=json.dumps(data), headers=self.headers)
         return self.conn.getresponse()
 
     def get(self, path, params=None):

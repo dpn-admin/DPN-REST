@@ -1,4 +1,9 @@
-import json
+"""
+    'For a British person to enter British Heaven, you basically have to die
+    completely unnoticed without causing too much of a kerfuffle.'
+            - John Oliver
+"""
+
 from optparse import make_option
 
 from django.conf import settings
@@ -7,21 +12,21 @@ from django.core.management.base import BaseCommand, CommandError
 from dpn.data.models import Node
 from dpn.client.tasks import pull_registry_entries
 
+
 class Command(BaseCommand):
-    help = 'Pulls registry entries from all nodes or named node only if ' \
-           'specified.'
+    help = 'Pulls registry updated entries from all nodes or named node only if specified.'
 
     option_list = BaseCommand.option_list + (
         make_option("--node",
-            dest="namespace",
-            default=None,
-            help="Namespace of specific node to pull registry entries from."
+                    dest="namespace",
+                    default=None,
+                    help="Namespace of specific node to pull registry entries from."
         ),
     )
 
     def handle(self, *args, **options):
         nodes = Node.objects.exclude(api_root__isnull=True).exclude(
-                api_root__exact='').exclude(namespace=settings.DPN_NAMESPACE)
+            api_root__exact='').exclude(namespace=settings.DPN_NAMESPACE)
         if options['namespace']:
             nodes.filter(namespace=options['namespace'])
 
