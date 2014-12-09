@@ -105,7 +105,14 @@ REST_FRAMEWORK = {
     'DATETIME_INPUT_FORMAT': DPN_DATE_FORMAT,
 }
 
-# Travis-ci settings
+# Dictionary of node namespace and the API token you use when querying them.
+NODES = {
+    # 'tdr': {
+    #     'token': "cb4571ddf119f1c88c10dc8e37e14ed8aec05350",
+    # },
+}
+
+# Travis-ci settings you shouldn't need to change.
 if 'TRAVIS' in os.environ:
     DEBUG = True
     TEMPLATE_DEBUG = True
