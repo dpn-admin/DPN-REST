@@ -3,6 +3,7 @@
     can picture us attacking that world, because they'd never expect it.
         - JACK HANDY
 """
+from django.conf import settings
 
 import django_filters
 from rest_framework import generics, filters
@@ -20,16 +21,21 @@ from dpn.data.models import RegistryEntry, Node, Transfer, UserProfile
 class RegistryFilter(django_filters.FilterSet):
     before = django_filters.DateTimeFilter(
         name="last_modified_date",
-        lookup_type='lt'
+        lookup_type='lt',
+        # NOTE only works when explicitly set even if default is set.
+        input_formats=[settings.DPN_DATE_FORMAT,]
     )
     after = django_filters.DateTimeFilter(
         name="last_modified_date",
-        lookup_type='gt'
+        lookup_type='gt',
+        input_formats=[settings.DPN_DATE_FORMAT,]
     )
     first_node = django_filters.CharFilter(name="first_node__namespace")
+
     class Meta:
         model = RegistryEntry
-        fields = ['before', 'after', 'first_node', 'object_type']
+        fields = ['before', 'after', 'first_node', 'object_type',]
+
 
 class TransferFilterSet(django_filters.FilterSet):
     dpn_object_id = django_filters.CharFilter(
@@ -61,8 +67,10 @@ class RegistryListView(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticated, DjangoModelPermissions,)
     queryset = RegistryEntry.objects.all()
     serializer_class = RegistryEntrySerializer
+    # NOTE DjangoFilterBackend needs to be set even though it is in default.
+    filter_backends = (filters.OrderingFilter, filters.DjangoFilterBackend)
     filter_class = RegistryFilter
-    ordering_fields = ('last_modified_date')
+    ordering_fields = ('last_modified_date',)
 
 class NodeListView(generics.ListCreateAPIView):
     """
@@ -92,7 +100,7 @@ class TransferListView(generics.ListCreateAPIView):
 
     queryset = Transfer.objects.all()
     filter_backends = (NodeMemberFilterBackend, filters.OrderingFilter,
-                       filters.DjangoFilterBackend)
+                                filters.DjangoFilterBackend)
     filter_class = TransferFilterSet
     ordering_fields = ('created_on', 'updated_on')
 

@@ -33,7 +33,7 @@ class Command(BaseCommand):
         print("Creating Test Users...")
         for u in User.objects.all():
             u.delete()
-        for node in Node.objects.exclude(me=True):
+        for node in Node.objects.exclude(namespace=settings.DPN_NAMESPACE):
             usr = make_test_user(
                     "%s_user" % node.namespace,
                     node.namespace,

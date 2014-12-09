@@ -4,18 +4,9 @@
             - The Dude
 """
 from rest_framework import serializers
-from django.conf import settings
 
 from dpn.data.models import Node, Transfer, RegistryEntry, PENDING, ACCEPT
 from dpn.data.models import Port, Storage, REJECT, Protocol
-
-# Custom Field Serializers
-# class RegistryIDField(serializers.RelatedField):
-#      def to_representation(self, value):
-#         return value.dpn_object_id
-#
-#      def to_internal_value(self, data):
-#
 
 # Model Serializers
 class PortSerializer(serializers.ModelSerializer):
