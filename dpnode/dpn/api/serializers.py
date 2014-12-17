@@ -32,7 +32,7 @@ class NodeSerializer(serializers.ModelSerializer):
         exclude = ('ssh_username', 'id', 'last_pull_date')
         read_only_fields = ('id', 'name', 'ssh_username',
                             'replicate_from', 'replicate_to',
-                            'restore_from', 'restore_to', 'me')
+                            'restore_from', 'restore_to')
 
 
 class BasicTransferSerializer(serializers.ModelSerializer):
