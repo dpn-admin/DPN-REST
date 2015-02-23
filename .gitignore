@@ -4,4 +4,7 @@ localsettings.py
 *.pyc
 *.pyo
 files/*
+
+# VirtualEnv names
 .venv/*
+.dpnrest/*

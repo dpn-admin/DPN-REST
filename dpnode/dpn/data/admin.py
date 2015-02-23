@@ -11,37 +11,43 @@ from rest_framework.authtoken.models import Token
 
 from dpn.data import models
 
-class PortInline(admin.TabularInline):
-    model = models.Port
-
 class StorageInline(admin.TabularInline):
     model = models.Storage
 
 @admin.register(models.Node)
 class NodeAdmin(admin.ModelAdmin):
-    list_display = ('name', 'replicate_from', 'replicate_to',
-                    'restore_from', 'restore_to', 'last_pull_date')
+    list_display = ('name', 'last_pull_date')
     list_display_links = ('name',)
-    inlines = [PortInline, StorageInline]
+    filter_vertical = ('replicate_from', 'replicate_to',
+                    'restore_from', 'restore_to')
+    inlines = [StorageInline]
 
-@admin.register(models.RegistryEntry)
-class RegistryEntryAdmin(admin.ModelAdmin):
-    list_display = ('dpn_object_id', 'first_node', 'bag_size',
-                    'object_type')
-    list_display_links = ('dpn_object_id',)
-    list_filter = ('object_type', 'first_node', 'updated_on')
-    search_fields = ['dpn_object_id',]
+@admin.register(models.Bag)
+class BagAdmin(admin.ModelAdmin):
+    list_display = ('uuid', 'original_node', 'size', 'bag_type')
+    list_display_links = ('uuid',)
+    list_filter = ('bag_type', 'original_node', 'updated_at')
+    search_fields = ['uuid',]
 
-@admin.register(models.Transfer)
-class TransferAdmin(admin.ModelAdmin):
-    list_display = ('event_id', 'dpn_object_id', 'node',
-                    'status', 'fixity', 'valid')
-    list_filter = ('node', 'status', 'fixity', 'valid')
-    list_display_links = ['event_id']
-    search_fields = ['event_id',]
+@admin.register(models.ReplicationTransfer)
+class ReplicationTransferAdmin(admin.ModelAdmin):
+    list_display = ('replication_id', 'bag', 'fixity_nonce',
+                    'fixity_value', 'link')
+    list_filter = ('protocol', 'from_node', 'to_node', 'fixity_algorithm',
+                   'fixity_accept', 'bag_valid', 'status')
+    list_display_links = ['replication_id']
+    search_fields = ['replication_id',]
 
-    def dpn_object_id(self, object):
-        return object.registry_entry.dpn_object_id
+#    def dpn_object_id(self, object):
+#        return object.registry_entry.dpn_object_id
+
+@admin.register(models.RestoreTransfer)
+class RestoreTransferAdmin(admin.ModelAdmin):
+    list_display = ('restore_id', 'bag', 'link')
+    list_filter = ('protocol', 'from_node', 'to_node', 'status')
+    list_display_links = ['restore_id']
+    search_fields = ['restore_id',]
+
 
 @admin.register(models.Protocol)
 class ProtocolAdmin(admin.ModelAdmin):

@@ -1,18 +1,30 @@
 from django.conf.urls import patterns, url
 
 from rest_framework import routers
-from dpn.api.views import TransferListView, RegistryListView, NodeListView
-from dpn.api.views import TransferDetailView, RegistryDetailView, NodeDetailView
+from dpn.api.views import ReplicationTransferListView, RestoreTransferListView
+from dpn.api.views import BagListView, NodeListView
+from dpn.api.views import BagDetailView, NodeDetailView
+from dpn.api.views import ReplicationTransferDetailView, RestoreTransferDetailView
 
 
 
 urlpatterns = patterns('',
-      url(r'^registry/$', RegistryListView.as_view(), name="registry-list"),
-      url(r'^transfer/$', TransferListView.as_view(), name="transfer-list"),
-      url(r'^node/$', NodeListView.as_view(), name="node-list"),
-      url(r'^registry/(?P<dpn_object_id>.+)/$', RegistryDetailView.as_view(),
-          name="registry-detail"),
-      url(r'^transfer/(?P<event_id>.+)/$', TransferDetailView.as_view(),
-          name="transfer-detail"),
-      url(r'node/(?P<namespace>.+)/$', NodeDetailView.as_view(), name="node-detail")
+      url(r'^bag/$', BagListView.as_view(),
+          name="bag-list"),
+      url(r'^replicate/$', ReplicationTransferListView.as_view(),
+          name="replication-list"),
+      url(r'^restore/$', ReplicationTransferListView.as_view(),
+          name="restore-list"),
+      url(r'^node/$', NodeListView.as_view(),
+          name="node-list"),
+      url(r'^bag/(?P<dpn_object_id>.+)/$', BagDetailView.as_view(),
+          name="bag-detail"),
+      url(r'^replicate/(?P<replication_id>.+)/$',
+          ReplicationTransferDetailView.as_view(),
+          name="replication-detail"),
+      url(r'^restore/(?P<restore_id>.+)/$',
+          RestoreTransferDetailView.as_view(),
+          name="restore-detail"),
+      url(r'node/(?P<namespace>.+)/$', NodeDetailView.as_view(),
+          name="node-detail")
       )

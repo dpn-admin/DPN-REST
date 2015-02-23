@@ -11,52 +11,56 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import DjangoModelPermissions
 from rest_framework.permissions import IsAuthenticated
 
-from dpn.api.serializers import RegistryEntrySerializer, BasicTransferSerializer
-from dpn.api.serializers import NodeSerializer, CreateTransferSerializer
+from dpn.api.serializers import BagSerializer, NodeSerializer
+from dpn.api.serializers import BasicReplicationSerializer
+from dpn.api.serializers import CreateReplicationSerializer
+from dpn.api.serializers import BasicRestoreSerializer, CreateRestoreSerializer
+
 from dpn.api.permissions import IsNodeUser
-from dpn.data.models import RegistryEntry, Node, Transfer, UserProfile
+from dpn.data.models import Bag, Node, UserProfile
+from dpn.data.models import ReplicationTransfer, RestoreTransfer
 
 # Custom View Filters
 
-class RegistryFilter(django_filters.FilterSet):
+class BagFilter(django_filters.FilterSet):
     before = django_filters.DateTimeFilter(
-        name="last_modified_date",
+        name="updated_at",
         lookup_type='lt',
         # NOTE only works when explicitly set even if default is set.
         input_formats=[settings.DPN_DATE_FORMAT,]
     )
     after = django_filters.DateTimeFilter(
-        name="last_modified_date",
+        name="updated_at",
         lookup_type='gt',
         input_formats=[settings.DPN_DATE_FORMAT,]
     )
-    first_node = django_filters.CharFilter(name="first_node__namespace")
+    first_node = django_filters.CharFilter(name="original_node__namespace")
 
     class Meta:
-        model = RegistryEntry
-        fields = ['before', 'after', 'first_node', 'object_type',]
+        model = Bag
+        fields = ['before', 'after', 'first_node', 'bag_type',]
 
 
 class TransferFilterSet(django_filters.FilterSet):
-    dpn_object_id = django_filters.CharFilter(
-        name='registry_entry__dpn_object_id'
+    bag = django_filters.CharFilter(
+        name='bag__uuid'
     )
-    node = django_filters.CharFilter(name="node__namespace")
+    to_node = django_filters.CharFilter(name="to_node__namespace")
     class Meta:
-        model = Transfer
-        fields = ["dpn_object_id", "status", "fixity", "valid", "node"]
+        model = ReplicationTransfer
+        fields = ["bag", "status", "to_node"]
 
-class NodeMemberFilterBackend(filters.BaseFilterBackend):
-    """
-    Filter that only allows users to see transfers for their own node.
-    """
-    def filter_queryset(self, request, queryset, view):
-        if request.user.is_superuser: # Do not apply to superusers
-            return queryset
-        return queryset.filter(node=request.user.profile.node)
+# class NodeMemberFilterBackend(filters.BaseFilterBackend):
+#     """
+#     Filter that only allows users to see transfers for their own node.
+#     """
+#     def filter_queryset(self, request, queryset, view):
+#         if request.user.is_superuser: # Do not apply to superusers
+#             return queryset
+#         return queryset.filter(node=request.user.profile.node)
 
 # List Views
-class RegistryListView(generics.ListCreateAPIView):
+class BagListView(generics.ListCreateAPIView):
     """
     Returns a paged list of Registry Entries Registry Entries for DPN Objects.
 
@@ -65,12 +69,12 @@ class RegistryListView(generics.ListCreateAPIView):
     """
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated, DjangoModelPermissions,)
-    queryset = RegistryEntry.objects.all()
-    serializer_class = RegistryEntrySerializer
+    queryset = Bag.objects.all()
+    serializer_class = BagSerializer
     # NOTE DjangoFilterBackend needs to be set even though it is in default.
     filter_backends = (filters.OrderingFilter, filters.DjangoFilterBackend)
-    filter_class = RegistryFilter
-    ordering_fields = ('last_modified_date',)
+    filter_class = BagFilter
+    ordering_fields = ('updated_at',)
 
 class NodeListView(generics.ListCreateAPIView):
     """
@@ -85,12 +89,11 @@ class NodeListView(generics.ListCreateAPIView):
     filter_fields = ('replicate_to', 'replicate_from',)
     serializer_class = NodeSerializer
 
-class TransferListView(generics.ListCreateAPIView):
+class ReplicationTransferListView(generics.ListCreateAPIView):
     """
     Returns a paged list of transfers from this node to others.
 
-    GET restricted to authenticated users with transfer list automatically
-    filtered to the users node. Superusers have no filter applied.
+    GET restricted to authenticated users.
 
     POST restricted to api_admins.
 
@@ -98,9 +101,8 @@ class TransferListView(generics.ListCreateAPIView):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated, DjangoModelPermissions,)
 
-    queryset = Transfer.objects.all()
-    filter_backends = (NodeMemberFilterBackend, filters.OrderingFilter,
-                                filters.DjangoFilterBackend)
+    queryset = ReplicationTransfer.objects.all()
+    filter_backends = (filters.OrderingFilter, filters.DjangoFilterBackend)
     filter_class = TransferFilterSet
     ordering_fields = ('created_on', 'updated_on')
 
@@ -108,25 +110,53 @@ class TransferListView(generics.ListCreateAPIView):
         try:
             if self.request.user.has_perm('data.add_transfer') \
                     and self.request.method == 'POST':
-                return CreateTransferSerializer
+                return CreateReplicationSerializer
         except AttributeError: # in case no logged in context
             pass
-        return BasicTransferSerializer
+        return BasicReplicationSerializer
+
+
+class RestoreTransferListView(generics.ListCreateAPIView):
+    """
+    Returns a paged list of restore requests from this node to others.
+
+    GET restricted to authenticated users.
+
+    POST restricted to api_admins.
+
+    """
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated, DjangoModelPermissions,)
+
+    queryset = RestoreTransfer.objects.all()
+    filter_backends = (filters.OrderingFilter, filters.DjangoFilterBackend)
+    filter_class = TransferFilterSet
+    ordering_fields = ('created_on', 'updated_on')
+
+    def get_serializer_class(self):
+        try:
+            if self.request.user.has_perm('data.add_transfer') \
+                    and self.request.method == 'POST':
+                return CreateRestoreSerializer
+        except AttributeError: # in case no logged in context
+            pass
+        return BasicRestoreSerializer
+
 
 # Detail Views
-class RegistryDetailView(generics.RetrieveUpdateAPIView):
+class BagDetailView(generics.RetrieveUpdateAPIView):
     """
-    Returns details about an individual registry entry.
+    Returns details about an individual bag.
 
     GET restricted to authenticated users.
     PUT restricted to api_admins
     """
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated, DjangoModelPermissions,)
-    serializer_class = RegistryEntrySerializer
-    model = RegistryEntry
-    lookup_field = "dpn_object_id"
-    queryset = RegistryEntry.objects.all()
+    serializer_class = BagSerializer
+    model = Bag
+    lookup_field = "uuid"
+    queryset = Bag.objects.all()
 
 
 class NodeDetailView(generics.RetrieveUpdateAPIView):
@@ -143,20 +173,38 @@ class NodeDetailView(generics.RetrieveUpdateAPIView):
     lookup_field = "namespace"
     queryset = Node.objects.all()
 
-class TransferDetailView(generics.RetrieveUpdateAPIView):
+
+class ReplicationTransferDetailView(generics.RetrieveUpdateAPIView):
     """
     Returns details about a specific Transfer.
 
-    GET restricted to authenticated users belonging to the same node as the
-     Transfer.  Superusers can see all Transfers.
+    GET restricted to authenticated users.
 
-    PUT restricted to api_users belonging to the transfer node.  Superusers have
-    no node restriction.
+    PUT restricted to api_users belonging to the transfer_to node.
+    Superusers have no node restriction.
 
     """
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated, DjangoModelPermissions, IsNodeUser)
-    lookup_field = "event_id"
-    model = Transfer
-    serializer_class = BasicTransferSerializer
-    queryset = Transfer.objects.all()
+    lookup_field = "replication_id"
+    model = ReplicationTransfer
+    serializer_class = BasicReplicationSerializer
+    queryset = ReplicationTransfer.objects.all()
+
+
+class RestoreTransferDetailView(generics.RetrieveUpdateAPIView):
+    """
+    Returns details about a specific Restore request.
+
+    GET restricted to authenticated users.
+
+    PUT restricted to api_users belonging to the restore_from node.
+    Superusers have no node restriction.
+
+    """
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated, DjangoModelPermissions, IsNodeUser)
+    lookup_field = "restore_id"
+    model = RestoreTransfer
+    serializer_class = BasicRestoreSerializer
+    queryset = RestoreTransfer.objects.all()
