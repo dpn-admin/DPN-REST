@@ -9,9 +9,9 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.management import call_command
 
-from dpn.data.models import  Node, DATA, RSYNC, PENDING
-from dpn.data.models import RegistryEntry, Transfer
-from dpn.data.tests.utils import make_test_registry_entries, make_test_transfers
+from dpn.data.models import  Node, DATA, RSYNC
+from dpn.data.models import Bag, ReplicationTransfer, RestoreTransfer
+from dpn.data.tests.utils import make_test_bags, make_test_transfers
 from dpn.data.tests.utils import make_test_nodes, make_test_user
 
 class Command(BaseCommand):
@@ -43,13 +43,15 @@ class Command(BaseCommand):
                     )
 
         # Clear Bag Data = funny pattern due to sqlite3
-        for reg in RegistryEntry.objects.all():
+        for reg in Bag.objects.all():
             reg.delete()
-        for xfer in Transfer.objects.all():
+        for xfer in ReplicationTransfer.objects.all():
+            xfer.delete()
+        for xfer in RestoreTransfer.objects.all():
             xfer.delete()
 
         print("Creating Registry Entries...")
-        make_test_registry_entries(1000)
+        make_test_bags(20)
 
         print("Creating Transfers...")
         make_test_transfers()

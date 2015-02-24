@@ -6,7 +6,7 @@
 
 from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
-from dpn.data.models import Node, Protocol, Port, Storage
+from dpn.data.models import Node, Protocol, Storage
 from dpn.data.tests.utils import make_test_nodes
 
 class Command(BaseCommand):
@@ -17,7 +17,6 @@ class Command(BaseCommand):
             raise CommandError("ABORTING: This command should only be run in development!")
         # Clear Everything out
         Storage.objects.all().delete()
-        Port.objects.all().delete()
         Node.objects.all().delete()
 
         make_test_nodes()

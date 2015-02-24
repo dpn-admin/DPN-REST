@@ -18,8 +18,8 @@ class StorageInline(admin.TabularInline):
 class NodeAdmin(admin.ModelAdmin):
     list_display = ('name', 'last_pull_date')
     list_display_links = ('name',)
-    filter_vertical = ('replicate_from', 'replicate_to',
-                    'restore_from', 'restore_to')
+    filter_horizontal = ('replicate_from', 'replicate_to',
+                         'restore_from', 'restore_to')
     inlines = [StorageInline]
 
 @admin.register(models.Bag)
@@ -27,24 +27,25 @@ class BagAdmin(admin.ModelAdmin):
     list_display = ('uuid', 'original_node', 'size', 'bag_type')
     list_display_links = ('uuid',)
     list_filter = ('bag_type', 'original_node', 'updated_at')
+    readonly_fields = ('rights', 'brightening', 'replicating_nodes')
     search_fields = ['uuid',]
 
 @admin.register(models.ReplicationTransfer)
 class ReplicationTransferAdmin(admin.ModelAdmin):
-    list_display = ('replication_id', 'bag', 'fixity_nonce',
+    list_display = ('replication_id', 'fixity_nonce',
                     'fixity_value', 'link')
     list_filter = ('protocol', 'from_node', 'to_node', 'fixity_algorithm',
                    'fixity_accept', 'bag_valid', 'status')
+    readonly_fields = ('bag',)
     list_display_links = ['replication_id']
     search_fields = ['replication_id',]
 
-#    def dpn_object_id(self, object):
-#        return object.registry_entry.dpn_object_id
 
 @admin.register(models.RestoreTransfer)
 class RestoreTransferAdmin(admin.ModelAdmin):
-    list_display = ('restore_id', 'bag', 'link')
+    list_display = ('restore_id', 'link')
     list_filter = ('protocol', 'from_node', 'to_node', 'status')
+    readonly_fields = ('bag',)
     list_display_links = ['restore_id']
     search_fields = ['restore_id',]
 

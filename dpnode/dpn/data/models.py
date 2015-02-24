@@ -112,7 +112,7 @@ class Storage(models.Model):
     storage_type = models.CharField(max_length=50)
 
     def __unicode__(self):
-        return "%s [%s]" % (self.type, self.region)
+        return "%s [%s]" % (self.storage_type, self.region)
 
     def __str__(self):
         return '%s' % self.__unicode__()
@@ -151,7 +151,7 @@ class Bag(models.Model):
         """
         Returns the latest fixity value for this object.
         """
-        return self.fixity_set.filter(algorithm=algorithm).latest(created_at)
+        return self.fixity.filter(algorithm=algorithm).latest("created_at")
 
     class Meta:
         ordering = ['-updated_at']
@@ -173,11 +173,18 @@ class Fixity(models.Model):
     digest = models.CharField(max_length=128)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    @property
+    def alg_and_digest(self):
+        return "%s:%s" % (self.algorithm, self.digest)
+
     def __unicode__(self):
         return "%s:%s" % (self.algorithm, self.digest)
 
     def __str__(self):
         return self.__unicode__()
+
+    class Meta:
+        ordering = ['-created_at']
 
 
 # Transfer Events
@@ -207,20 +214,28 @@ class ReplicationTransfer(models.Model):
         ordering = ['-created_at']
 
     def __unicode__(self):
-        return '%s' % self.event_id
+        return '%s' % self.replication_id
 
     def __str__(self):
         return '%s' % self.__unicode__()
 
-    def save(self, *args, **kwargs):
+    def _fixity_matches(self):
         expected_fixity = self.bag.last_fixity(self.fixity_algorithm)
-        if self.fixity_value == expected_fixity.digest:
-            self.fixity_accept = True
-            self.status = CONFIRMED
-        if self.fixity_value != self.receipt and self.fixity_value is not None:
-            self.fixity_accept = False
-            self.status = CANCELLED
-        super(Transfer, self).save(*args, **kwargs)
+        return (expected_fixity is not None and
+                self.fixity_value == expected_fixity.digest)
+
+    def save(self, *args, **kwargs):
+        if self.pk is not None:
+            if self._fixity_matches():
+                self.fixity_accept = True
+                self.status = CONFIRMED
+            else:
+                if self.fixity_value:
+                    self.fixity_accept = False
+                    self.status = CANCELLED
+                else:
+                    self.status = REQUESTED  # No fixity value yet
+        super(ReplicationTransfer, self).save(*args, **kwargs)
 
 
 class RestoreTransfer(models.Model):
