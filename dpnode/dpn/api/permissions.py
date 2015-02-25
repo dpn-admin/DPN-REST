@@ -15,10 +15,20 @@ class IsNodeUser(permissions.BasePermission):
         # are stricter.
         if request.method in permissions.SAFE_METHODS:
             return True
+        elif request.user.is_superuser:
+            return True
         else:
-            if request.user.is_superuser:
-                return True
             if (request.user.profile.node == obj.from_node or
                 request.user.profile.node == obj.to_node):
                 return True
-            return False
+        return False
+
+class IsBagOwner(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        elif request.user.is_superuser:
+            # Should we allow superuser to update any bags??
+            return True
+        else:
+            return request.user.profile.node == obj.admin_node

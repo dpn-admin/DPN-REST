@@ -3,6 +3,7 @@
 
             - The Dude
 """
+from django.utils import timezone
 from rest_framework import serializers
 
 from dpn.data.models import Node, ReplicationTransfer, RestoreTransfer
@@ -73,6 +74,9 @@ class BasicReplicationSerializer(serializers.ModelSerializer):
 
 class CreateReplicationSerializer(serializers.ModelSerializer):
     to_node = serializers.SlugRelatedField(
+        queryset=Node.objects.all(),
+        slug_field="namespace")
+    from_node = serializers.SlugRelatedField(
         queryset=Node.objects.all(),
         slug_field="namespace")
     bag = serializers.SlugRelatedField(
@@ -154,6 +158,21 @@ class BagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bag
         depth = 1
+
+    # Should we even allow this??
+    # Until we specify what can be updated, this allows only
+    # some fields to change.
+    def update(self, instance, validated_data):
+        instance.local_id = validated_data.get('local_id', instance.local_id)
+        instance.size = validated_data.get('size', instance.size)
+        instance.first_version_uuid = validated_data.get(
+            'first_version_uuid', instance.first_version_uuid)
+        instance.version = validated_data.get('version', instance.version)
+        instance.admin_node = validated_data.get('admin_node', instance.admin_node)
+        instance.bag_type = validated_data.get('bag_type', instance.bag_type)
+        instance.updated_at = timezone.now()
+        instance.save()
+        return instance
 
 
     def create(self, validated_data):

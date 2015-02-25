@@ -100,7 +100,7 @@ class Node(models.Model):
         super(Node, self).save(*args, **kwargs)
 
     def __unicode__(self):
-        return '%s' % self.name
+        return '%s' % self.namespace
 
     def __str__(self):
         return '%s' % self.__unicode__()

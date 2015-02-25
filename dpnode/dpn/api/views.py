@@ -16,7 +16,7 @@ from dpn.api.serializers import BasicReplicationSerializer
 from dpn.api.serializers import CreateReplicationSerializer
 from dpn.api.serializers import BasicRestoreSerializer, CreateRestoreSerializer
 
-from dpn.api.permissions import IsNodeUser
+from dpn.api.permissions import IsNodeUser, IsBagOwner
 from dpn.data.models import Bag, Node, UserProfile
 from dpn.data.models import ReplicationTransfer, RestoreTransfer
 
@@ -42,10 +42,9 @@ class BagFilter(django_filters.FilterSet):
 
 
 class TransferFilterSet(django_filters.FilterSet):
-    bag = django_filters.CharFilter(
-        name='bag__uuid'
-    )
+    bag = django_filters.CharFilter(name='bag__uuid')
     to_node = django_filters.CharFilter(name="to_node__namespace")
+    status = django_filters.CharFilter(name="status")
     class Meta:
         model = ReplicationTransfer
         fields = ["bag", "status", "to_node"]
@@ -68,7 +67,7 @@ class BagListView(generics.ListCreateAPIView):
     POST Restricted to api_admins
     """
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated, DjangoModelPermissions,)
+    permission_classes = (IsAuthenticated, DjangoModelPermissions, IsBagOwner)
     queryset = Bag.objects.all()
     serializer_class = BagSerializer
     # NOTE DjangoFilterBackend needs to be set even though it is in default.
@@ -152,7 +151,7 @@ class BagDetailView(generics.RetrieveUpdateAPIView):
     PUT restricted to api_admins
     """
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated, DjangoModelPermissions,)
+    permission_classes = (IsAuthenticated, DjangoModelPermissions,IsBagOwner)
     serializer_class = BagSerializer
     model = Bag
     lookup_field = "uuid"

@@ -16,7 +16,7 @@ from rest_framework import status
 from rest_framework.authtoken.models import Token
 
 from dpn.data.models import Node, Bag, ReplicationTransfer
-from dpn.data.models import RestoreTransfer, UserProfile
+from dpn.data.models import RestoreTransfer, UserProfile, REJECTED
 from dpn.data.utils import dpn_strptime
 from dpn.data.tests.utils import make_test_transfers, make_test_bags
 from dpn.data.tests.utils import make_test_nodes, make_bag_postdata
@@ -69,11 +69,13 @@ class BagListViewTest(APITestCase):
 
         # It should contain the right count of bags.
         self.assertEqual(response.data['count'], bags.count())
+
+        # Bags should be ordered by updated_at desc
         previous = None
         for result in response.data['results']:
             current = dpn_strptime(result["updated_at"])
             if previous:
-                self.assertTrue(current > previous)
+                self.assertTrue(current < previous)
             previous = current
 
     def test_put(self):
@@ -92,6 +94,12 @@ class BagListViewTest(APITestCase):
 
     def test_post(self):
         data = make_bag_postdata()
+        data['fixities'] = [
+            {
+                    "algorithm": "sha256",
+                    "digest": "909090909078787878781234",
+                    "created_at": "2015-02-25T15:27:40.383861Z"
+            }]
 
         # It should not allows api_users to create a record
         token = Token.objects.get(user=self.api_user)
@@ -196,8 +204,8 @@ class ReplicationTransferListViewTest(APITestCase):
             self.assertEqual(rsp.data['count'], exp_count)
             self.assertEqual(rsp.status_code, status.HTTP_200_OK)
 
-        # It should return only transfers for the users node.
-        xfers = ReplicationTransfer.objects.filter(to_node=self.api_user.profile.node)
+        # It should return all transfers if no filter is specified.
+        xfers = ReplicationTransfer.objects.all()
         _test_return_count(self.api_user, self.url, xfers.count())
 
         # It should return all transfers for superusers.
@@ -205,30 +213,31 @@ class ReplicationTransferListViewTest(APITestCase):
         _test_return_count(self.api_admin, self.url, xfers.count())
 
         mynode = Node.objects.get(namespace=settings.DPN_NAMESPACE)
+
         # It should filter transfers by bag uuid
         bag = Bag.objects.filter(original_node=mynode).order_by('?')[0]
         xfers = ReplicationTransfer.objects.filter(bag=bag)
-        url = "%s?uuid=%s" % (reverse('api:transfer-list'),
+        url = "%s?bag=%s" % (reverse('api:replication-list'),
                                        bag.uuid)
         _test_return_count(self.api_admin, url, xfers.count())
 
         # It should filter transfers by status
         xfer = ReplicationTransfer.objects.filter(to_node=self.api_user.profile.node)[0]
-        xfer.status = "A"
+        xfer.status = REJECTED
         xfer.save()
-        url = "%s?status=A" % reverse('api:transfer-list')
+        url = "%s?status=%s" % (reverse('api:replication-list'), REJECTED)
         _test_return_count(self.api_user, url, 1)
 
         # It should filter based on Fixity.
         xfer.receipt = xfer.exp_fixity
         xfer.save()
-        url = "%s?fixity=True" % reverse('api:transfer-list')
+        url = "%s?fixity=True" % reverse('api:replication-list')
         _test_return_count(self.api_user, url, 1)
 
         # It should filter based on Node
         node = self.api_user.profile.node
         xfers = ReplicationTransfer.objects.filter(to_node=node)
-        url = "%s?to_node=%s" % (reverse('api:transfer-list'), node.namespace)
+        url = "%s?to_node=%s" % (reverse('api:replication-list'), node.namespace)
         _test_return_count(self.api_admin, url, xfers.count())
 
     def test_post(self):
@@ -245,14 +254,16 @@ class ReplicationTransferListViewTest(APITestCase):
         # Create a test transfer post.
         bag = Bag.objects.filter(original_node__namespace=settings.DPN_NAMESPACE)[0]
         data = {
-            "uuid": bag.uuid,
+            "bag": bag.uuid,
             "link": "sshaccount@dpnserver.test.org:%s.tar" % bag.uuid,
-            "node": Node.objects.exclude(namespace=settings.DPN_NAMESPACE)[0].namespace,
-            "size": random.getrandbits(32),
-            "exp_fixity": "%x" % random.getrandbits(128),
+            "to_node": Node.objects.exclude(namespace=settings.DPN_NAMESPACE)[0].namespace,
+            "from_node": self.api_admin.profile.node.namespace,
+            "fixity_algorithm": "sha256",
+            "fixity_nonce": "1234ABC",
+            "protocol": "R",
         }
 
-        # It should allow api_admins  to create transfers.
+        # It should allow api_admins to create replication transfers.
         token = Token.objects.get(user=self.api_admin)
         self.client.credentials(HTTP_AUTHORIZATION="Token %s" % token.key)
         rsp = self.client.post(self.url, data)
