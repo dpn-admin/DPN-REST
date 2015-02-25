@@ -134,24 +134,24 @@ class Bag(models.Model):
     bag_type = models.CharField(max_length=1, choices=TYPE_CHOICES,
                                 default=DATA)
     rights = models.ManyToManyField(
-        "self", null=True, blank=True, related_name="rights")
+        "self", null=True, blank=True, related_name="rights_for")
     brightening = models.ManyToManyField(
-        "self", null=True, blank=True, related_name="brightening")
+        "self", null=True, blank=True, related_name="brightening_for")
     replicating_nodes = models.ManyToManyField(
-        Node, related_name="replicating_nodes",
+        Node, related_name="replicated_bags",
         help_text="Nodes that have confirmed successful transfers.")
     admin_node = models.ForeignKey(
-        Node, related_name="admin_node",
+        Node, related_name="administered_bags",
         help_text="The current admin_node for this bag.")
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=False, auto_now_add=True)
 
-    def last_fixity(self, algorithm):
+    def original_fixity(self, algorithm):
         """
-        Returns the latest fixity value for this object.
+        Returns the original fixity value for this object.
         """
-        return self.fixity.filter(algorithm=algorithm).latest("created_at")
+        return self.fixity.filter(algorithm=algorithm).order_by("created_at").first()
 
     class Meta:
         ordering = ['-updated_at']
@@ -168,7 +168,7 @@ class Fixity(models.Model):
     Info about bag fixity/checksums. These records are add-only,
     and cannot be updated.
     """
-    bag = models.ForeignKey(Bag, related_name="fixity")
+    bag = models.ForeignKey(Bag, related_name="fixities")
     algorithm = models.CharField(max_length=10, choices=FIXITY_CHOICES)
     digest = models.CharField(max_length=128)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -184,7 +184,7 @@ class Fixity(models.Model):
         return self.__unicode__()
 
     class Meta:
-        ordering = ['-created_at']
+        ordering = ['created_at']
 
 
 # Transfer Events
@@ -220,7 +220,7 @@ class ReplicationTransfer(models.Model):
         return '%s' % self.__unicode__()
 
     def _fixity_matches(self):
-        expected_fixity = self.bag.last_fixity(self.fixity_algorithm)
+        expected_fixity = self.bag.original_fixity(self.fixity_algorithm)
         return (expected_fixity is not None and
                 self.fixity_value == expected_fixity.digest)
 
