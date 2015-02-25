@@ -119,6 +119,13 @@ class CreateRestoreSerializer(serializers.ModelSerializer):
         read_only_fields = ('restore_id',)
 
 
+class FixityReadOnlySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Fixity
+        read_only_fields = ('algorithm', 'digest', 'created_at')
+        exclude = ('bag')
+
+
 class BagSerializer(serializers.ModelSerializer):
     original_node = serializers.SlugRelatedField(
         queryset=Node.objects.all(),
@@ -141,11 +148,18 @@ class BagSerializer(serializers.ModelSerializer):
     admin_node = serializers.SlugRelatedField(
         queryset=Node.objects.all(),
         slug_field='namespace')
-    fixity = serializers.SlugRelatedField(
-        queryset=Fixity.objects.all(),
-        slug_field="alg_and_digest",
-        many=True)
+    fixities = FixitySerializer(required=True, many=True)
+
 
     class Meta:
         model = Bag
         depth = 1
+
+
+    def create(self, validated_data):
+        fixity_data = validated_data.pop('fixities')
+        if fixity_data is None or len(fixity_data) != 1:
+            raise serializers.ValidationError("Bag must have exactly one fixity value when created.")
+        bag = Bag.objects.create(**validated_data)
+        Fixity.objects.create(bag=bag, **fixity_data[0])
+        return bag
