@@ -148,7 +148,7 @@ def make_test_bags(num=10):
             digest=random.getrandbits(64),
             bag=bag
         )
-        bag.fixity.add(fixity)
+        bag.fixities.add(fixity)
 
 
 def make_test_transfers():

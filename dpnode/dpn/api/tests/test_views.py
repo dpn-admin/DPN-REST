@@ -15,10 +15,11 @@ from rest_framework.test import APITestCase
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 
-from dpn.data.models import Node, RegistryEntry, Transfer, UserProfile
+from dpn.data.models import Node, Bag, ReplicationTransfer
+from dpn.data.models import RestoreTransfer, UserProfile
 from dpn.data.utils import dpn_strptime
-from dpn.data.tests.utils import make_test_transfers, make_test_registry_entries
-from dpn.data.tests.utils import make_test_nodes, make_registry_postdata
+from dpn.data.tests.utils import make_test_transfers, make_test_bags
+from dpn.data.tests.utils import make_test_nodes, make_bag_postdata
 from dpn.data.tests.utils import make_test_user
 
 
@@ -38,17 +39,17 @@ def _make_auth_user():
 # # List Views
 
 @override_settings(DPN_NAMESPACE='aptrust')
-class RegistryListViewTest(APITestCase):
+class BagListViewTest(APITestCase):
 
     fixtures = ['../data/GroupPermissions.json', ]
 
     def setUp(self):
         # Setup Test Data
         make_test_nodes()
-        make_test_registry_entries(100)
+        make_test_bags(100)
         make_test_transfers()
 
-        self.url = reverse('api:registry-list')
+        self.url = reverse('api:bag-list')
 
         # setup Non API user
         self.api_user = _make_api_user()
@@ -64,13 +65,13 @@ class RegistryListViewTest(APITestCase):
         self.client.credentials(HTTP_AUTHORIZATION="token %s" % token.key)
         response = self.client.get(self.url)
 
-        entries = RegistryEntry.objects.all()
+        bags = Bag.objects.all()
 
-        # It should contain the right count of registry entries.
-        self.assertEqual(response.data['count'], entries.count())
+        # It should contain the right count of bags.
+        self.assertEqual(response.data['count'], bags.count())
         previous = None
         for result in response.data['results']:
-            current = dpn_strptime(result["last_modified_date"])
+            current = dpn_strptime(result["updated_at"])
             if previous:
                 self.assertTrue(current > previous)
             previous = current
@@ -90,7 +91,7 @@ class RegistryListViewTest(APITestCase):
         self.assertEqual(rsp.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_post(self):
-        data = make_registry_postdata()
+        data = make_bag_postdata()
 
         # It should not allows api_users to create a record
         token = Token.objects.get(user=self.api_user)
@@ -172,16 +173,16 @@ class NodeListViewTest(APITestCase):
                              status.HTTP_405_METHOD_NOT_ALLOWED)
 
 @override_settings(DPN_NAMESPACE='aptrust')
-class TransferListViewTest(APITestCase):
+class ReplicationTransferListViewTest(APITestCase):
 
     fixtures = ['../data/GroupPermissions.json', ]
 
     def setUp(self):
         # Setup Test Data
         make_test_nodes()
-        make_test_registry_entries(100)
+        make_test_bags(100)
         make_test_transfers()
-        self.url = reverse('api:transfer-list')
+        self.url = reverse('api:replication-list')
         self.api_user = _make_api_user()
         self.api_admin = _make_api_admin()
 
@@ -196,23 +197,23 @@ class TransferListViewTest(APITestCase):
             self.assertEqual(rsp.status_code, status.HTTP_200_OK)
 
         # It should return only transfers for the users node.
-        xfers = Transfer.objects.filter(node=self.api_user.profile.node)
+        xfers = ReplicationTransfer.objects.filter(to_node=self.api_user.profile.node)
         _test_return_count(self.api_user, self.url, xfers.count())
 
         # It should return all transfers for superusers.
-        xfers = Transfer.objects.all()
+        xfers = ReplicationTransfer.objects.all()
         _test_return_count(self.api_admin, self.url, xfers.count())
 
         mynode = Node.objects.get(namespace=settings.DPN_NAMESPACE)
-        # It should filter transfers by dpn_object_id
-        reg = RegistryEntry.objects.filter(first_node=mynode).order_by('?')[0]
-        xfers = Transfer.objects.filter(registry_entry=reg)
-        url = "%s?dpn_object_id=%s" % (reverse('api:transfer-list'),
-                                       reg.dpn_object_id)
+        # It should filter transfers by bag uuid
+        bag = Bag.objects.filter(original_node=mynode).order_by('?')[0]
+        xfers = ReplicationTransfer.objects.filter(bag=bag)
+        url = "%s?uuid=%s" % (reverse('api:transfer-list'),
+                                       bag.uuid)
         _test_return_count(self.api_admin, url, xfers.count())
 
         # It should filter transfers by status
-        xfer = Transfer.objects.filter(node=self.api_user.profile.node)[0]
+        xfer = ReplicationTransfer.objects.filter(to_node=self.api_user.profile.node)[0]
         xfer.status = "A"
         xfer.save()
         url = "%s?status=A" % reverse('api:transfer-list')
@@ -226,8 +227,8 @@ class TransferListViewTest(APITestCase):
 
         # It should filter based on Node
         node = self.api_user.profile.node
-        xfers = Transfer.objects.filter(node=node)
-        url = "%s?node=%s" % (reverse('api:transfer-list'), node.namespace)
+        xfers = ReplicationTransfer.objects.filter(to_node=node)
+        url = "%s?to_node=%s" % (reverse('api:transfer-list'), node.namespace)
         _test_return_count(self.api_admin, url, xfers.count())
 
     def test_post(self):
@@ -242,10 +243,10 @@ class TransferListViewTest(APITestCase):
         self.assertEqual(rsp.status_code, status.HTTP_403_FORBIDDEN)
 
         # Create a test transfer post.
-        reg = RegistryEntry.objects.filter(first_node__namespace=settings.DPN_NAMESPACE)[0]
+        bag = Bag.objects.filter(original_node__namespace=settings.DPN_NAMESPACE)[0]
         data = {
-            "dpn_object_id": reg.dpn_object_id,
-            "link": "sshaccount@dpnserver.test.org:%s.tar" % reg.dpn_object_id,
+            "uuid": bag.uuid,
+            "link": "sshaccount@dpnserver.test.org:%s.tar" % bag.uuid,
             "node": Node.objects.exclude(namespace=settings.DPN_NAMESPACE)[0].namespace,
             "size": random.getrandbits(32),
             "exp_fixity": "%x" % random.getrandbits(128),
@@ -267,18 +268,18 @@ class TransferListViewTest(APITestCase):
 
 ## Detail Views
 @override_settings(DPN_NAMESPACE='aptrust')
-class RegistryDetailViewTest(APITestCase):
+class BagDetailViewTest(APITestCase):
 
     fixtures = ['../data/GroupPermissions.json',]
 
     def setUp(self):
         make_test_nodes()
-        make_test_registry_entries(100)
+        make_test_bags(100)
         self.api_user = _make_api_user()
         self.api_admin = _make_api_admin()
-        entry = RegistryEntry.objects.filter(first_node__namespace=settings.DPN_NAMESPACE)[0]
-        self.url = reverse('api:registry-detail',
-                           kwargs={'dpn_object_id': entry.dpn_object_id})
+        bag = Bag.objects.filter(original_node__namespace=settings.DPN_NAMESPACE)[0]
+        self.url = reverse('api:bag-detail',
+                           kwargs={'uuid': bag.uuid})
     def test_get(self):
         token = Token.objects.get(user=self.api_user)
         self.client.credentials(HTTP_AUTHORIZATION='token %s' % token.key)
@@ -315,7 +316,7 @@ class RegistryDetailViewTest(APITestCase):
             rsp = self.client.put(self.url, data)
             self.assertEqual(rsp.status_code, exp_code)
 
-        # It should allow api_admins to update entries
+        # It should allow api_admins to update bags
         _test_expected_codes(self.api_user, status.HTTP_403_FORBIDDEN)
         _test_expected_codes(self.api_admin, status.HTTP_200_OK)
 
@@ -332,13 +333,13 @@ class RegistryDetailViewTest(APITestCase):
         _test_expected_codes(self.api_admin, status.HTTP_401_UNAUTHORIZED)
 
 @override_settings(DPN_NAMESPACE='aptrust')
-class TransferDetailViewTest(APITestCase):
+class ReplicationTransferDetailViewTest(APITestCase):
 
     fixtures = ['../data/GroupPermissions.json']
 
     def setUp(self):
         make_test_nodes()
-        make_test_registry_entries(100)
+        make_test_bags(100)
         make_test_transfers()
 
         self.api_user = _make_api_user()
@@ -354,20 +355,26 @@ class TransferDetailViewTest(APITestCase):
         token = Token.objects.get(user=self.api_user)
         self.client.credentials(HTTP_AUTHORIZATION="Token %s" % token.key)
         # It should allow authenticated users to see xfers from their own node
-        xfer = self.api_user.profile.node.transfer_set.all()[0]
-        url = reverse('api:transfer-detail',
-                      kwargs={"event_id": xfer.event_id})
+        # Test replication objects are generated randomly, so there may not
+        # be one for our api_user's node. Let's make sure there is one...
+        replication = ReplicationTransfer.objects.first()
+        replication.from_node = self.api_user.profile.node
+        replication.save()
+
+        xfer = self.api_user.profile.node.transfers_out.all()[0]
+        url = reverse('api:replication-detail',
+                      kwargs={"replication_id": xfer.replication_id})
         rsp = self.client.get(url)
 
-        self.assertEqual(rsp.status_code, status.HTTP_200_OK,  rsp.content)
+        self.assertEqual(rsp.status_code, status.HTTP_200_OK, rsp.content)
 
         # It should not allow authenticated user to see xfers from other nodes
-        # xfer = Transfer.objects.exlude(node=self.api_user.profile.node)[0]
+        # xfer = ReplicationTransfer.objects.exlude(to_node=self.api_user.profile.node)[0]
 
         #_test_own_node(self.api_admin)
 
         # def _test_other_node(usr):
-        #     xfer = Transfer.objects.exclude(node=usr.profile.node)[0]
+        #     xfer = ReplicationTransfer.objects.exclude(to_node=usr.profile.node)[0]
         #     url = reverse('api:transfer-detail',
         #                   kwargs={'event_id': xfer.event_id})
         #     token = Token.objects.get(user=usr)

@@ -11,8 +11,14 @@ from dpn.data.models import UserProfile
 class IsNodeUser(permissions.BasePermission):
 
     def has_object_permission(self, request, view, obj):
-        if request.user.is_superuser:
+        # Any authenticated user can read, but to write permissions
+        # are stricter.
+        if request.method in permissions.SAFE_METHODS:
             return True
-        if request.user.profile.node == obj.node:
-            return True
-        return False
+        else:
+            if request.user.is_superuser:
+                return True
+            if (request.user.profile.node == obj.from_node or
+                request.user.profile.node == obj.to_node):
+                return True
+            return False

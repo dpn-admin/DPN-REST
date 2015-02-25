@@ -147,11 +147,11 @@ class Bag(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=False, auto_now_add=True)
 
-    def original_fixity(self, algorithm):
+    def original_fixity(self, algorithm="sha256"):
         """
         Returns the original fixity value for this object.
         """
-        return self.fixity.filter(algorithm=algorithm).order_by("created_at").first()
+        return self.fixities.filter(algorithm=algorithm).order_by("created_at").first()
 
     class Meta:
         ordering = ['-updated_at']
@@ -273,7 +273,7 @@ def _register_node_xfer(sender, instance, created, **kwargs):
     registry entry for replicating nodes.
     """
     if instance.status == CONFIRMED:
-        instance.bag.replicating_nodes.add(instance.node)
+        instance.bag.replicating_nodes.add(instance.to_node)
 
 post_save.connect(_register_node_xfer, sender=ReplicationTransfer)
 
