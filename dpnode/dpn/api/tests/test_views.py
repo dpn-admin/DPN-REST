@@ -79,18 +79,20 @@ class BagListViewTest(APITestCase):
             previous = current
 
     def test_put(self):
-        # It should not allow this method.
+        # It should not allow this method. You can't update a bag.
+        # You have to post a new version and increment the version
+        # number.
         token = Token.objects.get(user=self.api_user)
         self.client.credentials(HTTP_AUTHORIZATION="Token %s" % token.key)
         rsp = self.client.put(self.url, {})
-        self.assertEqual(rsp.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(rsp.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
     def test_patch(self):
         # It should not allow this method.
         token = Token.objects.get(user=self.api_user)
         self.client.credentials(HTTP_AUTHORIZATION="Token %s" % token.key)
         rsp = self.client.patch(self.url, {})
-        self.assertEqual(rsp.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(rsp.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
     def test_post(self):
         data = make_bag_postdata()
@@ -102,10 +104,17 @@ class BagListViewTest(APITestCase):
             }]
 
         # It should not allows api_users to create a record
+        #
+        # THIS TEST IS FAILING BECAUSE data['fixities'] IS BEING
+        # PASSED THROUGH TO THE BACK END AS AN EMPTY ARRAY. WHY??
+        #
+        # IT FAILS ON 400/VALIDATION ERROR BEFORE IT GETS TO THE
+        # PERMISSION CHECK.
+        #
         token = Token.objects.get(user=self.api_user)
         self.client.credentials(HTTP_AUTHORIZATION="Token %s" % token.key)
         rsp = self.client.post(self.url, data)
-        self.assertEqual(rsp.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(rsp.status_code, status.HTTP_403_FORBIDDEN, rsp.data)
 
         # It should allow api_admins to create a record.
         token = Token.objects.get(user=self.api_admin)
@@ -222,7 +231,11 @@ class ReplicationTransferListViewTest(APITestCase):
         _test_return_count(self.api_admin, url, xfers.count())
 
         # It should filter transfers by status
-        xfer = ReplicationTransfer.objects.filter(to_node=self.api_user.profile.node)[0]
+        #
+        # THIS FILTER WORKS AS EXPECTED IN MANUAL TESTS, BUT DOES NOT WORK
+        # IN THIS TEST. WHY?????
+        #
+        xfer = ReplicationTransfer.objects.filter(to_node=self.api_user.profile.node).first()
         xfer.status = REJECTED
         xfer.save()
         url = "%s?status=%s" % (reverse('api:replication-list'), REJECTED)
@@ -302,13 +315,14 @@ class BagDetailViewTest(APITestCase):
         token = Token.objects.get(user=usr)
         self.client.credentials(HTTP_AUTHORIZATION='Token %s' % token.key)
         rsp = fn(self.url, {})
-        self.assertEqual(rsp.status_code, exp_code)
+        self.assertEqual(rsp.status_code, exp_code, rsp.data)
 
     def test_post(self):
+        # You can't post to this endpoint
         self._test_status(self.api_admin, self.client.post,
                           status.HTTP_405_METHOD_NOT_ALLOWED)
         self._test_status(self.api_user, self.client.post,
-                          status.HTTP_403_FORBIDDEN)
+                          status.HTTP_405_METHOD_NOT_ALLOWED)
 
     def test_patch(self):
         #self._test_status(self.api_admin, self.client.patch,

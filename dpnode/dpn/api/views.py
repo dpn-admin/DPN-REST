@@ -41,13 +41,22 @@ class BagFilter(django_filters.FilterSet):
         fields = ['before', 'after', 'first_node', 'bag_type',]
 
 
-class TransferFilterSet(django_filters.FilterSet):
+class ReplicationTransferFilterSet(django_filters.FilterSet):
     bag = django_filters.CharFilter(name='bag__uuid')
     to_node = django_filters.CharFilter(name="to_node__namespace")
-    status = django_filters.CharFilter(name="status")
+
     class Meta:
         model = ReplicationTransfer
-        fields = ["bag", "status", "to_node"]
+        fields = ["bag", "to_node", "status",]
+
+
+class RestoreTransferFilterSet(django_filters.FilterSet):
+    bag = django_filters.CharFilter(name='bag__uuid')
+    to_node = django_filters.CharFilter(name="to_node__namespace")
+
+    class Meta:
+        model = RestoreTransfer
+        fields = ["bag", "to_node", "status",]
 
 # class NodeMemberFilterBackend(filters.BaseFilterBackend):
 #     """
@@ -102,7 +111,7 @@ class ReplicationTransferListView(generics.ListCreateAPIView):
 
     queryset = ReplicationTransfer.objects.all()
     filter_backends = (filters.OrderingFilter, filters.DjangoFilterBackend)
-    filter_class = TransferFilterSet
+    filter_class = ReplicationTransferFilterSet
     ordering_fields = ('created_on', 'updated_on')
 
     def get_serializer_class(self):
@@ -129,7 +138,7 @@ class RestoreTransferListView(generics.ListCreateAPIView):
 
     queryset = RestoreTransfer.objects.all()
     filter_backends = (filters.OrderingFilter, filters.DjangoFilterBackend)
-    filter_class = TransferFilterSet
+    filter_class = ReplicationTransferFilterSet
     ordering_fields = ('created_on', 'updated_on')
 
     def get_serializer_class(self):
