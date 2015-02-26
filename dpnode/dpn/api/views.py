@@ -44,10 +44,11 @@ class BagFilter(django_filters.FilterSet):
 class ReplicationTransferFilterSet(django_filters.FilterSet):
     bag = django_filters.CharFilter(name='bag__uuid')
     to_node = django_filters.CharFilter(name="to_node__namespace")
+    from_node = django_filters.CharFilter(name="from_node__namespace")
 
     class Meta:
         model = ReplicationTransfer
-        fields = ["bag", "to_node", "status",]
+        fields = ["bag", "to_node", "from_node", "status"]
 
 
 class RestoreTransferFilterSet(django_filters.FilterSet):
@@ -56,7 +57,7 @@ class RestoreTransferFilterSet(django_filters.FilterSet):
 
     class Meta:
         model = RestoreTransfer
-        fields = ["bag", "to_node", "status",]
+        fields = ["bag", "to_node", "status"]
 
 # class NodeMemberFilterBackend(filters.BaseFilterBackend):
 #     """
