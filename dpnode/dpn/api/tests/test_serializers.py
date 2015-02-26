@@ -169,6 +169,14 @@ class BasicRestoreSerializerTest(TestCase):
 
     def test_data(self):
         # It should validate based on this structure.
+        make_test_nodes()
+        data = make_bag_data()
+        data['uuid'] = RESTORE_DATA["bag"]
+        data['original_node'] = Node.objects.get(namespace=RESTORE_POST["from_node"])
+        data['admin_node'] = Node.objects.get(namespace=RESTORE_POST["from_node"])
+        bag = Bag(**data)
+        bag.save()
+
         restore = BasicRestoreSerializer(data=RESTORE_DATA)
         self.assertTrue(restore.is_valid(), restore._errors)
 

@@ -98,6 +98,9 @@ class BasicRestoreSerializer(serializers.ModelSerializer):
     to_node = serializers.SlugRelatedField(
         slug_field="namespace",
         read_only=True)
+    bag = serializers.SlugRelatedField(
+        queryset=Bag.objects.all(),
+        slug_field="uuid")
 
     class Meta:
         model = RestoreTransfer
@@ -112,6 +115,9 @@ class CreateRestoreSerializer(serializers.ModelSerializer):
     to_node = serializers.SlugRelatedField(
         queryset=Node.objects.all(),
         slug_field="namespace")
+    from_node = serializers.SlugRelatedField(
+        queryset=Node.objects.all(),
+        slug_field="namespace")
     bag = serializers.SlugRelatedField(
         queryset=Bag.objects.all(),
         slug_field="uuid")
@@ -119,7 +125,7 @@ class CreateRestoreSerializer(serializers.ModelSerializer):
     class Meta:
         model = RestoreTransfer
         depth = 1
-        fields = ('to_node', 'bag', 'protocol', 'link')
+        fields = ('from_node', 'to_node', 'bag', 'protocol', 'link')
         read_only_fields = ('restore_id',)
 
 
