@@ -138,7 +138,7 @@ class RestoreTransferListView(generics.ListCreateAPIView):
 
     queryset = RestoreTransfer.objects.all()
     filter_backends = (filters.OrderingFilter, filters.DjangoFilterBackend)
-    filter_class = ReplicationTransferFilterSet
+    filter_class = RestoreTransferFilterSet
     ordering_fields = ('created_on', 'updated_on')
 
     def get_serializer_class(self):
