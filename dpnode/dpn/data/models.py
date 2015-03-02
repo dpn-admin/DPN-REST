@@ -198,8 +198,8 @@ class ReplicationTransfer(models.Model):
     bag = models.ForeignKey(Bag, related_name="replication_transfers")
     fixity_algorithm = models.CharField(max_length=6, choices=FIXITY_CHOICES,
                                         default=SHA256)
-    fixity_nonce = models.CharField(max_length=128, null=True)
-    fixity_value = models.CharField(max_length=128, null=True)
+    fixity_nonce = models.CharField(max_length=128, null=True, blank=True)
+    fixity_value = models.CharField(max_length=128, null=True, blank=True)
     fixity_accept = models.NullBooleanField()
     bag_valid = models.NullBooleanField()
     status = models.CharField(max_length=10, choices=REPL_STATUS_CHOICES,
