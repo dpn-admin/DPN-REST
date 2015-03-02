@@ -86,7 +86,7 @@ class CreateReplicationSerializer(serializers.ModelSerializer):
     class Meta:
         model = ReplicationTransfer
         depth = 1
-        fields = ('from_node', 'to_node', 'bag', 'fixity_algorithm',
+        fields = ('from_node', 'to_node', 'fixity_algorithm',
                   'fixity_nonce', 'protocol', 'link')
         read_only_fields = ('replication_id',)
 

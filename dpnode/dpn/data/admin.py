@@ -36,7 +36,6 @@ class ReplicationTransferAdmin(admin.ModelAdmin):
                     'fixity_value', 'link')
     list_filter = ('protocol', 'from_node', 'to_node', 'fixity_algorithm',
                    'fixity_accept', 'bag_valid', 'status')
-    readonly_fields = ('bag',)
     list_display_links = ['replication_id']
     search_fields = ['replication_id',]
 
