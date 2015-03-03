@@ -233,23 +233,20 @@ class ReplicationTransferListViewTest(APITestCase):
         _test_return_count(self.api_admin, url, xfers.count())
 
         # It should filter transfers by status
-        #
-        # THIS FILTER WORKS AS EXPECTED IN MANUAL TESTS, BUT DOES NOT WORK
-        # IN THIS TEST. WHY?????
-        #
-        xfer = ReplicationTransfer.objects.filter(to_node=self.api_user.profile.node).first()
+        xfer = ReplicationTransfer.objects.all().first()
         xfer.status = REJECTED
         xfer.save()
         url = "%s?status=%s" % (reverse('api:replication-list'), REJECTED)
         _test_return_count(self.api_user, url, 1)
 
-        # It should filter based on Fixity.
-        xfer.receipt = xfer.exp_fixity
-        xfer.save()
-        url = "%s?fixity=True" % reverse('api:replication-list')
-        _test_return_count(self.api_user, url, 1)
+        # It should filter based on bag uuid
+        # Test data generator creates two transfer requests
+        # for each bag.
+        bag = ReplicationTransfer.objects.all().first().bag
+        url = "%s?bag=%s" % (reverse('api:replication-list'), bag.uuid)
+        _test_return_count(self.api_admin, url, 2)
 
-        # It should filter based on Node
+        # It should filter based on to_node
         node = self.api_user.profile.node
         xfers = ReplicationTransfer.objects.filter(to_node=node)
         url = "%s?to_node=%s" % (reverse('api:replication-list'), node.namespace)

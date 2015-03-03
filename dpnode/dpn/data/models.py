@@ -222,6 +222,7 @@ class ReplicationTransfer(models.Model):
     def _fixity_matches(self):
         expected_fixity = self.bag.original_fixity(self.fixity_algorithm)
         return (expected_fixity is not None and
+                self.fixity_value and
                 self.fixity_value == expected_fixity.digest)
 
     def save(self, *args, **kwargs):
@@ -229,12 +230,9 @@ class ReplicationTransfer(models.Model):
             if self._fixity_matches():
                 self.fixity_accept = True
                 self.status = CONFIRMED
-            else:
-                if self.fixity_value:
-                    self.fixity_accept = False
-                    self.status = CANCELLED
-                else:
-                    self.status = REQUESTED  # No fixity value yet
+            elif self.fixity_value:
+                self.fixity_accept = False
+                self.status = CANCELLED
         super(ReplicationTransfer, self).save(*args, **kwargs)
 
 
