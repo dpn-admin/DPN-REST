@@ -1,1 +1,70 @@
-[{"pk": 1, "model": "auth.group", "fields": {"name": "api_users", "permissions": [26, 27, 28, 29, 30, 22, 23, 24, 31, 32, 33, 38]}}, {"pk": 2, "model": "auth.group", "fields": {"name": "api_admins", "permissions": [25, 26, 27, 28, 29, 30, 22, 23, 24, 34, 35, 36, 31, 32, 33, 37, 38, 39, 40, 41, 42]}}]
+[
+{
+    "pk": 1,
+    "model": "auth.group",
+    "fields": {
+        "permissions": [
+            [
+                "change_replicationtransfer",
+                "data",
+                "replicationtransfer"
+            ],
+            [
+                "change_restoretransfer",
+                "data",
+                "restoretransfer"
+            ]
+        ],
+        "name": "api_users"
+    }
+},
+{
+    "pk": 2,
+    "model": "auth.group",
+    "fields": {
+        "permissions": [
+            [
+                "add_bag",
+                "data",
+                "bag"
+            ],
+            [
+                "change_bag",
+                "data",
+                "bag"
+            ],
+            [
+                "add_fixity",
+                "data",
+                "fixity"
+            ],
+            [
+                "add_node",
+                "data",
+                "node"
+            ],
+            [
+                "add_replicationtransfer",
+                "data",
+                "replicationtransfer"
+            ],
+            [
+                "change_replicationtransfer",
+                "data",
+                "replicationtransfer"
+            ],
+            [
+                "add_restoretransfer",
+                "data",
+                "restoretransfer"
+            ],
+            [
+                "change_restoretransfer",
+                "data",
+                "restoretransfer"
+            ]
+        ],
+        "name": "api_admins"
+    }
+}
+]

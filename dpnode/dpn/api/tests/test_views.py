@@ -85,14 +85,14 @@ class BagListViewTest(APITestCase):
         token = Token.objects.get(user=self.api_user)
         self.client.credentials(HTTP_AUTHORIZATION="Token %s" % token.key)
         rsp = self.client.put(self.url, {})
-        self.assertEqual(rsp.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+        self.assertEqual(rsp.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_patch(self):
         # It should not allow this method.
         token = Token.objects.get(user=self.api_user)
         self.client.credentials(HTTP_AUTHORIZATION="Token %s" % token.key)
         rsp = self.client.patch(self.url, {})
-        self.assertEqual(rsp.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+        self.assertEqual(rsp.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_post(self):
         data = make_bag_postdata()
@@ -102,21 +102,16 @@ class BagListViewTest(APITestCase):
                     "digest": "909090909078787878781234",
                     "created_at": "2015-02-25T15:27:40.383861Z"
             }]
+        data['original_node'] = 'aptrust'
+        data['admin_node'] = 'aptrust'
 
-        # It should not allows api_users to create a record
-        #
-        # THIS TEST IS FAILING BECAUSE data['fixities'] IS BEING
-        # PASSED THROUGH TO THE BACK END AS AN EMPTY ARRAY. WHY??
-        #
-        # IT FAILS ON 400/VALIDATION ERROR BEFORE IT GETS TO THE
-        # PERMISSION CHECK.
-        #
+        # It should not allows api_users to create a bag
         token = Token.objects.get(user=self.api_user)
         self.client.credentials(HTTP_AUTHORIZATION="Token %s" % token.key)
-        rsp = self.client.post(self.url, data)
+        rsp = self.client.post(self.url, json.dumps(data), content_type='application/json')
         self.assertEqual(rsp.status_code, status.HTTP_403_FORBIDDEN, rsp.data)
 
-        # It should allow api_admins to create a record.
+        # It should allow api_admins to create a bag.
         token = Token.objects.get(user=self.api_admin)
         self.client.credentials(HTTP_AUTHORIZATION="Token %s" % token.key)
         rsp = self.client.post(self.url, data, format="json")
@@ -174,20 +169,27 @@ class NodeListViewTest(APITestCase):
     def test_bad_requests(self):
         tokens = [Token.objects.get(user=self.api_admin),
                   Token.objects.get(user=self.api_user)]
+        # these methods are not implemented, but you may get a 403
+        # for api_user, since the permission check happens early in
+        # the request.
         for token in tokens:
             self.client.credentials(HTTP_AUTHORIZATION="Token %s" % token.key)
-            # put not allowed
+            # put not implemented
             rsp = self.client.put(self.url)
-            self.assertEqual(rsp.status_code,
-                             status.HTTP_405_METHOD_NOT_ALLOWED)
+            self.assertIn(rsp.status_code,
+                          [status.HTTP_403_FORBIDDEN,
+                           status.HTTP_405_METHOD_NOT_ALLOWED])
             # patch not allowed
             rsp = self.client.patch(self.url)
-            self.assertEqual(rsp.status_code,
-                             status.HTTP_405_METHOD_NOT_ALLOWED)
+            self.assertIn(rsp.status_code,
+                          [status.HTTP_403_FORBIDDEN,
+                           status.HTTP_405_METHOD_NOT_ALLOWED])
+
             # delete not allowed
             rsp = self.client.delete(self.url)
-            self.assertEqual(rsp.status_code,
-                             status.HTTP_405_METHOD_NOT_ALLOWED)
+            self.assertIn(rsp.status_code,
+                          [status.HTTP_403_FORBIDDEN,
+                           status.HTTP_405_METHOD_NOT_ALLOWED])
 
 @override_settings(DPN_NAMESPACE='aptrust')
 class ReplicationTransferListViewTest(APITestCase):
@@ -322,7 +324,7 @@ class BagDetailViewTest(APITestCase):
         self._test_status(self.api_admin, self.client.post,
                           status.HTTP_405_METHOD_NOT_ALLOWED)
         self._test_status(self.api_user, self.client.post,
-                          status.HTTP_405_METHOD_NOT_ALLOWED)
+                          status.HTTP_403_FORBIDDEN)
 
     def test_patch(self):
         #self._test_status(self.api_admin, self.client.patch,
