@@ -6,14 +6,16 @@
 """
 
 import json
+import random
 from django.test import TestCase
-from dpn.api.serializers import CreateReplicationSerializer, CreateRestoreSerializer
+from dpn.api.serializers import CreateReplicationSerializer
+from dpn.api.serializers import CreateRestoreSerializer
 from dpn.api.serializers import BasicReplicationSerializer, NodeSerializer
 from dpn.api.serializers import BagSerializer, BasicRestoreSerializer
 
-
-from dpn.data.models import Bag, Node, Protocol
+from dpn.data.models import Bag, Node, Protocol, Fixity, FixityAlgorithm
 from dpn.data.tests.utils import make_bag_data, make_test_nodes
+from dpn.data.tests.utils import make_fixity_algs, sha256_algorithm
 
 # Data Fixtures
 # The point here is to use the exact same structures posted to the Wiki
@@ -128,6 +130,7 @@ class CreateReplicationSerializerTest(TestCase):
         self.assertFalse(repl.is_valid(), "Did not expect this to validate!")
 
         make_test_nodes()
+        make_fixity_algs()
         data = make_bag_data()
         data['uuid'] = REPL_POST["bag"]
         data['original_node'] = Node.objects.get(namespace=REPL_POST["from_node"])
@@ -149,20 +152,29 @@ class BasicReplicationSerializerTest(TestCase):
 class CreateRestoreSerializerTest(TestCase):
 
     def test_data(self):
-        restore = CreateReplicationSerializer(data=RESTORE_POST)
+        restore = CreateRestoreSerializer(data=RESTORE_POST)
         # It should fail to validate if related objects not created.
         self.assertFalse(restore.is_valid(), "Did not expect this to validate!")
 
+        # Set up data for this test...
         make_test_nodes()
+        make_fixity_algs()
         data = make_bag_data()
         data['uuid'] = RESTORE_POST["bag"]
         data['original_node'] = Node.objects.get(namespace=RESTORE_POST["from_node"])
         data['admin_node'] = Node.objects.get(namespace=RESTORE_POST["from_node"])
-        re = Bag(**data)
-        re.save()
+        bag = Bag(**data)
+        bag.save()
+        fixity = Fixity(
+            algorithm=sha256_algorithm(),
+            digest=random.getrandbits(64),
+            bag=bag
+        )
+        bag.fixities.add(fixity)
+
 
         # It should validate with good data.
-        restore = CreateReplicationSerializer(data=RESTORE_POST)
+        restore = CreateRestoreSerializer(data=RESTORE_POST)
         self.assertTrue(restore.is_valid(), restore._errors)
 
 class BasicRestoreSerializerTest(TestCase):
@@ -192,5 +204,6 @@ class BagSerializerTest(TestCase):
 
     def test_data(self):
         make_test_nodes()
+        make_fixity_algs()
         reg = BagSerializer(data=BAG_DATA)
         self.assertTrue(reg.is_valid(), reg._errors)

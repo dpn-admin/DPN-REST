@@ -16,7 +16,8 @@ from rest_framework.authtoken.models import Token
 
 from dpn.data.models import Bag, Node, ReplicationTransfer
 from dpn.data.models import RestoreTransfer, Storage, Fixity
-from dpn.data.models import UserProfile, DATA, RSYNC, SHA256, Protocol
+from dpn.data.models import FixityAlgorithm
+from dpn.data.models import UserProfile, DATA, RSYNC, Protocol
 from dpn.data.utils import dpn_strftime
 
 
@@ -139,12 +140,26 @@ def make_bag_postdata():
     return data
 
 
+def sha256_algorithm():
+    alg = FixityAlgorithm.objects.filter(name='sha256').first()
+    if alg is None:
+        alg = FixityAlgorithm(name='sha256')
+        alg.save()
+    return alg
+
+
+# Some tests need to ensure this algorithm exists
+# before they can run.
+def make_fixity_algs():
+    sha256_algorithm()  # Called just for side-effect
+
+
 def make_test_bags(num=10):
     for i in range(num):
         bag = Bag(**make_bag_postdata())
         bag.save()
         fixity = Fixity(
-            algorithm=SHA256,
+            algorithm=sha256_algorithm(),
             digest=random.getrandbits(64),
             bag=bag
         )
@@ -156,7 +171,7 @@ def make_test_transfers():
             original_node__namespace=settings.DPN_NAMESPACE):
         data = {
             "bag": bag,
-            "fixity_algorithm": "sha256",
+            "fixity_algorithm": sha256_algorithm(),
             "protocol": RSYNC,
         }
         restore_data = data.copy()

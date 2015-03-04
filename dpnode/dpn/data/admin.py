@@ -14,6 +14,11 @@ from dpn.data import models
 class StorageInline(admin.TabularInline):
     model = models.Storage
 
+@admin.register(models.FixityAlgorithm)
+class FixityAlgorithmAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    list_display_links = ('name',)
+
 @admin.register(models.Node)
 class NodeAdmin(admin.ModelAdmin):
     list_display = ('name', 'last_pull_date')

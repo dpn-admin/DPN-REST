@@ -48,12 +48,15 @@ directory, which is usually /usr/lib/python3.4
   EarthDover/dpnode/localsettings.py and configure as needed.
 * From EarthDiver/dpnode/ run `python manage.py migrate` **twice** the first
   time (It needs to run the base migrations than the local ones).
-    
+* Load the base data by running 'python manage.py loaddata ../data/PreloadData.json'
+  That will load data that must exist in the database, such as the sha256
+  fixity algorithm that all nodes must initially support.
+
 ### System Dependencies
 
 * In development it will frequently require you to have some development
   libraries installed as well.
-  
+
   `>sudo apt-get install libpython3-dev, libyaml-dev`
 
 ## Setup SuperUser & Groups

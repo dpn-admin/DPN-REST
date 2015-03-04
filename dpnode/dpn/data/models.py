@@ -50,10 +50,6 @@ TYPE_CHOICES = (
     (RIGHTS, 'Rights'),
     (BRIGHTENING, 'Brightening')
 )
-SHA256 = 'sha256'
-FIXITY_CHOICES = (
-    (SHA256, SHA256),
-)
 US_STATES = ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DC", "DE", "FL", "GA",
              "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD",
              "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ",
@@ -63,6 +59,16 @@ US_STATE_CHOICES = ((code, code) for code in US_STATES)
 
 
 class Protocol(models.Model):
+    name = models.CharField(max_length=20, primary_key=True)
+
+    def __unicode__(self):
+        return self.name
+
+    def __str__(self):
+        return '%s' % self.__unicode__()
+
+
+class FixityAlgorithm(models.Model):
     name = models.CharField(max_length=20, primary_key=True)
 
     def __unicode__(self):
@@ -89,6 +95,8 @@ class Node(models.Model):
         "self", null=True, blank=True, related_name='+')
     restore_to = models.ManyToManyField(
         "self", null=True, blank=True, related_name='+')
+    fixity_algorithms = models.ManyToManyField(
+        FixityAlgorithm, null=True, blank=True, related_name='+')
     protocols = models.ManyToManyField(Protocol, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True, auto_now=True)
@@ -151,7 +159,7 @@ class Bag(models.Model):
         """
         Returns the original fixity value for this object.
         """
-        return self.fixities.filter(algorithm=algorithm).order_by("created_at").first()
+        return self.fixities.filter(algorithm__name=algorithm).order_by("created_at").first()
 
     class Meta:
         ordering = ['-updated_at']
@@ -169,16 +177,16 @@ class Fixity(models.Model):
     and cannot be updated.
     """
     bag = models.ForeignKey(Bag, related_name="fixities")
-    algorithm = models.CharField(max_length=10, choices=FIXITY_CHOICES)
+    algorithm = models.ForeignKey(FixityAlgorithm, null=False, blank=False)
     digest = models.CharField(max_length=128)
     created_at = models.DateTimeField(auto_now_add=True)
 
     @property
     def alg_and_digest(self):
-        return "%s:%s" % (self.algorithm, self.digest)
+        return "%s:%s" % (self.algorithm.name, self.digest)
 
     def __unicode__(self):
-        return "%s:%s" % (self.algorithm, self.digest)
+        return "%s:%s" % (self.algorithm.name, self.digest)
 
     def __str__(self):
         return self.__unicode__()
@@ -196,8 +204,8 @@ class ReplicationTransfer(models.Model):
     to_node = models.ForeignKey(
         Node, null=False, related_name="transfers_in")
     bag = models.ForeignKey(Bag, related_name="replication_transfers")
-    fixity_algorithm = models.CharField(max_length=6, choices=FIXITY_CHOICES,
-                                        default=SHA256)
+    fixity_algorithm = models.ForeignKey(
+        FixityAlgorithm, null=False, related_name='+')
     fixity_nonce = models.CharField(max_length=128, null=True, blank=True)
     fixity_value = models.CharField(max_length=128, null=True, blank=True)
     fixity_accept = models.NullBooleanField()
@@ -220,7 +228,7 @@ class ReplicationTransfer(models.Model):
         return '%s' % self.__unicode__()
 
     def _fixity_matches(self):
-        expected_fixity = self.bag.original_fixity(self.fixity_algorithm)
+        expected_fixity = self.bag.original_fixity(self.fixity_algorithm.name)
         return (expected_fixity is not None and
                 self.fixity_value and
                 self.fixity_value == expected_fixity.digest)

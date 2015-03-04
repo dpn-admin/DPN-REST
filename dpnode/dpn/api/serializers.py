@@ -7,7 +7,7 @@ from django.utils import timezone
 from rest_framework import serializers
 
 from dpn.data.models import Node, ReplicationTransfer, RestoreTransfer
-from dpn.data.models import Bag, Fixity, Storage, Protocol
+from dpn.data.models import Bag, Fixity, Storage, Protocol, FixityAlgorithm
 
 
 class StorageSerializer(serializers.ModelSerializer):
@@ -17,9 +17,13 @@ class StorageSerializer(serializers.ModelSerializer):
 
 
 class FixitySerializer(serializers.ModelSerializer):
+    algorithm = serializers.SlugRelatedField(
+        queryset=FixityAlgorithm.objects.all(),
+        slug_field="name")
+
     class Meta:
         model = Fixity
-        exclude = ('id', 'bag',)
+        exclude = ('id', 'bag')
 
 
 class NodeSerializer(serializers.ModelSerializer):
@@ -82,6 +86,9 @@ class CreateReplicationSerializer(serializers.ModelSerializer):
     bag = serializers.SlugRelatedField(
         queryset=Bag.objects.all(),
         slug_field="uuid")
+    fixity_algorithm = serializers.SlugRelatedField(
+        queryset=FixityAlgorithm.objects.all(),
+        slug_field="name")
 
     class Meta:
         model = ReplicationTransfer
@@ -130,6 +137,10 @@ class CreateRestoreSerializer(serializers.ModelSerializer):
 
 
 class FixityReadOnlySerializer(serializers.ModelSerializer):
+    algorithm = serializers.SlugRelatedField(
+        slug_field="name",
+        read_only=True)
+
     class Meta:
         model = Fixity
         read_only_fields = ('algorithm', 'digest', 'created_at')
