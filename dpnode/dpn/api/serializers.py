@@ -48,6 +48,10 @@ class NodeSerializer(serializers.ModelSerializer):
         slug_field="namespace",
         many=True,
         read_only=True)
+    fixity_algorithms = serializers.SlugRelatedField(
+        slug_field="name",
+        many=True,
+        read_only=True)
 
     class Meta:
         model = Node
