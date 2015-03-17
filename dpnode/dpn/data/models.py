@@ -44,11 +44,11 @@ PROTOCOL_CHOICES = (
 # BAG TYPE INFORMATION
 DATA = 'D'
 RIGHTS = 'R'
-BRIGHTENING = 'B'
+INTERPRETIVE = 'I'
 TYPE_CHOICES = (
     (DATA, 'Data'),
     (RIGHTS, 'Rights'),
-    (BRIGHTENING, 'Brightening')
+    (INTERPRETIVE, 'Interpretive')
 )
 US_STATES = ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DC", "DE", "FL", "GA",
              "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD",
@@ -143,8 +143,8 @@ class Bag(models.Model):
                                 default=DATA)
     rights = models.ManyToManyField(
         "self", null=True, blank=True, related_name="rights_for")
-    brightening = models.ManyToManyField(
-        "self", null=True, blank=True, related_name="brightening_for")
+    interpretive = models.ManyToManyField(
+        "self", null=True, blank=True, related_name="interpretive_for")
     replicating_nodes = models.ManyToManyField(
         Node, related_name="replicated_bags",
         help_text="Nodes that have confirmed successful transfers.")

@@ -155,7 +155,7 @@ class BagSerializer(serializers.ModelSerializer):
     original_node = serializers.SlugRelatedField(
         queryset=Node.objects.all(),
         slug_field="namespace")
-    brightening = serializers.SlugRelatedField(
+    interpretive = serializers.SlugRelatedField(
         queryset=Bag.objects.all(),
         slug_field='uuid',
         many=True,

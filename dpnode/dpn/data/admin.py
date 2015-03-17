@@ -32,7 +32,7 @@ class BagAdmin(admin.ModelAdmin):
     list_display = ('uuid', 'original_node', 'size', 'bag_type')
     list_display_links = ('uuid',)
     list_filter = ('bag_type', 'original_node', 'updated_at')
-    readonly_fields = ('rights', 'brightening', 'replicating_nodes')
+    readonly_fields = ('rights', 'interpretive', 'replicating_nodes')
     search_fields = ['uuid',]
 
 @admin.register(models.ReplicationTransfer)

@@ -100,7 +100,7 @@ NODE_DATA = json.loads("""{
 BAG_DATA = json.loads("""{
     "original_node":"sdr",
     "admin_node":"sdr",
-    "brightening":[],
+    "interpretive":[],
     "rights":[],
     "replicating_nodes":[],
     "uuid":"892c3cca-4e18-4873-9c7e-758f5d17a5e9",
