@@ -23,7 +23,7 @@ from dpn.data.tests.utils import make_fixity_algs, sha256_algorithm
 
 # https://github.com/APTrust/EarthDiver/wiki/API-Endpoint:-Transfer#post-operation-internal
 REPL_POST = json.loads("""{
-    "bag":"8044ea1a-cba5-44e7-a4d5-122f649f81a4",
+    "uuid":"8044ea1a-cba5-44e7-a4d5-122f649f81a4",
     "link":"sshaccount@dpnserver.test.org:8044ea1a-cba5-44e7-a4d5-122f649f81a4.tar",
     "to_node":"chron",
     "from_node":"aptrust",
@@ -51,7 +51,7 @@ REPL_DATA = json.loads("""{
 
 
 RESTORE_POST = json.loads("""{
-    "bag":"8044ea1a-cba5-44e7-a4d5-122f649f81a4",
+    "uuid":"8044ea1a-cba5-44e7-a4d5-122f649f81a4",
     "to_node":"chron",
     "from_node":"aptrust",
     "protocol": "R"
@@ -60,7 +60,7 @@ RESTORE_POST = json.loads("""{
 RESTORE_DATA = json.loads("""{
             "from_node":"aptrust",
             "to_node": "tdr",
-            "bag":"8287ee9e-74f1-490b-8209-800985361134",
+            "uuid":"8287ee9e-74f1-490b-8209-800985361134",
             "status":"Requested",
             "replication_id":"aptrust-1665",
             "protocol":"R",
@@ -132,7 +132,7 @@ class CreateReplicationSerializerTest(TestCase):
         make_test_nodes()
         make_fixity_algs()
         data = make_bag_data()
-        data['uuid'] = REPL_POST["bag"]
+        data['uuid'] = REPL_POST["uuid"]
         data['original_node'] = Node.objects.get(namespace=REPL_POST["from_node"])
         data['admin_node'] = Node.objects.get(namespace=REPL_POST["from_node"])
         re = Bag(**data)
@@ -160,7 +160,7 @@ class CreateRestoreSerializerTest(TestCase):
         make_test_nodes()
         make_fixity_algs()
         data = make_bag_data()
-        data['uuid'] = RESTORE_POST["bag"]
+        data['uuid'] = RESTORE_POST["uuid"]
         data['original_node'] = Node.objects.get(namespace=RESTORE_POST["from_node"])
         data['admin_node'] = Node.objects.get(namespace=RESTORE_POST["from_node"])
         bag = Bag(**data)
@@ -183,7 +183,7 @@ class BasicRestoreSerializerTest(TestCase):
         # It should validate based on this structure.
         make_test_nodes()
         data = make_bag_data()
-        data['uuid'] = RESTORE_DATA["bag"]
+        data['uuid'] = RESTORE_DATA["uuid"]
         data['original_node'] = Node.objects.get(namespace=RESTORE_POST["from_node"])
         data['admin_node'] = Node.objects.get(namespace=RESTORE_POST["from_node"])
         bag = Bag(**data)

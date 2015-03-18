@@ -266,7 +266,7 @@ class ReplicationTransferListViewTest(APITestCase):
         # Create a test transfer post.
         bag = Bag.objects.filter(original_node__namespace=settings.DPN_NAMESPACE)[0]
         data = {
-            "bag": bag.uuid,
+            "uuid": bag.uuid,
             "link": "sshaccount@dpnserver.test.org:%s.tar" % bag.uuid,
             "to_node": Node.objects.exclude(namespace=settings.DPN_NAMESPACE)[0].namespace,
             "from_node": self.api_admin.profile.node.namespace,

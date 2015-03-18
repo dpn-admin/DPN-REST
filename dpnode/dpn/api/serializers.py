@@ -59,6 +59,15 @@ class NodeSerializer(serializers.ModelSerializer):
         exclude = ('ssh_username', 'id', 'last_pull_date',)
         read_only_fields = ('id', 'name', 'ssh_username',)
 
+class BagUuidField(serializers.Field):
+    def to_representation(self, obj):
+        return obj.bag.uuid
+
+    def to_internal_value(self, data):
+        return Bag.objects.filter(uuid=data).first()
+
+    def get_attribute(self, data):
+        return data
 
 class BasicReplicationSerializer(serializers.ModelSerializer):
     from_node = serializers.SlugRelatedField(
@@ -67,15 +76,13 @@ class BasicReplicationSerializer(serializers.ModelSerializer):
     to_node = serializers.SlugRelatedField(
         slug_field="namespace",
         read_only=True)
-    bag = serializers.SlugRelatedField(
-         slug_field="uuid",
-         read_only=True)
+    uuid = serializers.CharField(source='bag.uuid')
 
     class Meta:
         model = ReplicationTransfer
         depth = 2
-        exclude = ('id',)
-        read_only_fields = ('replication_id', 'from_node', 'to_node', 'bag',
+        exclude = ('id', 'bag',)
+        read_only_fields = ('replication_id', 'from_node', 'to_node', 'uuid',
                             'fixity_nonce', 'fixity_accept', 'status',
                             'link', 'protocol', 'created_at', 'updated_at',)
 
@@ -87,9 +94,7 @@ class CreateReplicationSerializer(serializers.ModelSerializer):
     from_node = serializers.SlugRelatedField(
         queryset=Node.objects.all(),
         slug_field="namespace")
-    bag = serializers.SlugRelatedField(
-        queryset=Bag.objects.all(),
-        slug_field="uuid")
+    uuid = BagUuidField()
     fixity_algorithm = serializers.SlugRelatedField(
         queryset=FixityAlgorithm.objects.all(),
         slug_field="name")
@@ -98,8 +103,12 @@ class CreateReplicationSerializer(serializers.ModelSerializer):
         model = ReplicationTransfer
         depth = 1
         fields = ('from_node', 'to_node', 'fixity_algorithm',
-                  'fixity_nonce', 'protocol', 'link', 'bag')
+                  'fixity_nonce', 'protocol', 'link', 'uuid',)
         read_only_fields = ('replication_id',)
+
+    def create(self, validated_data):
+        validated_data['bag'] = validated_data.pop('uuid')
+        return ReplicationTransfer.objects.create(**validated_data)
 
 
 class BasicRestoreSerializer(serializers.ModelSerializer):
@@ -109,15 +118,13 @@ class BasicRestoreSerializer(serializers.ModelSerializer):
     to_node = serializers.SlugRelatedField(
         slug_field="namespace",
         read_only=True)
-    bag = serializers.SlugRelatedField(
-        queryset=Bag.objects.all(),
-        slug_field="uuid")
+    uuid = serializers.CharField(source='bag.uuid')
 
     class Meta:
         model = RestoreTransfer
         depth = 2
-        exclude = ('id',)
-        read_only_fields = ('restore_id', 'from_node', 'to_node', 'bag',
+        exclude = ('id', 'bag')
+        read_only_fields = ('restore_id', 'from_node', 'to_node', 'uuid',
                             'status', 'link', 'protocol', 'created_at',
                             'updated_at',)
 
@@ -129,14 +136,14 @@ class CreateRestoreSerializer(serializers.ModelSerializer):
     from_node = serializers.SlugRelatedField(
         queryset=Node.objects.all(),
         slug_field="namespace")
-    bag = serializers.SlugRelatedField(
+    uuid = serializers.SlugRelatedField(
         queryset=Bag.objects.all(),
         slug_field="uuid")
 
     class Meta:
         model = RestoreTransfer
         depth = 1
-        fields = ('from_node', 'to_node', 'bag', 'protocol', 'link')
+        fields = ('from_node', 'to_node', 'uuid', 'protocol', 'link')
         read_only_fields = ('restore_id',)
 
 
