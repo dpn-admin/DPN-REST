@@ -76,7 +76,7 @@ class BasicReplicationSerializer(serializers.ModelSerializer):
     to_node = serializers.SlugRelatedField(
         slug_field="namespace",
         read_only=True)
-    uuid = serializers.CharField(source='bag.uuid')
+    uuid = serializers.CharField(source='bag.uuid', required=False)
 
     class Meta:
         model = ReplicationTransfer

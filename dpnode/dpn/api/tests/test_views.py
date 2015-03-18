@@ -253,7 +253,7 @@ class ReplicationTransferListViewTest(APITestCase):
         _test_return_count(self.api_admin, url, xfers.count())
 
     def test_post(self):
-        # It should not allow anoymous users from posting
+        # It should not allow anoymous users to post.
         rsp = self.client.post(self.url, {})
         self.assertEqual(rsp.status_code, status.HTTP_401_UNAUTHORIZED)
 
