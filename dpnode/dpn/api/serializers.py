@@ -77,6 +77,7 @@ class BasicReplicationSerializer(serializers.ModelSerializer):
         slug_field="namespace",
         read_only=True)
     uuid = serializers.CharField(source='bag.uuid', required=False)
+    fixity_algorithm = serializers.CharField(source='fixity_algorithm.name', required=False)
 
     class Meta:
         model = ReplicationTransfer
