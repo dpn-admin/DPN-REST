@@ -34,7 +34,7 @@ class BagFilter(django_filters.FilterSet):
         lookup_type='gt',
         input_formats=[settings.DPN_DATE_FORMAT,]
     )
-    first_node = django_filters.CharFilter(name="original_node__namespace")
+    first_node = django_filters.CharFilter(name="ingest_node__namespace")
 
     class Meta:
         model = Bag

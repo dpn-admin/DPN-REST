@@ -29,9 +29,9 @@ class NodeAdmin(admin.ModelAdmin):
 
 @admin.register(models.Bag)
 class BagAdmin(admin.ModelAdmin):
-    list_display = ('uuid', 'original_node', 'size', 'bag_type')
+    list_display = ('uuid', 'ingest_node', 'size', 'bag_type')
     list_display_links = ('uuid',)
-    list_filter = ('bag_type', 'original_node', 'updated_at')
+    list_filter = ('bag_type', 'ingest_node', 'updated_at')
     readonly_fields = ('rights', 'interpretive', 'replicating_nodes')
     search_fields = ['uuid',]
 

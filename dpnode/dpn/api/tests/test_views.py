@@ -102,7 +102,7 @@ class BagListViewTest(APITestCase):
                     "digest": "909090909078787878781234",
                     "created_at": "2015-02-25T15:27:40.383861Z"
             }]
-        data['original_node'] = 'aptrust'
+        data['ingest_node'] = 'aptrust'
         data['admin_node'] = 'aptrust'
 
         # It should not allows api_users to create a bag
@@ -226,7 +226,7 @@ class ReplicationTransferListViewTest(APITestCase):
         mynode = Node.objects.get(namespace=settings.DPN_NAMESPACE)
 
         # It should filter transfers by bag uuid
-        bag = Bag.objects.filter(original_node=mynode).order_by('?')[0]
+        bag = Bag.objects.filter(ingest_node=mynode).order_by('?')[0]
         xfers = ReplicationTransfer.objects.filter(bag=bag)
         url = "%s?bag=%s" % (reverse('api:replication-list'),
                                        bag.uuid)
@@ -264,7 +264,7 @@ class ReplicationTransferListViewTest(APITestCase):
         self.assertEqual(rsp.status_code, status.HTTP_403_FORBIDDEN)
 
         # Create a test transfer post.
-        bag = Bag.objects.filter(original_node__namespace=settings.DPN_NAMESPACE)[0]
+        bag = Bag.objects.filter(ingest_node__namespace=settings.DPN_NAMESPACE)[0]
         data = {
             "uuid": bag.uuid,
             "link": "sshaccount@dpnserver.test.org:%s.tar" % bag.uuid,
@@ -300,7 +300,7 @@ class BagDetailViewTest(APITestCase):
         make_test_bags(100)
         self.api_user = _make_api_user()
         self.api_admin = _make_api_admin()
-        bag = Bag.objects.filter(original_node__namespace=settings.DPN_NAMESPACE)[0]
+        bag = Bag.objects.filter(ingest_node__namespace=settings.DPN_NAMESPACE)[0]
         self.url = reverse('api:bag-detail',
                            kwargs={'uuid': bag.uuid})
     def test_get(self):

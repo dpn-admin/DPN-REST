@@ -159,7 +159,7 @@ class FixityReadOnlySerializer(serializers.ModelSerializer):
 
 
 class BagSerializer(serializers.ModelSerializer):
-    original_node = serializers.SlugRelatedField(
+    ingest_node = serializers.SlugRelatedField(
         queryset=Node.objects.all(),
         slug_field="namespace")
     interpretive = serializers.SlugRelatedField(

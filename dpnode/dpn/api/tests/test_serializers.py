@@ -98,7 +98,7 @@ NODE_DATA = json.loads("""{
 }""")
 
 BAG_DATA = json.loads("""{
-    "original_node":"sdr",
+    "ingest_node":"sdr",
     "admin_node":"sdr",
     "interpretive":[],
     "rights":[],
@@ -133,7 +133,7 @@ class CreateReplicationSerializerTest(TestCase):
         make_fixity_algs()
         data = make_bag_data()
         data['uuid'] = REPL_POST["uuid"]
-        data['original_node'] = Node.objects.get(namespace=REPL_POST["from_node"])
+        data['ingest_node'] = Node.objects.get(namespace=REPL_POST["from_node"])
         data['admin_node'] = Node.objects.get(namespace=REPL_POST["from_node"])
         re = Bag(**data)
         re.save()
@@ -161,7 +161,7 @@ class CreateRestoreSerializerTest(TestCase):
         make_fixity_algs()
         data = make_bag_data()
         data['uuid'] = RESTORE_POST["uuid"]
-        data['original_node'] = Node.objects.get(namespace=RESTORE_POST["from_node"])
+        data['ingest_node'] = Node.objects.get(namespace=RESTORE_POST["from_node"])
         data['admin_node'] = Node.objects.get(namespace=RESTORE_POST["from_node"])
         bag = Bag(**data)
         bag.save()
@@ -184,7 +184,7 @@ class BasicRestoreSerializerTest(TestCase):
         make_test_nodes()
         data = make_bag_data()
         data['uuid'] = RESTORE_DATA["uuid"]
-        data['original_node'] = Node.objects.get(namespace=RESTORE_POST["from_node"])
+        data['ingest_node'] = Node.objects.get(namespace=RESTORE_POST["from_node"])
         data['admin_node'] = Node.objects.get(namespace=RESTORE_POST["from_node"])
         bag = Bag(**data)
         bag.save()

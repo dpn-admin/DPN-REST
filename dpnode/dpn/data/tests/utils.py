@@ -121,7 +121,7 @@ def make_bag_data():
     id = "%s" % uuid.uuid4()
     return {
         "uuid": id,
-        "original_node": Node.objects.order_by('?')[0],
+        "ingest_node": Node.objects.order_by('?')[0],
         "version": 1,
         "created_at": timezone.now(),
         "updated_at": timezone.now(),
@@ -133,8 +133,8 @@ def make_bag_data():
 
 def make_bag_postdata():
     data = make_bag_data()
-    data["original_node"] = data["original_node"]
-    data["admin_node"] = data["original_node"]
+    data["ingest_node"] = data["ingest_node"]
+    data["admin_node"] = data["ingest_node"]
     data["created_at"] = dpn_strftime(data["created_at"])
     data["updated_at"] = dpn_strftime(data["updated_at"])
     return data
@@ -168,7 +168,7 @@ def make_test_bags(num=10):
 
 def make_test_transfers():
     for bag in Bag.objects.filter(
-            original_node__namespace=settings.DPN_NAMESPACE):
+            ingest_node__namespace=settings.DPN_NAMESPACE):
         data = {
             "bag": bag,
             "fixity_algorithm": sha256_algorithm(),

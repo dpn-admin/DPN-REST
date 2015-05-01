@@ -140,7 +140,7 @@ class Bag(models.Model):
     size = models.BigIntegerField(blank=False, null=False)
     first_version_uuid = models.CharField(max_length=64, null=True, blank=True)
     version = models.PositiveIntegerField(default=1)
-    original_node = models.ForeignKey(Node, related_name="original_node")
+    ingest_node = models.ForeignKey(Node, related_name="ingest_node")
     bag_type = models.CharField(max_length=1, choices=TYPE_CHOICES,
                                 default=DATA)
     rights = models.ManyToManyField(
@@ -155,7 +155,7 @@ class Bag(models.Model):
         help_text="The current admin_node for this bag.")
 
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField()
+    updated_at = models.DateTimeField(auto_now=True)
 
     def original_fixity(self, algorithm="sha256"):
         """
@@ -218,7 +218,7 @@ class ReplicationTransfer(models.Model):
                                 default=RSYNC)
     link = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField()
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ['-created_at']
@@ -260,7 +260,7 @@ class RestoreTransfer(models.Model):
                                 default=RSYNC)
     link = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField()
+    updated_at = models.DateTimeField(auto_now=True)
 
 
 class UserProfile(models.Model):
