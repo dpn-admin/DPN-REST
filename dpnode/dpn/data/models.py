@@ -101,7 +101,7 @@ class Node(models.Model):
         FixityAlgorithm, null=True, blank=True, related_name='+')
     protocols = models.ManyToManyField(Protocol, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=True, auto_now=True)
+    updated_at = models.DateTimeField(auto_now=True)
     last_pull_date = models.DateTimeField(null=True, blank=True)
 
     def save(self, *args, **kwargs):
@@ -155,7 +155,7 @@ class Bag(models.Model):
         help_text="The current admin_node for this bag.")
 
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=False, auto_now_add=True)
+    updated_at = models.DateTimeField()
 
     def original_fixity(self, algorithm="sha256"):
         """
@@ -218,7 +218,7 @@ class ReplicationTransfer(models.Model):
                                 default=RSYNC)
     link = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=True, auto_now=True)
+    updated_at = models.DateTimeField()
 
     class Meta:
         ordering = ['-created_at']
@@ -260,7 +260,7 @@ class RestoreTransfer(models.Model):
                                 default=RSYNC)
     link = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=True, auto_now=True)
+    updated_at = models.DateTimeField()
 
 
 class UserProfile(models.Model):
