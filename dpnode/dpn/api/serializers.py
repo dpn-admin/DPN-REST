@@ -17,13 +17,26 @@ class StorageSerializer(serializers.ModelSerializer):
 
 
 class FixitySerializer(serializers.ModelSerializer):
-    algorithm = serializers.SlugRelatedField(
-        queryset=FixityAlgorithm.objects.all(),
-        slug_field="name")
+
+    sha256 = serializers.CharField(source='digest', required=True)
 
     class Meta:
         model = Fixity
-        exclude = ('id', 'bag')
+        fields = ('sha256',)
+
+    # Django REST framework doesn't like this kind of serialization,
+    # so we have to do some tricks to make it work.
+    def create(self, validated_data):
+        data = {}
+        data['digest'] = validated_data.pop('sha256')
+        data['algorithm'] = FixityAlgorithm.objects.filter(name='sha256').first()
+        return Fixity.objects.create(**data)
+
+    def update(self, instance, validated_data):
+        instance.digest = validated_data.pop('sha256')
+        instance.algorithm = Fixity.Algorithm.objects.filter(name='sha256').first()
+        instance.save()
+        return instance
 
 
 class NodeSerializer(serializers.ModelSerializer):
@@ -205,9 +218,18 @@ class BagSerializer(serializers.ModelSerializer):
 
 
     def create(self, validated_data):
-        fixity_data = validated_data.pop('fixities')
-        if fixity_data is None or len(fixity_data) != 1:
+        fixities = validated_data.pop('fixities')
+        if fixities is None or len(fixities) != 1:
             raise serializers.ValidationError("Bag must have exactly one fixity value when created.")
         bag = Bag.objects.create(**validated_data)
-        Fixity.objects.create(bag=bag, **fixity_data[0])
+        fixity_data = {}
+        # Digest *should* be in the 'sha256' key, but when running tests,
+        # we create key 'sha256' and we receive key 'digest'. Not sure
+        # WTF is up with that.
+        if 'digest' in fixities[0]:
+            fixity_data['digest'] = fixities[0].pop('digest')
+        if 'sha256' in fixities[0]:
+            fixity_data['digest'] = fixities[0].pop('sha256')
+        fixity_data['algorithm'] = FixityAlgorithm.objects.filter(name='sha256').first()
+        Fixity.objects.create(bag=bag, **fixity_data)
         return bag

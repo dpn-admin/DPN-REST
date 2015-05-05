@@ -98,9 +98,7 @@ class BagListViewTest(APITestCase):
         data = make_bag_postdata()
         data['fixities'] = [
             {
-                    "algorithm": "sha256",
-                    "digest": "909090909078787878781234",
-                    "created_at": "2015-02-25T15:27:40.383861Z"
+                    "sha256": "909090909078787878781234"
             }]
         data['ingest_node'] = 'aptrust'
         data['admin_node'] = 'aptrust'

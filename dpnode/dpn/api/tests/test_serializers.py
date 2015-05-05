@@ -114,9 +114,7 @@ BAG_DATA = json.loads("""{
     "size": 78776,
     "fixities": [
         {
-          "algorithm": "sha256",
-          "digest": "765765765765",
-          "created_at": "2015-02-25T15:27:40.383861Z"
+          "sha256": "765765765765"
         }]
 }""")
 
