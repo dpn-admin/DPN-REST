@@ -291,7 +291,16 @@ class ReplicationTransferListViewTest(APITestCase):
         self.client.credentials(HTTP_AUTHORIZATION="Token %s" % token.key)
         rsp = self.client.post(self.url, data)
         self.assertEqual(rsp.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(rsp.data, data)
+        self.assertEqual(rsp.data['uuid'], data['uuid'])
+        self.assertEqual(rsp.data['link'], data['link'])
+        self.assertEqual(rsp.data['to_node'], data['to_node'])
+        self.assertEqual(rsp.data['from_node'], data['from_node'])
+        self.assertEqual(rsp.data['fixity_algorithm'], data['fixity_algorithm'])
+        self.assertEqual(rsp.data['fixity_nonce'], data['fixity_nonce'])
+        self.assertEqual(rsp.data['protocol'], data['protocol'])
+        self.assertTrue(len(rsp.data['replication_id']) > 0)
+        self.assertTrue(len(rsp.data['created_at']) > 0)
+        self.assertTrue(len(rsp.data['updated_at']) > 0)
 
     def test_put(self):
         token = Token.objects.get(user=self.api_admin)
