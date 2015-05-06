@@ -5,9 +5,10 @@
 """
 from django.utils import timezone
 from rest_framework import serializers
-
+from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
 from dpn.data.models import Node, ReplicationTransfer, RestoreTransfer
-from dpn.data.models import Bag, Fixity, Storage, Protocol, FixityAlgorithm
+from dpn.data.models import Bag, Fixity, Storage, Protocol, FixityAlgorithm, Node
 
 
 class StorageSerializer(serializers.ModelSerializer):
@@ -161,39 +162,33 @@ class CreateRestoreSerializer(serializers.ModelSerializer):
         read_only_fields = ('restore_id',)
 
 
-class FixityReadOnlySerializer(serializers.ModelSerializer):
-    algorithm = serializers.SlugRelatedField(
-        slug_field="name",
-        read_only=True)
-
-    class Meta:
-        model = Fixity
-        read_only_fields = ('algorithm', 'digest', 'created_at')
-        exclude = ('bag')
-
-
 class BagSerializer(serializers.ModelSerializer):
     ingest_node = serializers.SlugRelatedField(
         queryset=Node.objects.all(),
-        slug_field="namespace")
+        slug_field="namespace",
+        allow_null=True)
     interpretive = serializers.SlugRelatedField(
         queryset=Bag.objects.all(),
         slug_field='uuid',
         many=True,
-        required=False)
+        required=False,
+        allow_null=True)
     rights = serializers.SlugRelatedField(
         queryset=Bag.objects.all(),
         slug_field='uuid',
         many=True,
-        required=False)
+        required=False,
+        allow_null=True)
     replicating_nodes = serializers.SlugRelatedField(
         queryset=Node.objects.all(),
         slug_field='namespace',
         many=True,
-        required=False)
+        required=False,
+        allow_null=True)
     admin_node = serializers.SlugRelatedField(
         queryset=Node.objects.all(),
-        slug_field='namespace')
+        slug_field='namespace',
+        allow_null=True)
     fixities = FixitySerializer(required=True, many=True)
 
 
@@ -216,12 +211,55 @@ class BagSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
-
     def create(self, validated_data):
-        fixities = validated_data.pop('fixities')
+        # Assigning many-to-many relations in constructor is a problem,
+        # so we create the bag first, then assign the relations.
+        # http://bit.ly/1RcvTzZ
+        fixities = None
+        rights = None
+        interpretive = None
+        if 'rights' in validated_data:
+            rights = validated_data.pop('rights')
+        if 'interpretive' in validated_data:
+            interpretive = validated_data.pop('interpretive')
+        if 'fixities' in validated_data:
+            fixities = validated_data.pop('fixities')
         if fixities is None or len(fixities) != 1:
             raise serializers.ValidationError("Bag must have exactly one fixity value when created.")
+
+        # Throw this value out, because it's not valid to set
+        # replicating nodes on a new bag. A new bag, by definition,
+        # has not yet been replicated. You can add replicating nodes
+        # in an update.
+        if 'replicating_nodes' in validated_data:
+            validated_data.pop('replicating_nodes')
+
+        # You can create bags ONLY at your own node. So we set
+        # ingest_node and admin_node to our own node namespace.
+        our_node = Node.objects.filter(namespace=settings.DPN_NAMESPACE).first()
+        if our_node is None:
+            raise ObjectDoesNotExist("Node entry for {0} not found in database".format(settings.DPN_NAMESPACE))
+        validated_data['ingest_node'] = our_node
+        validated_data['admin_node'] = our_node
+
+
+        # Create the bag, then add the many-to-many relations
         bag = Bag.objects.create(**validated_data)
+
+        if rights:
+            for rights_uuid in rights:
+                rights_bag = Bag.objects.filter(uuid=rights_uuid).first()
+                if rights_bag is None:
+                    raise ObjectDoesNotExist("Rights bag {0} does not exist".format(rights_uuid))
+                bag.rights.add(rights_bag)
+
+        if interpretive:
+            for interpretive_uuid in interpretive:
+                interpretive_bag = Bag.objects.filter(uuid=interpretive_uuid).first()
+                if interpretive_bag is None:
+                    raise ObjectDoesNotExist("Interpretive bag {0} does not exist".format(interpretive_uuid))
+                bag.interpretive.add(interpretive_bag)
+
         fixity_data = {}
         # Digest *should* be in the 'sha256' key, but when running tests,
         # we create key 'sha256' and we receive key 'digest'. Not sure

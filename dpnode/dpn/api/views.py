@@ -85,6 +85,16 @@ class BagListView(generics.ListCreateAPIView):
     filter_class = BagFilter
     ordering_fields = ('updated_at',)
 
+    # def get_serializer_class(self):
+    #     try:
+    #         if self.request.user.has_perm('data.add_bag') \
+    #                 and self.request.method == 'POST':
+    #             return CreateBagSerializer
+    #     except AttributeError: # in case no logged in context
+    #         pass
+    #     return BagSerializer
+
+
 class NodeListView(generics.ListCreateAPIView):
     """
     Returns a paged list of Nodes in the DPN network and their configurations.

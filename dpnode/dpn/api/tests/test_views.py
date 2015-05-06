@@ -6,6 +6,7 @@
 """
 import json
 import random
+import uuid
 
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
@@ -109,11 +110,23 @@ class BagListViewTest(APITestCase):
         rsp = self.client.post(self.url, json.dumps(data), content_type='application/json')
         self.assertEqual(rsp.status_code, status.HTTP_403_FORBIDDEN, rsp.data)
 
-        # It should allow api_admins to create a bag.
+        # It should allow api_admins to create a bag
+        # without rights or interpretive info.
         token = Token.objects.get(user=self.api_admin)
         self.client.credentials(HTTP_AUTHORIZATION="Token %s" % token.key)
         rsp = self.client.post(self.url, data, format="json")
         self.assertEqual(rsp.status_code, status.HTTP_201_CREATED)
+
+        # It should allow api_admins to create a bag
+        # with rights and interpretive info.
+        old_uuid = data['uuid']
+        new_uuid = str(uuid.uuid4())
+        data['uuid'] = new_uuid
+        data['rights'] = [old_uuid]
+        data['interpretive'] = [old_uuid]
+        rsp = self.client.post(self.url, data, format="json")
+        self.assertEqual(rsp.status_code, status.HTTP_201_CREATED)
+
 
 @override_settings(DPN_NAMESPACE='aptrust')
 class NodeListViewTest(APITestCase):
