@@ -5,6 +5,7 @@
 """
 from django.utils import timezone
 from rest_framework import serializers
+from rest_framework.exceptions import PermissionDenied
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from dpn.data.models import Node, ReplicationTransfer, RestoreTransfer
@@ -98,8 +99,30 @@ class BasicReplicationSerializer(serializers.ModelSerializer):
         depth = 2
         exclude = ('id', 'bag',)
         read_only_fields = ('replication_id', 'from_node', 'to_node', 'uuid',
-                            'fixity_nonce', 'fixity_accept', 'status',
+                            'fixity_nonce', 'fixity_accept',
                             'link', 'protocol', 'created_at', 'updated_at',)
+
+    def _user_is_admin(self):
+        request = self.context.get('request', None)
+        if request is not None:
+            return self.request.user.is_admin()
+        else:
+            return false
+
+    # We have a custom update method because some ignorant clients
+    # (including our own) may send JSON that includes related fields like
+    # the fixity algorithm. Django Rest Framework will blow up on this
+    # because it does not handle nested updated by default. In any case,
+    # clients should only ever be allowed to update status, bag_valid and
+    # fixity_value. If they send us any other data, we throw it out.
+    def update(self, instance, validated_data):
+        instance.status = validated_data.get('status', instance.status)
+        instance.bag_valid = validated_data.get('bag_valid', instance.bag_valid)
+        instance.fixity_value = validated_data.get('fixity_value', instance.fixity_value)
+        if instance.status == "Confirmed" and not self._user_is_admin():
+            raise PermissionDenied("Only the local admin can set replication status to 'Confirmed'")
+        instance.save()
+        return instance
 
 
 class CreateReplicationSerializer(serializers.ModelSerializer):
