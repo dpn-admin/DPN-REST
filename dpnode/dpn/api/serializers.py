@@ -196,17 +196,55 @@ class BagSerializer(serializers.ModelSerializer):
         model = Bag
         depth = 1
 
-    # Should we even allow this??
-    # Until we specify what can be updated, this allows only
-    # some fields to change.
+    def _extract_relations(self, validated_data):
+        fixities = None
+        rights = None
+        interpretive = None
+        replicating_nodes = None
+        if 'rights' in validated_data:
+            rights = validated_data.pop('rights')
+        if 'interpretive' in validated_data:
+            interpretive = validated_data.pop('interpretive')
+        if 'fixities' in validated_data:
+            fixities = validated_data.pop('fixities')
+        if 'replicating_nodes' in validated_data:
+            replicating_nodes = validated_data.pop('replicating_nodes')
+        return fixities, rights, interpretive, replicating_nodes
+
+    def _assign_relations(self, bag, rights, interpretive, replicating_nodes):
+        if rights:
+            for rights_uuid in rights:
+                rights_bag = Bag.objects.filter(uuid=rights_uuid).first()
+                if rights_bag is None:
+                    raise ObjectDoesNotExist("Rights bag {0} does not exist".format(rights_uuid))
+                if not rights_bag in bag.rights.all():
+                    bag.rights.add(rights_bag)
+
+        if interpretive:
+            for interpretive_uuid in interpretive:
+                interpretive_bag = Bag.objects.filter(uuid=interpretive_uuid).first()
+                if interpretive_bag is None:
+                    raise ObjectDoesNotExist("Interpretive bag {0} does not exist".format(interpretive_uuid))
+                if not interpretive_bag in bag.interpretive.all():
+                    bag.interpretive.add(interpretive_bag)
+
+        if replicating_nodes:
+            for node_namespace in replicating_nodes:
+                replicating_node = Node.objects.filter(namespace=node_namespace).first()
+                if replicating_node is None:
+                    raise ObjectDoesNotExist("Replicating node {0} does not exist".format(node_namespace))
+                if not replicating_node in bag.replicating_nodes.all():
+                    bag.replicating_nodes.add(replicating_node)
+
+
+    # Update should not change uuid, local_id, version, ingest_node, etc.
+    # Only the items set below may change.
     def update(self, instance, validated_data):
-        instance.local_id = validated_data.get('local_id', instance.local_id)
-        instance.size = validated_data.get('size', instance.size)
-        instance.first_version_uuid = validated_data.get(
-            'first_version_uuid', instance.first_version_uuid)
-        instance.version = validated_data.get('version', instance.version)
-        instance.admin_node = validated_data.get('admin_node', instance.admin_node)
-        instance.bag_type = validated_data.get('bag_type', instance.bag_type)
+        # Someday, we'll allow changing admin_node... but not yet.
+        # That should only happen if one node permanently drops out of DPN.
+        # instance.admin_node = validated_data.get('admin_node', instance.admin_node)
+        fixities, rights, interpretive, replicating_nodes = self._extract_relations(validated_data)
+        self._assign_relations(instance, rights, interpretive, replicating_nodes)
         instance.updated_at = timezone.now()
         instance.save()
         return instance
@@ -215,24 +253,9 @@ class BagSerializer(serializers.ModelSerializer):
         # Assigning many-to-many relations in constructor is a problem,
         # so we create the bag first, then assign the relations.
         # http://bit.ly/1RcvTzZ
-        fixities = None
-        rights = None
-        interpretive = None
-        if 'rights' in validated_data:
-            rights = validated_data.pop('rights')
-        if 'interpretive' in validated_data:
-            interpretive = validated_data.pop('interpretive')
-        if 'fixities' in validated_data:
-            fixities = validated_data.pop('fixities')
+        fixities, rights, interpretive, replicating_nodes = self._extract_relations(validated_data)
         if fixities is None or len(fixities) != 1:
             raise serializers.ValidationError("Bag must have exactly one fixity value when created.")
-
-        # Throw this value out, because it's not valid to set
-        # replicating nodes on a new bag. A new bag, by definition,
-        # has not yet been replicated. You can add replicating nodes
-        # in an update.
-        if 'replicating_nodes' in validated_data:
-            validated_data.pop('replicating_nodes')
 
         # You can create bags ONLY at your own node. So we set
         # ingest_node and admin_node to our own node namespace.
@@ -242,23 +265,9 @@ class BagSerializer(serializers.ModelSerializer):
         validated_data['ingest_node'] = our_node
         validated_data['admin_node'] = our_node
 
-
         # Create the bag, then add the many-to-many relations
         bag = Bag.objects.create(**validated_data)
-
-        if rights:
-            for rights_uuid in rights:
-                rights_bag = Bag.objects.filter(uuid=rights_uuid).first()
-                if rights_bag is None:
-                    raise ObjectDoesNotExist("Rights bag {0} does not exist".format(rights_uuid))
-                bag.rights.add(rights_bag)
-
-        if interpretive:
-            for interpretive_uuid in interpretive:
-                interpretive_bag = Bag.objects.filter(uuid=interpretive_uuid).first()
-                if interpretive_bag is None:
-                    raise ObjectDoesNotExist("Interpretive bag {0} does not exist".format(interpretive_uuid))
-                bag.interpretive.add(interpretive_bag)
+        self._assign_relations(bag, rights, interpretive, replicating_nodes)
 
         fixity_data = {}
         # Digest *should* be in the 'sha256' key, but when running tests,
