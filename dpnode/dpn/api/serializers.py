@@ -183,18 +183,19 @@ class CreateRestoreSerializer(serializers.ModelSerializer):
     from_node = serializers.SlugRelatedField(
         queryset=Node.objects.all(),
         slug_field="namespace")
-    uuid = serializers.SlugRelatedField(
-        queryset=Bag.objects.all(),
-        slug_field="uuid")
+    uuid = BagUuidField()
 
     class Meta:
         model = RestoreTransfer
         depth = 1
-        fields = ('from_node', 'to_node', 'uuid', 'protocol', 'link')
-        read_only_fields = ('restore_id',)
+        fields = ('from_node', 'to_node', 'uuid', 'protocol',
+                  'link', 'status', 'restore_id', 'created_at',
+                  'updated_at',)
+        read_only_fields = ('restore_id', 'created_at', 'updated_at',)
 
     def create(self, validated_data):
-        validated_data['bag'] = validated_data.pop('uuid')
+        if 'uuid' in validated_data:
+            validated_data['bag'] = validated_data.pop('uuid')
         # Default to_node should be this node. If to_node is not this node,
         # someone is doing something wrong.
         if not 'to_node' in validated_data:
