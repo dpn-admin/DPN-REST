@@ -78,21 +78,12 @@ class BagListView(generics.ListCreateAPIView):
     """
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated, DjangoModelPermissions, IsBagOwner)
-    queryset = Bag.objects.all()
+    queryset = Bag.objects.all().order_by('-updated_at')
     serializer_class = BagSerializer
     # NOTE DjangoFilterBackend needs to be set even though it is in default.
     filter_backends = (filters.OrderingFilter, filters.DjangoFilterBackend)
     filter_class = BagFilter
-    ordering_fields = ('updated_at',)
-
-    # def get_serializer_class(self):
-    #     try:
-    #         if self.request.user.has_perm('data.add_bag') \
-    #                 and self.request.method == 'POST':
-    #             return CreateBagSerializer
-    #     except AttributeError: # in case no logged in context
-    #         pass
-    #     return BagSerializer
+    #ordering_fields = ('updated_at',)
 
 
 class NodeListView(generics.ListCreateAPIView):
@@ -120,10 +111,10 @@ class ReplicationTransferListView(generics.ListCreateAPIView):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated, DjangoModelPermissions,)
 
-    queryset = ReplicationTransfer.objects.all()
+    queryset = ReplicationTransfer.objects.all().order_by('-updated_at')
     filter_backends = (filters.OrderingFilter, filters.DjangoFilterBackend)
     filter_class = ReplicationTransferFilterSet
-    ordering_fields = ('created_on', 'updated_on')
+    #ordering_fields = ('created_on', 'updated_on')
 
     def get_serializer_class(self):
         try:
@@ -147,10 +138,10 @@ class RestoreTransferListView(generics.ListCreateAPIView):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated, DjangoModelPermissions,)
 
-    queryset = RestoreTransfer.objects.all()
+    queryset = RestoreTransfer.objects.all().order_by('-updated_at')
     filter_backends = (filters.OrderingFilter, filters.DjangoFilterBackend)
     filter_class = RestoreTransferFilterSet
-    ordering_fields = ('created_on', 'updated_on')
+    #ordering_fields = ('updated_at')
 
     def get_serializer_class(self):
         try:
