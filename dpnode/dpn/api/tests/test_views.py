@@ -280,7 +280,7 @@ class ReplicationTransferListViewTest(APITestCase):
             "uuid": bag.uuid,
             "link": "sshaccount@dpnserver.test.org:%s.tar" % bag.uuid,
             "to_node": Node.objects.exclude(namespace=settings.DPN_NAMESPACE)[0].namespace,
-            "from_node": self.api_admin.profile.node.namespace,
+            "from_node": settings.DPN_NAMESPACE,
             "fixity_algorithm": "sha256",
             "fixity_nonce": "1234ABC",
             "protocol": "R",
@@ -301,6 +301,12 @@ class ReplicationTransferListViewTest(APITestCase):
         self.assertTrue(len(rsp.data['replication_id']) > 0)
         self.assertTrue(len(rsp.data['created_at']) > 0)
         self.assertTrue(len(rsp.data['updated_at']) > 0)
+
+        # It should not allow you to create a replication request whose
+        # from_node is not your own local node.
+        data['from_node'] = Node.objects.exclude(namespace=settings.DPN_NAMESPACE)[1].namespace
+        rsp = self.client.post(self.url, data)
+        self.assertEqual(rsp.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_put(self):
         token = Token.objects.get(user=self.api_admin)

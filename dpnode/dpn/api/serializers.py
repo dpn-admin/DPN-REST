@@ -148,6 +148,13 @@ class CreateReplicationSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         validated_data['bag'] = validated_data.pop('uuid')
+        # Default from_node should be this node. If from node is not this node,
+        # someone is doing something wrong.
+        if not 'from_node' in validated_data:
+            validated_data['from_node'] = settings.DPN_NAMESPACE
+        if str(validated_data['from_node']) != str(settings.DPN_NAMESPACE):
+            raise PermissionDenied("When you create a transfer request on this node, "
+                                   "the from_node can only be {0}".format(settings.DPN_NAMESPACE))
         return ReplicationTransfer.objects.create(**validated_data)
 
 
@@ -185,6 +192,17 @@ class CreateRestoreSerializer(serializers.ModelSerializer):
         depth = 1
         fields = ('from_node', 'to_node', 'uuid', 'protocol', 'link')
         read_only_fields = ('restore_id',)
+
+    def create(self, validated_data):
+        validated_data['bag'] = validated_data.pop('uuid')
+        # Default to_node should be this node. If to_node is not this node,
+        # someone is doing something wrong.
+        if not 'to_node' in validated_data:
+            validated_data['to_node'] = settings.DPN_NAMESPACE
+        if str(validated_data['to_node']) != str(settings.DPN_NAMESPACE):
+            raise PermissionDenied("When you create a restore request on this node, "
+                                   "the to_node can only be {0}".format(settings.DPN_NAMESPACE))
+        return RestoreTransfer.objects.create(**validated_data)
 
 
 class BagSerializer(serializers.ModelSerializer):
