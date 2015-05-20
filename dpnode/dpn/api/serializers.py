@@ -105,7 +105,7 @@ class BasicReplicationSerializer(serializers.ModelSerializer):
     def _user_is_admin(self):
         request = self.context.get('request', None)
         if request is not None:
-            return self.request.user.is_admin()
+            return request.user.is_admin()
         else:
             return false
 
