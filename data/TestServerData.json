@@ -1,0 +1,1009 @@
+[
+{
+    "pk": "rsync",
+    "fields": {},
+    "model": "data.protocol"
+},
+{
+    "pk": "sha256",
+    "fields": {},
+    "model": "data.fixityalgorithm"
+},
+{
+    "pk": 1,
+    "fields": {
+        "name": "APTrust",
+        "replicate_to": [
+            5,
+            4,
+            3,
+            2
+        ],
+        "last_pull_date": null,
+        "replicate_from": [
+            5,
+            4,
+            3,
+            2
+        ],
+        "fixity_algorithms": [
+            "sha256"
+        ],
+        "api_root": "https://devops.aptrust.org/dpnode/",
+        "ssh_username": "dpn.aptrust",
+        "ssh_pubkey": "",
+        "protocols": [
+            "rsync"
+        ],
+        "created_at": "2015-05-04T17:34:41.782Z",
+        "restore_to": [
+            5,
+            4,
+            3,
+            2
+        ],
+        "restore_from": [
+            5,
+            4,
+            3,
+            2
+        ],
+        "updated_at": "2015-05-22T19:31:13.235Z",
+        "namespace": "aptrust"
+    },
+    "model": "data.node"
+},
+{
+    "pk": 2,
+    "fields": {
+        "name": "Hathi Trust",
+        "replicate_to": [
+            5,
+            4,
+            3,
+            1
+        ],
+        "last_pull_date": null,
+        "replicate_from": [
+            5,
+            4,
+            3,
+            1
+        ],
+        "fixity_algorithms": [
+            "sha256"
+        ],
+        "api_root": "https://dpn.hathitrust.org/dpnrest/",
+        "ssh_username": "dpn.hathi",
+        "ssh_pubkey": "",
+        "protocols": [
+            "rsync"
+        ],
+        "created_at": "2015-05-04T17:36:16.462Z",
+        "restore_to": [
+            5,
+            4,
+            3,
+            1
+        ],
+        "restore_from": [
+            5,
+            4,
+            3,
+            1
+        ],
+        "updated_at": "2015-05-22T19:31:06.857Z",
+        "namespace": "hathi"
+    },
+    "model": "data.node"
+},
+{
+    "pk": 3,
+    "fields": {
+        "name": "Chronopolis",
+        "replicate_to": [
+            5,
+            4,
+            2,
+            1
+        ],
+        "last_pull_date": null,
+        "replicate_from": [
+            5,
+            4,
+            2,
+            1
+        ],
+        "fixity_algorithms": [
+            "sha256"
+        ],
+        "api_root": "https://chronopolis01.umiacs.umd.edu/",
+        "ssh_username": "dpn.chron",
+        "ssh_pubkey": "",
+        "protocols": [
+            "rsync"
+        ],
+        "created_at": "2015-05-04T17:36:47.116Z",
+        "restore_to": [
+            5,
+            4,
+            2,
+            1
+        ],
+        "restore_from": [
+            5,
+            4,
+            2,
+            1
+        ],
+        "updated_at": "2015-05-22T19:31:00.048Z",
+        "namespace": "chron"
+    },
+    "model": "data.node"
+},
+{
+    "pk": 4,
+    "fields": {
+        "name": "TDR",
+        "replicate_to": [
+            5,
+            3,
+            2,
+            1
+        ],
+        "last_pull_date": null,
+        "replicate_from": [
+            5,
+            3,
+            2,
+            1
+        ],
+        "fixity_algorithms": [
+            "sha256"
+        ],
+        "api_root": "https://rest.lib.utexas.edu/",
+        "ssh_username": "dpn.tdr",
+        "ssh_pubkey": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCs/ZRcJQhegudN7jWEbW7jUJuMtiIruhNeiLOUXQwfZ4tV4ksOFribYLHnFaTTPtPVFtkt6Rsc+4h9FfqPE83QXKFucJ3DYAmW0/baYbzOmdEn+EsajiDQA4B/mCbjfiFTHK0bLsYshCx+jfcRmKzgMHbj5qoW8Dy8IK0TR+iA+KyPLaZPoXB+jb7xlF8lKppsvNfZzebMGqvO3XMGM0QIVKzmJEOg8QBCUl4hPxRApwLc5UJz2up/nhO4g3Yv6Uh1/IGpxZopCF9Svl3rQNPyu43rsWuyF/R0tu0saVCb/e21L9ZUG3jb2BOmRIPozwPgpWMNFrnk3dDmcpVHc0Kp tdr@rest.lib.utexas.edu",
+        "protocols": [
+            "rsync"
+        ],
+        "created_at": "2015-05-04T17:37:14.930Z",
+        "restore_to": [
+            5,
+            3,
+            2,
+            1
+        ],
+        "restore_from": [
+            5,
+            3,
+            2,
+            1
+        ],
+        "updated_at": "2015-05-22T19:30:53.523Z",
+        "namespace": "tdr"
+    },
+    "model": "data.node"
+},
+{
+    "pk": 5,
+    "fields": {
+        "name": "SDR",
+        "replicate_to": [
+            4,
+            3,
+            2,
+            1
+        ],
+        "last_pull_date": null,
+        "replicate_from": [
+            4,
+            3,
+            2,
+            1
+        ],
+        "fixity_algorithms": [
+            "sha256"
+        ],
+        "api_root": "https://dpn.stanford.edu/dpnrest/",
+        "ssh_username": "dpn.sdr",
+        "ssh_pubkey": "",
+        "protocols": [
+            "rsync"
+        ],
+        "created_at": "2015-05-04T17:37:43.640Z",
+        "restore_to": [
+            4,
+            3,
+            2,
+            1
+        ],
+        "restore_from": [
+            4,
+            3,
+            2,
+            1
+        ],
+        "updated_at": "2015-05-22T19:30:47.386Z",
+        "namespace": "sdr"
+    },
+    "model": "data.node"
+},
+{
+    "pk": 1,
+    "fields": {
+        "node": 5,
+        "region": "CA",
+        "storage_type": "Disk"
+    },
+    "model": "data.storage"
+},
+{
+    "pk": 2,
+    "fields": {
+        "node": 4,
+        "region": "TX",
+        "storage_type": "irods"
+    },
+    "model": "data.storage"
+},
+{
+    "pk": 3,
+    "fields": {
+        "node": 3,
+        "region": "CA",
+        "storage_type": "Disk"
+    },
+    "model": "data.storage"
+},
+{
+    "pk": 4,
+    "fields": {
+        "node": 3,
+        "region": "CO",
+        "storage_type": "Disk"
+    },
+    "model": "data.storage"
+},
+{
+    "pk": 5,
+    "fields": {
+        "node": 1,
+        "region": "VA",
+        "storage_type": "Amazon Glacier"
+    },
+    "model": "data.storage"
+},
+{
+    "pk": "005e7793-8253-4585-7118-2da702e29aa0",
+    "fields": {
+        "local_id": "test.edu/test.edu.bag4",
+        "version": 1,
+        "replicating_nodes": [],
+        "created_at": "2015-05-22T19:08:37.847Z",
+        "bag_type": "D",
+        "admin_node": 1,
+        "rights": [],
+        "updated_at": "2015-05-22T19:08:37.847Z",
+        "first_version_uuid": "005e7793-8253-4585-7118-2da702e29aa0",
+        "ingest_node": 1,
+        "size": 71680,
+        "interpretive": []
+    },
+    "model": "data.bag"
+},
+{
+    "pk": "06edc30f-af04-4a4e-4ad6-3c679a195d46",
+    "fields": {
+        "local_id": "test.edu/test.edu.bag1",
+        "version": 1,
+        "replicating_nodes": [],
+        "created_at": "2015-05-22T19:08:34.295Z",
+        "bag_type": "D",
+        "admin_node": 1,
+        "rights": [],
+        "updated_at": "2015-05-22T19:08:34.295Z",
+        "first_version_uuid": "06edc30f-af04-4a4e-4ad6-3c679a195d46",
+        "ingest_node": 1,
+        "size": 4005888,
+        "interpretive": []
+    },
+    "model": "data.bag"
+},
+{
+    "pk": "41e5376c-cc13-4c3e-6af3-297cc2e005aa",
+    "fields": {
+        "local_id": "test.edu/test.edu.bag3",
+        "version": 1,
+        "replicating_nodes": [],
+        "created_at": "2015-05-22T19:08:36.599Z",
+        "bag_type": "D",
+        "admin_node": 1,
+        "rights": [],
+        "updated_at": "2015-05-22T19:08:36.599Z",
+        "first_version_uuid": "41e5376c-cc13-4c3e-6af3-297cc2e005aa",
+        "ingest_node": 1,
+        "size": 44544,
+        "interpretive": []
+    },
+    "model": "data.bag"
+},
+{
+    "pk": "472218b3-95ce-4b8e-6c21-6e514cfbe43f",
+    "fields": {
+        "local_id": "test.edu/test.edu.bag6",
+        "version": 1,
+        "replicating_nodes": [],
+        "created_at": "2015-05-22T19:08:48.299Z",
+        "bag_type": "D",
+        "admin_node": 1,
+        "rights": [],
+        "updated_at": "2015-05-22T19:08:48.299Z",
+        "first_version_uuid": "472218b3-95ce-4b8e-6c21-6e514cfbe43f",
+        "ingest_node": 1,
+        "size": 3974144,
+        "interpretive": []
+    },
+    "model": "data.bag"
+},
+{
+    "pk": "4d11736c-c0ab-44b0-66c6-a947f414d4f1",
+    "fields": {
+        "local_id": "test.edu/test.edu.bag5",
+        "version": 1,
+        "replicating_nodes": [],
+        "created_at": "2015-05-22T19:08:38.798Z",
+        "bag_type": "D",
+        "admin_node": 1,
+        "rights": [],
+        "updated_at": "2015-05-22T19:08:38.798Z",
+        "first_version_uuid": "4d11736c-c0ab-44b0-66c6-a947f414d4f1",
+        "ingest_node": 1,
+        "size": 44544,
+        "interpretive": []
+    },
+    "model": "data.bag"
+},
+{
+    "pk": "57eefd0e-ab66-458a-a3e4-dd550c484ddc",
+    "fields": {
+        "local_id": "aptrust-1",
+        "version": 1,
+        "replicating_nodes": [],
+        "created_at": "2015-05-04T17:41:22.903Z",
+        "bag_type": "D",
+        "admin_node": 1,
+        "rights": [],
+        "updated_at": "2015-05-04T17:41:22.903Z",
+        "first_version_uuid": "57eefd0e-ab66-458a-a3e4-dd550c484ddc",
+        "ingest_node": 1,
+        "size": 44455566,
+        "interpretive": []
+    },
+    "model": "data.bag"
+},
+{
+    "pk": "6029850a-b6a3-4c77-8c7a-606170ea9f95",
+    "fields": {
+        "local_id": "aptrust-2",
+        "version": 1,
+        "replicating_nodes": [],
+        "created_at": "2015-05-04T17:41:51.909Z",
+        "bag_type": "D",
+        "admin_node": 1,
+        "rights": [],
+        "updated_at": "2015-05-04T17:41:51.909Z",
+        "first_version_uuid": "6029850a-b6a3-4c77-8c7a-606170ea9f95",
+        "ingest_node": 1,
+        "size": 7766554,
+        "interpretive": []
+    },
+    "model": "data.bag"
+},
+{
+    "pk": "8839f294-c7c0-404d-4467-7ab223ff461b",
+    "fields": {
+        "local_id": "test.edu/test.edu.bag2",
+        "version": 1,
+        "replicating_nodes": [],
+        "created_at": "2015-05-22T19:08:35.388Z",
+        "bag_type": "D",
+        "admin_node": 1,
+        "rights": [],
+        "updated_at": "2015-05-22T19:08:35.388Z",
+        "first_version_uuid": "8839f294-c7c0-404d-4467-7ab223ff461b",
+        "ingest_node": 1,
+        "size": 62464,
+        "interpretive": []
+    },
+    "model": "data.bag"
+},
+{
+    "pk": 1180,
+    "fields": {
+        "created_at": "2015-05-22T19:08:34.298Z",
+        "bag": "06edc30f-af04-4a4e-4ad6-3c679a195d46",
+        "digest": "353fba29e2bad3101de89533eb3b5882646af1353ab3aec7e27e5c5b8e0c5b69",
+        "algorithm": "sha256"
+    },
+    "model": "data.fixity"
+},
+{
+    "pk": 1181,
+    "fields": {
+        "created_at": "2015-05-22T19:08:35.390Z",
+        "bag": "8839f294-c7c0-404d-4467-7ab223ff461b",
+        "digest": "e81f79fed2b4515e6a5c3f23161d0805172be1ca1f560ce29d3793cec2c79d89",
+        "algorithm": "sha256"
+    },
+    "model": "data.fixity"
+},
+{
+    "pk": 1182,
+    "fields": {
+        "created_at": "2015-05-22T19:08:36.602Z",
+        "bag": "41e5376c-cc13-4c3e-6af3-297cc2e005aa",
+        "digest": "e112ad47b3b280b92a38af2c5be38da7f04b79f4b180cbb92811f74ebc831d18",
+        "algorithm": "sha256"
+    },
+    "model": "data.fixity"
+},
+{
+    "pk": 1183,
+    "fields": {
+        "created_at": "2015-05-22T19:08:37.850Z",
+        "bag": "005e7793-8253-4585-7118-2da702e29aa0",
+        "digest": "13743e26e07afcdab0600104989c5e5de0271ed2dff61cf7804ea294060a75ac",
+        "algorithm": "sha256"
+    },
+    "model": "data.fixity"
+},
+{
+    "pk": 1184,
+    "fields": {
+        "created_at": "2015-05-22T19:08:38.800Z",
+        "bag": "4d11736c-c0ab-44b0-66c6-a947f414d4f1",
+        "digest": "6cb820f17c147ab9cd25a8c1f2adc7cf12a8070448dba35551e9c992e409688c",
+        "algorithm": "sha256"
+    },
+    "model": "data.fixity"
+},
+{
+    "pk": 1185,
+    "fields": {
+        "created_at": "2015-05-22T19:08:48.301Z",
+        "bag": "472218b3-95ce-4b8e-6c21-6e514cfbe43f",
+        "digest": "5329a5d06216ca9effc42a6f5b7c492952334d8b188ebbdefbbd0b970ab981a3",
+        "algorithm": "sha256"
+    },
+    "model": "data.fixity"
+},
+{
+    "pk": 1,
+    "fields": {
+        "bag_valid": null,
+        "fixity_nonce": "",
+        "from_node": 1,
+        "protocol": "R",
+        "bag": "472218b3-95ce-4b8e-6c21-6e514cfbe43f",
+        "created_at": "2015-05-22T19:46:45.761Z",
+        "fixity_accept": null,
+        "updated_at": "2015-05-22T20:38:43.724Z",
+        "replication_id": "aptrust-1",
+        "status": "Requested",
+        "link": "dpn.tdr@devops.aptrust.org:outbound/472218b3-95ce-4b8e-6c21-6e514cfbe43f.tar",
+        "fixity_value": "",
+        "fixity_algorithm": "sha256",
+        "to_node": 4
+    },
+    "model": "data.replicationtransfer"
+},
+{
+    "pk": 2,
+    "fields": {
+        "bag_valid": null,
+        "fixity_nonce": "",
+        "from_node": 1,
+        "protocol": "R",
+        "bag": "4d11736c-c0ab-44b0-66c6-a947f414d4f1",
+        "created_at": "2015-05-22T19:47:17.440Z",
+        "fixity_accept": null,
+        "updated_at": "2015-05-22T20:38:35.529Z",
+        "replication_id": "aptrust-2",
+        "status": "Requested",
+        "link": "dpn.tdr@devops.aptrust.org:outbound/4d11736c-c0ab-44b0-66c6-a947f414d4f1.tar",
+        "fixity_value": "",
+        "fixity_algorithm": "sha256",
+        "to_node": 4
+    },
+    "model": "data.replicationtransfer"
+},
+{
+    "pk": 3,
+    "fields": {
+        "bag_valid": null,
+        "fixity_nonce": "",
+        "from_node": 1,
+        "protocol": "R",
+        "bag": "005e7793-8253-4585-7118-2da702e29aa0",
+        "created_at": "2015-05-22T19:47:54.012Z",
+        "fixity_accept": null,
+        "updated_at": "2015-05-22T20:38:26.509Z",
+        "replication_id": "aptrust-3",
+        "status": "Requested",
+        "link": "dpn.tdr@devops.aptrust.org:outbound/005e7793-8253-4585-7118-2da702e29aa0.tar",
+        "fixity_value": "",
+        "fixity_algorithm": "sha256",
+        "to_node": 4
+    },
+    "model": "data.replicationtransfer"
+},
+{
+    "pk": 4,
+    "fields": {
+        "bag_valid": null,
+        "fixity_nonce": "",
+        "from_node": 1,
+        "protocol": "R",
+        "bag": "41e5376c-cc13-4c3e-6af3-297cc2e005aa",
+        "created_at": "2015-05-22T19:48:25.049Z",
+        "fixity_accept": null,
+        "updated_at": "2015-05-22T20:38:18.542Z",
+        "replication_id": "aptrust-4",
+        "status": "Requested",
+        "link": "dpn.tdr@devops.aptrust.org:outbound/41e5376c-cc13-4c3e-6af3-297cc2e005aa.tar",
+        "fixity_value": "",
+        "fixity_algorithm": "sha256",
+        "to_node": 4
+    },
+    "model": "data.replicationtransfer"
+},
+{
+    "pk": 5,
+    "fields": {
+        "bag_valid": null,
+        "fixity_nonce": "",
+        "from_node": 1,
+        "protocol": "R",
+        "bag": "8839f294-c7c0-404d-4467-7ab223ff461b",
+        "created_at": "2015-05-22T19:48:47.638Z",
+        "fixity_accept": null,
+        "updated_at": "2015-05-22T20:38:08.192Z",
+        "replication_id": "aptrust-5",
+        "status": "Requested",
+        "link": "dpn.tdr@devops.aptrust.org:outbound/8839f294-c7c0-404d-4467-7ab223ff461b.tar",
+        "fixity_value": "",
+        "fixity_algorithm": "sha256",
+        "to_node": 4
+    },
+    "model": "data.replicationtransfer"
+},
+{
+    "pk": 6,
+    "fields": {
+        "bag_valid": null,
+        "fixity_nonce": "",
+        "from_node": 1,
+        "protocol": "R",
+        "bag": "06edc30f-af04-4a4e-4ad6-3c679a195d46",
+        "created_at": "2015-05-22T19:49:14.137Z",
+        "fixity_accept": null,
+        "updated_at": "2015-05-22T20:37:58.640Z",
+        "replication_id": "aptrust-6",
+        "status": "Requested",
+        "link": "dpn.tdr@devops.aptrust.org:outbound/06edc30f-af04-4a4e-4ad6-3c679a195d46.tar",
+        "fixity_value": "",
+        "fixity_algorithm": "sha256",
+        "to_node": 4
+    },
+    "model": "data.replicationtransfer"
+},
+{
+    "pk": 7,
+    "fields": {
+        "bag_valid": null,
+        "fixity_nonce": "",
+        "from_node": 1,
+        "protocol": "R",
+        "bag": "472218b3-95ce-4b8e-6c21-6e514cfbe43f",
+        "created_at": "2015-05-22T19:52:35.558Z",
+        "fixity_accept": null,
+        "updated_at": "2015-05-22T20:37:49.018Z",
+        "replication_id": "aptrust-7",
+        "status": "Requested",
+        "link": "dpn.chron@devops.aptrust.org:outbound/472218b3-95ce-4b8e-6c21-6e514cfbe43f.tar",
+        "fixity_value": "",
+        "fixity_algorithm": "sha256",
+        "to_node": 3
+    },
+    "model": "data.replicationtransfer"
+},
+{
+    "pk": 8,
+    "fields": {
+        "bag_valid": null,
+        "fixity_nonce": "",
+        "from_node": 1,
+        "protocol": "R",
+        "bag": "4d11736c-c0ab-44b0-66c6-a947f414d4f1",
+        "created_at": "2015-05-22T19:53:05.313Z",
+        "fixity_accept": null,
+        "updated_at": "2015-05-22T20:37:39.660Z",
+        "replication_id": "aptrust-8",
+        "status": "Requested",
+        "link": "dpn.chron@devops.aptrust.org:outbound/4d11736c-c0ab-44b0-66c6-a947f414d4f1.tar",
+        "fixity_value": "",
+        "fixity_algorithm": "sha256",
+        "to_node": 3
+    },
+    "model": "data.replicationtransfer"
+},
+{
+    "pk": 9,
+    "fields": {
+        "bag_valid": null,
+        "fixity_nonce": "",
+        "from_node": 1,
+        "protocol": "R",
+        "bag": "005e7793-8253-4585-7118-2da702e29aa0",
+        "created_at": "2015-05-22T19:53:26.965Z",
+        "fixity_accept": null,
+        "updated_at": "2015-05-22T20:37:29.331Z",
+        "replication_id": "aptrust-9",
+        "status": "Requested",
+        "link": "dpn.chron@devops.aptrust.org:outbound/005e7793-8253-4585-7118-2da702e29aa0.tar",
+        "fixity_value": "",
+        "fixity_algorithm": "sha256",
+        "to_node": 3
+    },
+    "model": "data.replicationtransfer"
+},
+{
+    "pk": 10,
+    "fields": {
+        "bag_valid": null,
+        "fixity_nonce": "",
+        "from_node": 1,
+        "protocol": "R",
+        "bag": "41e5376c-cc13-4c3e-6af3-297cc2e005aa",
+        "created_at": "2015-05-22T19:53:53.202Z",
+        "fixity_accept": null,
+        "updated_at": "2015-05-22T20:37:19.193Z",
+        "replication_id": "aptrust-10",
+        "status": "Requested",
+        "link": "dpn.chron@devops.aptrust.org:outbound/41e5376c-cc13-4c3e-6af3-297cc2e005aa.tar",
+        "fixity_value": "",
+        "fixity_algorithm": "sha256",
+        "to_node": 3
+    },
+    "model": "data.replicationtransfer"
+},
+{
+    "pk": 11,
+    "fields": {
+        "bag_valid": null,
+        "fixity_nonce": "",
+        "from_node": 1,
+        "protocol": "R",
+        "bag": "8839f294-c7c0-404d-4467-7ab223ff461b",
+        "created_at": "2015-05-22T19:54:22.781Z",
+        "fixity_accept": null,
+        "updated_at": "2015-05-22T20:37:09.977Z",
+        "replication_id": "aptrust-11",
+        "status": "Requested",
+        "link": "dpn.chron@devops.aptrust.org:outbound/8839f294-c7c0-404d-4467-7ab223ff461b.tar",
+        "fixity_value": "",
+        "fixity_algorithm": "sha256",
+        "to_node": 3
+    },
+    "model": "data.replicationtransfer"
+},
+{
+    "pk": 12,
+    "fields": {
+        "bag_valid": null,
+        "fixity_nonce": "",
+        "from_node": 1,
+        "protocol": "R",
+        "bag": "06edc30f-af04-4a4e-4ad6-3c679a195d46",
+        "created_at": "2015-05-22T19:54:46.423Z",
+        "fixity_accept": null,
+        "updated_at": "2015-05-22T20:37:00.601Z",
+        "replication_id": "aptrust-12",
+        "status": "Requested",
+        "link": "dpn.chron@devops.aptrust.org:outbound/06edc30f-af04-4a4e-4ad6-3c679a195d46.tar",
+        "fixity_value": "",
+        "fixity_algorithm": "sha256",
+        "to_node": 3
+    },
+    "model": "data.replicationtransfer"
+},
+{
+    "pk": 13,
+    "fields": {
+        "bag_valid": null,
+        "fixity_nonce": "",
+        "from_node": 1,
+        "protocol": "R",
+        "bag": "472218b3-95ce-4b8e-6c21-6e514cfbe43f",
+        "created_at": "2015-05-22T19:55:04.597Z",
+        "fixity_accept": null,
+        "updated_at": "2015-05-22T20:36:50.800Z",
+        "replication_id": "aptrust-13",
+        "status": "Requested",
+        "link": "dpn.hathi@devops.aptrust.org:outbound/472218b3-95ce-4b8e-6c21-6e514cfbe43f.tar",
+        "fixity_value": "",
+        "fixity_algorithm": "sha256",
+        "to_node": 2
+    },
+    "model": "data.replicationtransfer"
+},
+{
+    "pk": 14,
+    "fields": {
+        "bag_valid": null,
+        "fixity_nonce": "",
+        "from_node": 1,
+        "protocol": "R",
+        "bag": "4d11736c-c0ab-44b0-66c6-a947f414d4f1",
+        "created_at": "2015-05-22T19:55:22.456Z",
+        "fixity_accept": null,
+        "updated_at": "2015-05-22T20:36:41.319Z",
+        "replication_id": "aptrust-14",
+        "status": "Requested",
+        "link": "dpn.hathi@devops.aptrust.org:outbound/4d11736c-c0ab-44b0-66c6-a947f414d4f1.tar",
+        "fixity_value": "",
+        "fixity_algorithm": "sha256",
+        "to_node": 2
+    },
+    "model": "data.replicationtransfer"
+},
+{
+    "pk": 15,
+    "fields": {
+        "bag_valid": null,
+        "fixity_nonce": "",
+        "from_node": 1,
+        "protocol": "R",
+        "bag": "005e7793-8253-4585-7118-2da702e29aa0",
+        "created_at": "2015-05-22T19:55:39.498Z",
+        "fixity_accept": null,
+        "updated_at": "2015-05-22T20:36:32.965Z",
+        "replication_id": "aptrust-15",
+        "status": "Requested",
+        "link": "dpn.hathi@devops.aptrust.org:outbound/005e7793-8253-4585-7118-2da702e29aa0.tar",
+        "fixity_value": "",
+        "fixity_algorithm": "sha256",
+        "to_node": 2
+    },
+    "model": "data.replicationtransfer"
+},
+{
+    "pk": 16,
+    "fields": {
+        "bag_valid": null,
+        "fixity_nonce": "",
+        "from_node": 1,
+        "protocol": "R",
+        "bag": "41e5376c-cc13-4c3e-6af3-297cc2e005aa",
+        "created_at": "2015-05-22T19:55:56.121Z",
+        "fixity_accept": null,
+        "updated_at": "2015-05-22T20:36:23.461Z",
+        "replication_id": "aptrust-16",
+        "status": "Requested",
+        "link": "dpn.hathi@devops.aptrust.org:outbound/41e5376c-cc13-4c3e-6af3-297cc2e005aa.tar",
+        "fixity_value": "",
+        "fixity_algorithm": "sha256",
+        "to_node": 2
+    },
+    "model": "data.replicationtransfer"
+},
+{
+    "pk": 17,
+    "fields": {
+        "bag_valid": null,
+        "fixity_nonce": "",
+        "from_node": 1,
+        "protocol": "R",
+        "bag": "8839f294-c7c0-404d-4467-7ab223ff461b",
+        "created_at": "2015-05-22T19:56:15.190Z",
+        "fixity_accept": null,
+        "updated_at": "2015-05-22T20:36:13.376Z",
+        "replication_id": "aptrust-17",
+        "status": "Requested",
+        "link": "dpn.hathi@devops.aptrust.org:outbound/8839f294-c7c0-404d-4467-7ab223ff461b.tar",
+        "fixity_value": "",
+        "fixity_algorithm": "sha256",
+        "to_node": 2
+    },
+    "model": "data.replicationtransfer"
+},
+{
+    "pk": 18,
+    "fields": {
+        "bag_valid": null,
+        "fixity_nonce": "",
+        "from_node": 1,
+        "protocol": "R",
+        "bag": "06edc30f-af04-4a4e-4ad6-3c679a195d46",
+        "created_at": "2015-05-22T19:56:33.495Z",
+        "fixity_accept": null,
+        "updated_at": "2015-05-22T20:35:59.506Z",
+        "replication_id": "aptrust-18",
+        "status": "Requested",
+        "link": "dpn.hathi@devops.aptrust.org:outbound/06edc30f-af04-4a4e-4ad6-3c679a195d46.tar",
+        "fixity_value": "",
+        "fixity_algorithm": "sha256",
+        "to_node": 2
+    },
+    "model": "data.replicationtransfer"
+},
+{
+    "pk": 19,
+    "fields": {
+        "bag_valid": null,
+        "fixity_nonce": "",
+        "from_node": 1,
+        "protocol": "R",
+        "bag": "472218b3-95ce-4b8e-6c21-6e514cfbe43f",
+        "created_at": "2015-05-22T19:58:45.141Z",
+        "fixity_accept": null,
+        "updated_at": "2015-05-22T20:35:51.999Z",
+        "replication_id": "aptrust-19",
+        "status": "Requested",
+        "link": "dpn.sdr@devops.aptrust.org:outbound/472218b3-95ce-4b8e-6c21-6e514cfbe43f.tar",
+        "fixity_value": "",
+        "fixity_algorithm": "sha256",
+        "to_node": 5
+    },
+    "model": "data.replicationtransfer"
+},
+{
+    "pk": 20,
+    "fields": {
+        "bag_valid": null,
+        "fixity_nonce": "",
+        "from_node": 1,
+        "protocol": "R",
+        "bag": "4d11736c-c0ab-44b0-66c6-a947f414d4f1",
+        "created_at": "2015-05-22T19:59:00.615Z",
+        "fixity_accept": null,
+        "updated_at": "2015-05-22T20:35:44.029Z",
+        "replication_id": "aptrust-20",
+        "status": "Requested",
+        "link": "dpn.sdr@devops.aptrust.org:outbound/4d11736c-c0ab-44b0-66c6-a947f414d4f1.tar",
+        "fixity_value": "",
+        "fixity_algorithm": "sha256",
+        "to_node": 5
+    },
+    "model": "data.replicationtransfer"
+},
+{
+    "pk": 21,
+    "fields": {
+        "bag_valid": null,
+        "fixity_nonce": "",
+        "from_node": 1,
+        "protocol": "R",
+        "bag": "005e7793-8253-4585-7118-2da702e29aa0",
+        "created_at": "2015-05-22T19:59:17.197Z",
+        "fixity_accept": null,
+        "updated_at": "2015-05-22T20:35:32.192Z",
+        "replication_id": "aptrust-21",
+        "status": "Requested",
+        "link": "dpn.sdr@devops.aptrust.org:outbound/005e7793-8253-4585-7118-2da702e29aa0.tar",
+        "fixity_value": "",
+        "fixity_algorithm": "sha256",
+        "to_node": 5
+    },
+    "model": "data.replicationtransfer"
+},
+{
+    "pk": 22,
+    "fields": {
+        "bag_valid": null,
+        "fixity_nonce": "",
+        "from_node": 1,
+        "protocol": "R",
+        "bag": "41e5376c-cc13-4c3e-6af3-297cc2e005aa",
+        "created_at": "2015-05-22T19:59:34.479Z",
+        "fixity_accept": null,
+        "updated_at": "2015-05-22T20:35:24.670Z",
+        "replication_id": "aptrust-22",
+        "status": "Requested",
+        "link": "dpn.sdr@devops.aptrust.org:outbound/41e5376c-cc13-4c3e-6af3-297cc2e005aa.tar",
+        "fixity_value": "",
+        "fixity_algorithm": "sha256",
+        "to_node": 5
+    },
+    "model": "data.replicationtransfer"
+},
+{
+    "pk": 23,
+    "fields": {
+        "bag_valid": null,
+        "fixity_nonce": "",
+        "from_node": 1,
+        "protocol": "R",
+        "bag": "8839f294-c7c0-404d-4467-7ab223ff461b",
+        "created_at": "2015-05-22T19:59:54.032Z",
+        "fixity_accept": null,
+        "updated_at": "2015-05-22T20:35:14.862Z",
+        "replication_id": "aptrust-23",
+        "status": "Requested",
+        "link": "dpn.sdr@devops.aptrust.org:outbound/8839f294-c7c0-404d-4467-7ab223ff461b.tar",
+        "fixity_value": "",
+        "fixity_algorithm": "sha256",
+        "to_node": 5
+    },
+    "model": "data.replicationtransfer"
+},
+{
+    "pk": 24,
+    "fields": {
+        "bag_valid": null,
+        "fixity_nonce": "",
+        "from_node": 1,
+        "protocol": "R",
+        "bag": "06edc30f-af04-4a4e-4ad6-3c679a195d46",
+        "created_at": "2015-05-22T20:00:12.597Z",
+        "fixity_accept": null,
+        "updated_at": "2015-05-22T20:35:04.963Z",
+        "replication_id": "aptrust-24",
+        "status": "Requested",
+        "link": "dpn.sdr@devops.aptrust.org:outbound/06edc30f-af04-4a4e-4ad6-3c679a195d46.tar",
+        "fixity_value": "",
+        "fixity_algorithm": "sha256",
+        "to_node": 5
+    },
+    "model": "data.replicationtransfer"
+},
+{
+    "pk": 1,
+    "fields": {
+        "node": null,
+        "user": 1
+    },
+    "model": "data.userprofile"
+},
+{
+    "pk": 2,
+    "fields": {
+        "node": null,
+        "user": 2
+    },
+    "model": "data.userprofile"
+},
+{
+    "pk": 3,
+    "fields": {
+        "node": null,
+        "user": 3
+    },
+    "model": "data.userprofile"
+},
+{
+    "pk": 4,
+    "fields": {
+        "node": null,
+        "user": 4
+    },
+    "model": "data.userprofile"
+},
+{
+    "pk": 5,
+    "fields": {
+        "node": null,
+        "user": 5
+    },
+    "model": "data.userprofile"
+},
+{
+    "pk": 6,
+    "fields": {
+        "node": null,
+        "user": 6
+    },
+    "model": "data.userprofile"
+}
+]
