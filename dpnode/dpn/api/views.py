@@ -195,7 +195,7 @@ class ReplicationTransferDetailView(generics.RetrieveUpdateAPIView):
 
     """
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated, DjangoModelPermissions, IsNodeUser)
+    permission_classes = (IsAuthenticated, DjangoModelPermissions, IsNodeUser,)
     lookup_field = "replication_id"
     model = ReplicationTransfer
     serializer_class = BasicReplicationSerializer
@@ -213,7 +213,7 @@ class RestoreTransferDetailView(generics.RetrieveUpdateAPIView):
 
     """
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated, DjangoModelPermissions, IsNodeUser)
+    permission_classes = (IsAuthenticated, DjangoModelPermissions, IsNodeUser,)
     lookup_field = "restore_id"
     model = RestoreTransfer
     serializer_class = BasicRestoreSerializer
