@@ -1720,6 +1720,66 @@
     }
 },
 {
+    "pk": 1,
+    "fields": {
+        "restore_id": "aptrust-1",
+        "bag": "41e5376c-cc13-4c3e-6af3-297cc2e005aa",
+        "protocol": "R",
+        "updated_at": "2015-06-01T19:07:53.918Z",
+        "to_node": 1,
+        "created_at": "2015-06-01T19:07:53.917Z",
+        "link": "rsync://mnt/staging/41e5376c-cc13-4c3e-6af3-297cc2e005aa.tar",
+        "from_node": 4,
+        "status": "Requested"
+    },
+    "model": "data.restoretransfer"
+},
+{
+    "pk": 2,
+    "fields": {
+        "restore_id": "aptrust-2",
+        "bag": "06edc30f-af04-4a4e-4ad6-3c679a195d46",
+        "protocol": "R",
+        "updated_at": "2015-06-01T19:15:14.867Z",
+        "to_node": 1,
+        "created_at": "2015-06-01T19:07:53.951Z",
+        "link": "rsync://mnt/staging/06edc30f-af04-4a4e-4ad6-3c679a195d46.tar",
+        "from_node": 3,
+        "status": "Prepared"
+    },
+    "model": "data.restoretransfer"
+},
+{
+    "pk": 3,
+    "fields": {
+        "restore_id": "aptrust-3",
+        "bag": "6029850a-b6a3-4c77-8c7a-606170ea9f95",
+        "protocol": "R",
+        "updated_at": "2015-06-01T19:09:16.091Z",
+        "to_node": 1,
+        "created_at": "2015-06-01T19:09:16.090Z",
+        "link": "rsync://mnt/staging/6029850a-b6a3-4c77-8c7a-606170ea9f95.tar",
+        "from_node": 4,
+        "status": "Requested"
+    },
+    "model": "data.restoretransfer"
+},
+{
+    "pk": 4,
+    "fields": {
+        "restore_id": "aptrust-4",
+        "bag": "472218b3-95ce-4b8e-6c21-6e514cfbe43f",
+        "protocol": "R",
+        "updated_at": "2015-06-01T19:15:59.535Z",
+        "to_node": 1,
+        "created_at": "2015-06-01T19:09:16.123Z",
+        "link": "rsync://mnt/staging/472218b3-95ce-4b8e-6c21-6e514cfbe43f.tar",
+        "from_node": 3,
+        "status": "Prepared"
+    },
+    "model": "data.restoretransfer"
+},
+{
     "model": "auth.permission",
     "pk": 1,
     "fields": {
