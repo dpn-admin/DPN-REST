@@ -41,38 +41,50 @@ class FixitySerializer(serializers.ModelSerializer):
         return instance
 
 
+# Local admin is the only user who can update a node
+# through the API, and even then, he can update only
+# the last_pull_date. All other updated must be done
+# through the admin UI.
 class NodeSerializer(serializers.ModelSerializer):
     storage = StorageSerializer(source="storage_set", many=True, read_only=True)
     protocols = serializers.SlugRelatedField(
         queryset=Protocol.objects.all(),
         many=True,
+        required=False,
         slug_field="name")
     replicate_from = serializers.SlugRelatedField(
         slug_field="namespace",
         many=True,
+        required=False,
         read_only=True)
     replicate_to = serializers.SlugRelatedField(
         slug_field="namespace",
         many=True,
+        required=False,
         read_only=True)
     restore_from = serializers.SlugRelatedField(
         slug_field="namespace",
         many=True,
+        required=False,
         read_only=True)
     restore_to = serializers.SlugRelatedField(
         slug_field="namespace",
         many=True,
+        required=False,
         read_only=True)
     fixity_algorithms = serializers.SlugRelatedField(
         slug_field="name",
         many=True,
+        required=False,
         read_only=True)
 
     class Meta:
         model = Node
         depth = 1
-        exclude = ('ssh_username', 'id', 'last_pull_date',)
-        read_only_fields = ('id', 'name', 'ssh_username',)
+        exclude = ('ssh_username', 'id',)
+        read_only_fields = ('id', 'name', 'ssh_username', 'storage',
+                            'protocols', 'replicate_to', 'replicate_from',
+                            'restore_to', 'restore_from', 'fixity_algorithms',)
 
 class BagUuidField(serializers.Field):
     def to_representation(self, obj):
@@ -102,10 +114,10 @@ class BasicReplicationSerializer(serializers.ModelSerializer):
                             'fixity_nonce', 'fixity_accept',
                             'link', 'protocol', 'created_at', 'updated_at',)
 
-    def _user_is_admin(self):
+    def _user_is_superuser(self):
         request = self.context.get('request', None)
         if request is not None:
-            return request.user.is_admin()
+            return request.user.is_superuser
         else:
             return false
 
@@ -116,10 +128,11 @@ class BasicReplicationSerializer(serializers.ModelSerializer):
     # clients should only ever be allowed to update status, bag_valid and
     # fixity_value. If they send us any other data, we throw it out.
     def update(self, instance, validated_data):
+        was_already_confirmed = instance.status == "Confirmed"
         instance.status = validated_data.get('status', instance.status)
         instance.bag_valid = validated_data.get('bag_valid', instance.bag_valid)
         instance.fixity_value = validated_data.get('fixity_value', instance.fixity_value)
-        if instance.status.lower() == "confirmed" and not self._user_is_admin():
+        if instance.status.lower() == "confirmed" and not was_already_confirmed and not self._user_is_superuser():
             raise PermissionDenied("Only the local admin can set replication status to 'Confirmed'")
         instance.save()
         return instance
@@ -176,10 +189,10 @@ class BasicRestoreSerializer(serializers.ModelSerializer):
         read_only_fields = ('restore_id', 'from_node', 'to_node', 'uuid',
                             'created_at', 'updated_at',)
 
-    def _user_is_admin(self):
+    def _user_is_superuser(self):
         request = self.context.get('request', None)
         if request is not None:
-            return self.request.user.is_admin()
+            return self.request.user.is_superuser
         else:
             return false
 
@@ -188,7 +201,7 @@ class BasicRestoreSerializer(serializers.ModelSerializer):
         instance.status = validated_data.get('status', instance.status)
         instance.protocol = validated_data.get('protocol', instance.protocol)
         instance.link = validated_data.get('link', instance.link)
-        if instance.status.lower() == "finished" and not self._user_is_admin():
+        if instance.status.lower() == "finished" and not self._user_is_superuser():
             raise PermissionDenied("Only the local admin can set replication status to 'Finished'")
         instance.save()
         return instance
