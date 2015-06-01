@@ -149,12 +149,8 @@ class ReplicationTransferListView(generics.ListCreateAPIView):
     #ordering_fields = ('created_on', 'updated_on')
 
     def get_serializer_class(self):
-        try:
-            if self.request.user.has_perm('data.add_transfer') \
-                    and self.request.method == 'POST':
-                return CreateReplicationSerializer
-        except AttributeError: # in case no logged in context
-            pass
+        if self.request.method == 'POST':
+            return CreateReplicationSerializer
         return BasicReplicationSerializer
 
 
@@ -176,12 +172,8 @@ class RestoreTransferListView(generics.ListCreateAPIView):
     #ordering_fields = ('updated_at')
 
     def get_serializer_class(self):
-        try:
-            if self.request.user.has_perm('data.add_transfer') \
-                    and self.request.method == 'POST':
-                return CreateRestoreSerializer
-        except AttributeError: # in case no logged in context
-            pass
+        if self.request.method == 'POST':
+            return CreateRestoreSerializer
         return BasicRestoreSerializer
 
 
