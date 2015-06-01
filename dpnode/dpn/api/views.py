@@ -4,6 +4,7 @@
         - JACK HANDY
 """
 from django.conf import settings
+from django import forms  # for our CaseInsensitiveBooleanFilter
 
 import django_filters
 from rest_framework import generics, filters
@@ -20,6 +21,22 @@ from dpn.api.permissions import IsNodeUser, IsBagOwner
 from dpn.data.models import Bag, Node, UserProfile
 from dpn.data.models import ReplicationTransfer, RestoreTransfer
 
+# Create our own BooleanFilter, because django_filters
+# accepts True/False, but not true/false. That's a problem,
+# since virutally all non-Python clients will send true/false.
+# See https://github.com/tomchristie/django-rest-framework/issues/2122
+class CaseInsensitiveBooleanFilter(django_filters.Filter):
+
+    def filter(self, qs, value):
+        if value is not None:
+            lc_value = value.lower()
+            if lc_value == "true":
+                value = True
+            elif lc_value == "false":
+                value = False
+            return qs.filter(**{self.name: value})
+        return qs
+
 # Custom View Filters
 
 class BagFilter(django_filters.FilterSet):
@@ -27,37 +44,52 @@ class BagFilter(django_filters.FilterSet):
         name="updated_at",
         lookup_type='lt',
         # NOTE only works when explicitly set even if default is set.
-        input_formats=[settings.DPN_DATE_FORMAT,]
+        # Be sure to include format with no milliseconds, or datetimes
+        # without milliseconds will not parse correctly.
+        input_formats=[settings.DPN_DATE_FORMAT, "%Y-%m-%dT%H:%M:%SZ"]
     )
     after = django_filters.DateTimeFilter(
         name="updated_at",
         lookup_type='gt',
-        input_formats=[settings.DPN_DATE_FORMAT,]
+        input_formats=[settings.DPN_DATE_FORMAT, "%Y-%m-%dT%H:%M:%SZ"]
     )
-    first_node = django_filters.CharFilter(name="ingest_node__namespace")
+    admin_node = django_filters.CharFilter(name="admin_node__namespace")
 
     class Meta:
         model = Bag
-        fields = ['before', 'after', 'first_node', 'bag_type',]
+        fields = ['before', 'after', 'admin_node', 'bag_type',]
 
 
 class ReplicationTransferFilterSet(django_filters.FilterSet):
-    bag = django_filters.CharFilter(name='bag__uuid')
+    uuid = django_filters.CharFilter(name='bag__uuid')
+    fixity_accept = CaseInsensitiveBooleanFilter(name='fixity_accept')
+    bag_valid = CaseInsensitiveBooleanFilter(name='bag_valid')
     to_node = django_filters.CharFilter(name="to_node__namespace")
     from_node = django_filters.CharFilter(name="from_node__namespace")
+    after = django_filters.DateTimeFilter(
+        name="updated_at",
+        lookup_type='gt',
+        input_formats=[settings.DPN_DATE_FORMAT, "%Y-%m-%dT%H:%M:%SZ"]
+    )
 
     class Meta:
         model = ReplicationTransfer
-        fields = ["bag", "to_node", "from_node", "status"]
+        fields = ["uuid", "to_node", "from_node", "status", "bag_valid",
+                  "fixity_accept", "after"]
 
 
 class RestoreTransferFilterSet(django_filters.FilterSet):
     bag = django_filters.CharFilter(name='bag__uuid')
     to_node = django_filters.CharFilter(name="to_node__namespace")
+    after = django_filters.DateTimeFilter(
+        name="updated_at",
+        lookup_type='gt',
+        input_formats=[settings.DPN_DATE_FORMAT, "%Y-%m-%dT%H:%M:%SZ"]
+    )
 
     class Meta:
         model = RestoreTransfer
-        fields = ["bag", "to_node", "status"]
+        fields = ["bag", "to_node", "status", "after"]
 
 # class NodeMemberFilterBackend(filters.BaseFilterBackend):
 #     """

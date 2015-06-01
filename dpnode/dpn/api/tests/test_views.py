@@ -239,7 +239,7 @@ class ReplicationTransferListViewTest(APITestCase):
         # It should filter transfers by bag uuid
         bag = Bag.objects.filter(ingest_node=mynode).order_by('?')[0]
         xfers = ReplicationTransfer.objects.filter(bag=bag)
-        url = "%s?bag=%s" % (reverse('api:replication-list'),
+        url = "%s?uuid=%s" % (reverse('api:replication-list'),
                                        bag.uuid)
         _test_return_count(self.api_admin, url, xfers.count())
 
@@ -254,7 +254,7 @@ class ReplicationTransferListViewTest(APITestCase):
         # Test data generator creates two transfer requests
         # for each bag.
         bag = ReplicationTransfer.objects.all().first().bag
-        url = "%s?bag=%s" % (reverse('api:replication-list'), bag.uuid)
+        url = "%s?uuid=%s" % (reverse('api:replication-list'), bag.uuid)
         _test_return_count(self.api_admin, url, 2)
 
         # It should filter based on to_node
@@ -262,6 +262,34 @@ class ReplicationTransferListViewTest(APITestCase):
         xfers = ReplicationTransfer.objects.filter(to_node=node)
         url = "%s?to_node=%s" % (reverse('api:replication-list'), node.namespace)
         _test_return_count(self.api_admin, url, xfers.count())
+
+        # It should filter based on bag_valid
+        node = self.api_user.profile.node
+        valid_xfer = ReplicationTransfer.objects.first()
+        valid_xfer.bag_valid = True
+        valid_xfer.save()
+        xfers = ReplicationTransfer.objects.filter(bag_valid=True)
+        url = "%s?bag_valid=true" % (reverse('api:replication-list'))
+        _test_return_count(self.api_admin, url, xfers.count())
+
+        # It should filter based on fixity_accept
+        node = self.api_user.profile.node
+        accepted_xfer = ReplicationTransfer.objects.first()
+        accepted_xfer.fixity_accept = True
+        accepted_xfer.save()
+        xfers = ReplicationTransfer.objects.filter(fixity_accept=True)
+        url = "%s?fixity_accept=True" % (reverse('api:replication-list'))
+        _test_return_count(self.api_admin, url, xfers.count())
+
+        # It should filter based on after
+        node = self.api_user.profile.node
+        xfers = ReplicationTransfer.objects.filter(updated_at__gt='1999-01-01T00:00:00Z')
+        url = "%s?after=1999-01-01T00:00:00Z" % (reverse('api:replication-list'))
+        _test_return_count(self.api_admin, url, xfers.count())
+        xfers = ReplicationTransfer.objects.filter(updated_at__gt='2159-01-01T00:00:00Z')
+        url = "%s?after=2159-01-01T00:00:00Z" % (reverse('api:replication-list'))
+        _test_return_count(self.api_admin, url, xfers.count())
+
 
     def test_post(self):
         # It should not allow anoymous users to post.
