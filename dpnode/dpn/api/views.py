@@ -81,10 +81,15 @@ class ReplicationTransferFilterSet(django_filters.FilterSet):
 class RestoreTransferFilterSet(django_filters.FilterSet):
     bag = django_filters.CharFilter(name='bag__uuid')
     to_node = django_filters.CharFilter(name="to_node__namespace")
+    after = django_filters.DateTimeFilter(
+        name="updated_at",
+        lookup_type='gt',
+        input_formats=[settings.DPN_DATE_FORMAT, "%Y-%m-%dT%H:%M:%SZ"]
+    )
 
     class Meta:
         model = RestoreTransfer
-        fields = ["bag", "to_node", "status"]
+        fields = ["bag", "to_node", "status", "after"]
 
 # class NodeMemberFilterBackend(filters.BaseFilterBackend):
 #     """
