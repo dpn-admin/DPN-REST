@@ -10,6 +10,8 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import sys
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -104,14 +106,38 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# Check this env var to see if we should impersonate
+# another DPN node. This is for local integration
+# testing. If we're impersonating another node,
+# we'll load some special settings for that node below.
+IMPERSONATE_DPN_NODE = os.getenv("IMPERSONATE_DPN_NODE", None)
+
 # Support configurable localsettings.
 # To setup just copy localsettings_dist.py to localsettings.py and
 # set values as appropriate.
 try:
     from dpnode.localsettings import *
 except ImportError:
-    import sys
-
     print('''Missing localsettings!  Please configure a version of
     localsettings.py for this app.  See localsettings_dist.py for details''')
-    del sys
+
+if IMPERSONATE_DPN_NODE == "tdr":
+    try:
+        from dpnode.tdr_settings import *
+    except ImportError:
+        pass
+elif IMPERSONATE_DPN_NODE == "chron":
+    try:
+        from dpnode.chron_settings import *
+    except ImportError:
+        pass
+elif IMPERSONATE_DPN_NODE == "hathi":
+    try:
+        from dpnode.hathi_settings import *
+    except ImportError:
+        pass
+elif IMPERSONATE_DPN_NODE == "sdr":
+    try:
+        from dpnode.sdr_settings import *
+    except ImportError:
+        pass
