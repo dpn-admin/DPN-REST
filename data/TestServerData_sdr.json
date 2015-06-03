@@ -466,9 +466,9 @@
     "fields": {
         "last_name": "",
         "password": "pbkdf2_sha256$15000$Klz2TFoxY8xE$/I58ocVVFVI2xLCEfaCS0BJXEuKbCMSu7nmBAPENGXo=",
-        "email": "andrew.diamond@aptrust.org",
+        "email": "andrew.diamond@sdr.org",
         "username": "andrew.diamond@aptrust.org",
-        "last_login": "2015-05-28T15:37:38Z",
+ "is_superuser": false,        "last_login": "2015-05-28T15:37:38Z",
         "groups": [
             2
         ],
@@ -488,7 +488,7 @@
         "password": "pbkdf2_sha256$15000$Vjhj7WKEdpQ6$SqeAlTHG9ViWwlWjt0ETYLFIN97WjOBb5uOb9x3hBSE=",
         "email": "",
         "username": "chron_user",
-        "last_login": "2015-05-04T17:30:31Z",
+ "is_superuser": false,        "last_login": "2015-05-04T17:30:31Z",
         "groups": [
             1
         ],
@@ -508,7 +508,7 @@
         "password": "pbkdf2_sha256$15000$6QXSo1C11nc9$C+Dult7lXQtHbHYeJmwqzbyUuCXeF6acDPNtmy9eVqo=",
         "email": "",
         "username": "hathi_user",
-        "last_login": "2015-05-04T17:30:42Z",
+ "is_superuser": false,        "last_login": "2015-05-04T17:30:42Z",
         "groups": [
             1
         ],
@@ -528,7 +528,7 @@
         "password": "pbkdf2_sha256$15000$as2Swb1GL41J$RKGTkc9PtK5lVvqQ+lIgYI0N9EXxbbbiBq7OTausqiA=",
         "email": "",
         "username": "sdr_user",
-        "last_login": "2015-05-04T17:31:13Z",
+ "is_superuser": true,        "last_login": "2015-05-04T17:31:13Z",
         "groups": [
             1
         ],
@@ -548,7 +548,7 @@
         "password": "pbkdf2_sha256$15000$vuhkbKTdL7Y2$73CBo5jQEpVmVLmwshbbTYX4aQNuHm4DOA8b/HW6O8w=",
         "email": "",
         "username": "tdr_user",
-        "last_login": "2015-05-04T17:31:28Z",
+ "is_superuser": false,        "last_login": "2015-05-04T17:31:28Z",
         "groups": [
             1
         ],
@@ -568,7 +568,7 @@
         "password": "pbkdf2_sha256$15000$Quw05XjFKquA$/07Iz2oNKFAYdmG+FOqH5AVtpCc59sQAHuSFBEZrZnE=",
         "email": "",
         "username": "aptrust_user",
-        "last_login": "2015-05-04T17:32:19Z",
+ "is_superuser": false,        "last_login": "2015-05-04T17:32:19Z",
         "groups": [
             2
         ],
@@ -769,7 +769,7 @@
             2
         ],
         "namespace": "aptrust",
-        "api_root": "https://devops.aptrust.org/dpnode/",
+        "api_root": "https://devops.sdr.org/dpnode/",
         "replicate_from": [
             5,
             4,
@@ -1025,18 +1025,18 @@
 },
 {
     "model": "data.bag",
-    "pk": "005e7793-8253-4585-7118-2da702e29aa0",
+    "pk": "1eddfbb5-a030-4e23-9ac5-e5abea4b0b26",
     "fields": {
-        "ingest_node": 1,
+        "ingest_node": 5,
         "replicating_nodes": [
             4
         ],
-        "admin_node": 1,
+        "admin_node": 5,
         "version": 1,
         "bag_type": "D",
-        "first_version_uuid": "005e7793-8253-4585-7118-2da702e29aa0",
+        "first_version_uuid": "1eddfbb5-a030-4e23-9ac5-e5abea4b0b26",
         "rights": [],
-        "local_id": "test.edu/test.edu.bag4",
+        "local_id": "sdr_bag_1",
         "size": 71680,
         "updated_at": "2015-05-22T19:08:37.847Z",
         "created_at": "2015-05-22T19:08:37.847Z",
@@ -1045,18 +1045,18 @@
 },
 {
     "model": "data.bag",
-    "pk": "06edc30f-af04-4a4e-4ad6-3c679a195d46",
+    "pk": "8a3ff13a-f8e4-415f-b467-5cec55002c81",
     "fields": {
-        "ingest_node": 1,
+        "ingest_node": 5,
         "replicating_nodes": [
             4
         ],
-        "admin_node": 1,
+        "admin_node": 5,
         "version": 1,
         "bag_type": "D",
-        "first_version_uuid": "06edc30f-af04-4a4e-4ad6-3c679a195d46",
+        "first_version_uuid": "8a3ff13a-f8e4-415f-b467-5cec55002c81",
         "rights": [],
-        "local_id": "test.edu/test.edu.bag1",
+        "local_id": "sdr_bag_2",
         "size": 4005888,
         "updated_at": "2015-05-22T19:08:34.295Z",
         "created_at": "2015-05-22T19:08:34.295Z",
@@ -1065,18 +1065,18 @@
 },
 {
     "model": "data.bag",
-    "pk": "41e5376c-cc13-4c3e-6af3-297cc2e005aa",
+    "pk": "e304a855-8258-4937-a18f-647568ce7eb4",
     "fields": {
-        "ingest_node": 1,
+        "ingest_node": 5,
         "replicating_nodes": [
             4
         ],
-        "admin_node": 1,
+        "admin_node": 5,
         "version": 1,
         "bag_type": "D",
-        "first_version_uuid": "41e5376c-cc13-4c3e-6af3-297cc2e005aa",
+        "first_version_uuid": "e304a855-8258-4937-a18f-647568ce7eb4",
         "rights": [],
-        "local_id": "test.edu/test.edu.bag3",
+        "local_id": "sdr_bag_3",
         "size": 44544,
         "updated_at": "2015-05-22T19:08:36.599Z",
         "created_at": "2015-05-22T19:08:36.599Z",
@@ -1085,18 +1085,18 @@
 },
 {
     "model": "data.bag",
-    "pk": "472218b3-95ce-4b8e-6c21-6e514cfbe43f",
+    "pk": "c32ec5e6-63af-4344-9e8a-a44f372f5540",
     "fields": {
-        "ingest_node": 1,
+        "ingest_node": 5,
         "replicating_nodes": [
             4
         ],
-        "admin_node": 1,
+        "admin_node": 5,
         "version": 1,
         "bag_type": "D",
-        "first_version_uuid": "472218b3-95ce-4b8e-6c21-6e514cfbe43f",
+        "first_version_uuid": "c32ec5e6-63af-4344-9e8a-a44f372f5540",
         "rights": [],
-        "local_id": "test.edu/test.edu.bag6",
+        "local_id": "sdr_bag_4",
         "size": 3974144,
         "updated_at": "2015-05-22T19:08:48.299Z",
         "created_at": "2015-05-22T19:08:48.299Z",
@@ -1105,18 +1105,18 @@
 },
 {
     "model": "data.bag",
-    "pk": "4d11736c-c0ab-44b0-66c6-a947f414d4f1",
+    "pk": "65a7ad25-eada-44a3-8809-d01029fe26c8",
     "fields": {
-        "ingest_node": 1,
+        "ingest_node": 5,
         "replicating_nodes": [
             4
         ],
-        "admin_node": 1,
+        "admin_node": 5,
         "version": 1,
         "bag_type": "D",
-        "first_version_uuid": "4d11736c-c0ab-44b0-66c6-a947f414d4f1",
+        "first_version_uuid": "65a7ad25-eada-44a3-8809-d01029fe26c8",
         "rights": [],
-        "local_id": "test.edu/test.edu.bag5",
+        "local_id": "sdr_bag_5",
         "size": 44544,
         "updated_at": "2015-05-22T19:08:38.798Z",
         "created_at": "2015-05-22T19:08:38.798Z",
@@ -1125,16 +1125,16 @@
 },
 {
     "model": "data.bag",
-    "pk": "57eefd0e-ab66-458a-a3e4-dd550c484ddc",
+    "pk": "4a0ff18c-b2a8-4401-a5d4-44c35f7b8cbf",
     "fields": {
-        "ingest_node": 1,
+        "ingest_node": 5,
         "replicating_nodes": [],
-        "admin_node": 1,
+        "admin_node": 5,
         "version": 1,
         "bag_type": "D",
-        "first_version_uuid": "57eefd0e-ab66-458a-a3e4-dd550c484ddc",
+        "first_version_uuid": "4a0ff18c-b2a8-4401-a5d4-44c35f7b8cbf",
         "rights": [],
-        "local_id": "aptrust-1",
+        "local_id": "sdr_bag_6",
         "size": 44455566,
         "updated_at": "2015-05-04T17:41:22.903Z",
         "created_at": "2015-05-04T17:41:22.903Z",
@@ -1143,16 +1143,16 @@
 },
 {
     "model": "data.bag",
-    "pk": "6029850a-b6a3-4c77-8c7a-606170ea9f95",
+    "pk": "4f0ea99b-97e1-45e0-ac11-bf77bfb0470e",
     "fields": {
-        "ingest_node": 1,
+        "ingest_node": 5,
         "replicating_nodes": [],
-        "admin_node": 1,
+        "admin_node": 5,
         "version": 1,
         "bag_type": "D",
-        "first_version_uuid": "6029850a-b6a3-4c77-8c7a-606170ea9f95",
+        "first_version_uuid": "4f0ea99b-97e1-45e0-ac11-bf77bfb0470e",
         "rights": [],
-        "local_id": "aptrust-2",
+        "local_id": "sdr_bag_7",
         "size": 7766554,
         "updated_at": "2015-05-04T17:41:51.909Z",
         "created_at": "2015-05-04T17:41:51.909Z",
@@ -1161,18 +1161,18 @@
 },
 {
     "model": "data.bag",
-    "pk": "8839f294-c7c0-404d-4467-7ab223ff461b",
+    "pk": "9923ef83-423e-439f-8af1-b438748d2509",
     "fields": {
-        "ingest_node": 1,
+        "ingest_node": 5,
         "replicating_nodes": [
             4
         ],
-        "admin_node": 1,
+        "admin_node": 5,
         "version": 1,
         "bag_type": "D",
-        "first_version_uuid": "8839f294-c7c0-404d-4467-7ab223ff461b",
+        "first_version_uuid": "9923ef83-423e-439f-8af1-b438748d2509",
         "rights": [],
-        "local_id": "test.edu/test.edu.bag2",
+        "local_id": "sdr_bag_8",
         "size": 62464,
         "updated_at": "2015-05-22T19:08:35.388Z",
         "created_at": "2015-05-22T19:08:35.388Z",
@@ -1186,7 +1186,7 @@
         "algorithm": "sha256",
         "digest": "353fba29e2bad3101de89533eb3b5882646af1353ab3aec7e27e5c5b8e0c5b69",
         "created_at": "2015-05-22T19:08:34.298Z",
-        "bag": "06edc30f-af04-4a4e-4ad6-3c679a195d46"
+        "bag": "8a3ff13a-f8e4-415f-b467-5cec55002c81"
     }
 },
 {
@@ -1196,7 +1196,7 @@
         "algorithm": "sha256",
         "digest": "e81f79fed2b4515e6a5c3f23161d0805172be1ca1f560ce29d3793cec2c79d89",
         "created_at": "2015-05-22T19:08:35.390Z",
-        "bag": "8839f294-c7c0-404d-4467-7ab223ff461b"
+        "bag": "9923ef83-423e-439f-8af1-b438748d2509"
     }
 },
 {
@@ -1206,7 +1206,7 @@
         "algorithm": "sha256",
         "digest": "e112ad47b3b280b92a38af2c5be38da7f04b79f4b180cbb92811f74ebc831d18",
         "created_at": "2015-05-22T19:08:36.602Z",
-        "bag": "41e5376c-cc13-4c3e-6af3-297cc2e005aa"
+        "bag": "e304a855-8258-4937-a18f-647568ce7eb4"
     }
 },
 {
@@ -1216,7 +1216,7 @@
         "algorithm": "sha256",
         "digest": "13743e26e07afcdab0600104989c5e5de0271ed2dff61cf7804ea294060a75ac",
         "created_at": "2015-05-22T19:08:37.850Z",
-        "bag": "005e7793-8253-4585-7118-2da702e29aa0"
+        "bag": "1eddfbb5-a030-4e23-9ac5-e5abea4b0b26"
     }
 },
 {
@@ -1226,7 +1226,7 @@
         "algorithm": "sha256",
         "digest": "6cb820f17c147ab9cd25a8c1f2adc7cf12a8070448dba35551e9c992e409688c",
         "created_at": "2015-05-22T19:08:38.800Z",
-        "bag": "4d11736c-c0ab-44b0-66c6-a947f414d4f1"
+        "bag": "65a7ad25-eada-44a3-8809-d01029fe26c8"
     }
 },
 {
@@ -1236,7 +1236,7 @@
         "algorithm": "sha256",
         "digest": "5329a5d06216ca9effc42a6f5b7c492952334d8b188ebbdefbbd0b970ab981a3",
         "created_at": "2015-05-22T19:08:48.301Z",
-        "bag": "472218b3-95ce-4b8e-6c21-6e514cfbe43f"
+        "bag": "c32ec5e6-63af-4344-9e8a-a44f372f5540"
     }
 },
 {
@@ -1246,7 +1246,7 @@
         "to_node": 4,
         "from_node": 1,
         "bag_valid": null,
-        "replication_id": "aptrust-1",
+        "replication_id": "sdr-1",
         "status": "Confirmed",
         "fixity_accept": true,
         "protocol": "R",
@@ -1254,8 +1254,8 @@
         "fixity_algorithm": "sha256",
         "created_at": "2015-05-22T19:46:45.761Z",
         "updated_at": "2015-05-28T16:15:35.884Z",
-        "bag": "472218b3-95ce-4b8e-6c21-6e514cfbe43f",
-        "link": "dpn.tdr@devops.aptrust.org:outbound/472218b3-95ce-4b8e-6c21-6e514cfbe43f.tar",
+        "bag": "c32ec5e6-63af-4344-9e8a-a44f372f5540",
+        "link": "dpn.tdr@devops.sdr.org:outbound/c32ec5e6-63af-4344-9e8a-a44f372f5540.tar",
         "fixity_value": "5329a5d06216ca9effc42a6f5b7c492952334d8b188ebbdefbbd0b970ab981a3"
     }
 },
@@ -1266,7 +1266,7 @@
         "to_node": 4,
         "from_node": 1,
         "bag_valid": null,
-        "replication_id": "aptrust-2",
+        "replication_id": "sdr-2",
         "status": "Confirmed",
         "fixity_accept": true,
         "protocol": "R",
@@ -1274,8 +1274,8 @@
         "fixity_algorithm": "sha256",
         "created_at": "2015-05-22T19:47:17.440Z",
         "updated_at": "2015-05-28T16:15:37.916Z",
-        "bag": "4d11736c-c0ab-44b0-66c6-a947f414d4f1",
-        "link": "dpn.tdr@devops.aptrust.org:outbound/4d11736c-c0ab-44b0-66c6-a947f414d4f1.tar",
+        "bag": "65a7ad25-eada-44a3-8809-d01029fe26c8",
+        "link": "dpn.tdr@devops.sdr.org:outbound/65a7ad25-eada-44a3-8809-d01029fe26c8.tar",
         "fixity_value": "6cb820f17c147ab9cd25a8c1f2adc7cf12a8070448dba35551e9c992e409688c"
     }
 },
@@ -1286,7 +1286,7 @@
         "to_node": 4,
         "from_node": 1,
         "bag_valid": null,
-        "replication_id": "aptrust-3",
+        "replication_id": "sdr-3",
         "status": "Confirmed",
         "fixity_accept": true,
         "protocol": "R",
@@ -1294,8 +1294,8 @@
         "fixity_algorithm": "sha256",
         "created_at": "2015-05-22T19:47:54.012Z",
         "updated_at": "2015-05-28T16:15:39.936Z",
-        "bag": "005e7793-8253-4585-7118-2da702e29aa0",
-        "link": "dpn.tdr@devops.aptrust.org:outbound/005e7793-8253-4585-7118-2da702e29aa0.tar",
+        "bag": "1eddfbb5-a030-4e23-9ac5-e5abea4b0b26",
+        "link": "dpn.tdr@devops.sdr.org:outbound/1eddfbb5-a030-4e23-9ac5-e5abea4b0b26.tar",
         "fixity_value": "13743e26e07afcdab0600104989c5e5de0271ed2dff61cf7804ea294060a75ac"
     }
 },
@@ -1306,7 +1306,7 @@
         "to_node": 4,
         "from_node": 1,
         "bag_valid": null,
-        "replication_id": "aptrust-4",
+        "replication_id": "sdr-4",
         "status": "Confirmed",
         "fixity_accept": true,
         "protocol": "R",
@@ -1314,8 +1314,8 @@
         "fixity_algorithm": "sha256",
         "created_at": "2015-05-22T19:48:25.049Z",
         "updated_at": "2015-05-28T16:15:41.844Z",
-        "bag": "41e5376c-cc13-4c3e-6af3-297cc2e005aa",
-        "link": "dpn.tdr@devops.aptrust.org:outbound/41e5376c-cc13-4c3e-6af3-297cc2e005aa.tar",
+        "bag": "e304a855-8258-4937-a18f-647568ce7eb4",
+        "link": "dpn.tdr@devops.sdr.org:outbound/e304a855-8258-4937-a18f-647568ce7eb4.tar",
         "fixity_value": "e112ad47b3b280b92a38af2c5be38da7f04b79f4b180cbb92811f74ebc831d18"
     }
 },
@@ -1326,7 +1326,7 @@
         "to_node": 4,
         "from_node": 1,
         "bag_valid": null,
-        "replication_id": "aptrust-5",
+        "replication_id": "sdr-5",
         "status": "Confirmed",
         "fixity_accept": true,
         "protocol": "R",
@@ -1334,8 +1334,8 @@
         "fixity_algorithm": "sha256",
         "created_at": "2015-05-22T19:48:47.638Z",
         "updated_at": "2015-05-28T16:15:43.665Z",
-        "bag": "8839f294-c7c0-404d-4467-7ab223ff461b",
-        "link": "dpn.tdr@devops.aptrust.org:outbound/8839f294-c7c0-404d-4467-7ab223ff461b.tar",
+        "bag": "9923ef83-423e-439f-8af1-b438748d2509",
+        "link": "dpn.tdr@devops.sdr.org:outbound/9923ef83-423e-439f-8af1-b438748d2509.tar",
         "fixity_value": "e81f79fed2b4515e6a5c3f23161d0805172be1ca1f560ce29d3793cec2c79d89"
     }
 },
@@ -1346,7 +1346,7 @@
         "to_node": 4,
         "from_node": 1,
         "bag_valid": null,
-        "replication_id": "aptrust-6",
+        "replication_id": "sdr-6",
         "status": "Confirmed",
         "fixity_accept": true,
         "protocol": "R",
@@ -1354,8 +1354,8 @@
         "fixity_algorithm": "sha256",
         "created_at": "2015-05-22T19:49:14.137Z",
         "updated_at": "2015-05-28T16:15:46.247Z",
-        "bag": "06edc30f-af04-4a4e-4ad6-3c679a195d46",
-        "link": "dpn.tdr@devops.aptrust.org:outbound/06edc30f-af04-4a4e-4ad6-3c679a195d46.tar",
+        "bag": "8a3ff13a-f8e4-415f-b467-5cec55002c81",
+        "link": "dpn.tdr@devops.sdr.org:outbound/8a3ff13a-f8e4-415f-b467-5cec55002c81.tar",
         "fixity_value": "353fba29e2bad3101de89533eb3b5882646af1353ab3aec7e27e5c5b8e0c5b69"
     }
 },
@@ -1366,7 +1366,7 @@
         "to_node": 3,
         "from_node": 1,
         "bag_valid": null,
-        "replication_id": "aptrust-7",
+        "replication_id": "sdr-7",
         "status": "Requested",
         "fixity_accept": null,
         "protocol": "R",
@@ -1374,8 +1374,8 @@
         "fixity_algorithm": "sha256",
         "created_at": "2015-05-22T19:52:35.558Z",
         "updated_at": "2015-05-22T20:37:49.018Z",
-        "bag": "472218b3-95ce-4b8e-6c21-6e514cfbe43f",
-        "link": "dpn.chron@devops.aptrust.org:outbound/472218b3-95ce-4b8e-6c21-6e514cfbe43f.tar",
+        "bag": "c32ec5e6-63af-4344-9e8a-a44f372f5540",
+        "link": "dpn.chron@devops.sdr.org:outbound/c32ec5e6-63af-4344-9e8a-a44f372f5540.tar",
         "fixity_value": ""
     }
 },
@@ -1386,7 +1386,7 @@
         "to_node": 3,
         "from_node": 1,
         "bag_valid": null,
-        "replication_id": "aptrust-8",
+        "replication_id": "sdr-8",
         "status": "Requested",
         "fixity_accept": null,
         "protocol": "R",
@@ -1394,8 +1394,8 @@
         "fixity_algorithm": "sha256",
         "created_at": "2015-05-22T19:53:05.313Z",
         "updated_at": "2015-05-22T20:37:39.660Z",
-        "bag": "4d11736c-c0ab-44b0-66c6-a947f414d4f1",
-        "link": "dpn.chron@devops.aptrust.org:outbound/4d11736c-c0ab-44b0-66c6-a947f414d4f1.tar",
+        "bag": "65a7ad25-eada-44a3-8809-d01029fe26c8",
+        "link": "dpn.chron@devops.sdr.org:outbound/65a7ad25-eada-44a3-8809-d01029fe26c8.tar",
         "fixity_value": ""
     }
 },
@@ -1406,7 +1406,7 @@
         "to_node": 3,
         "from_node": 1,
         "bag_valid": null,
-        "replication_id": "aptrust-9",
+        "replication_id": "sdr-9",
         "status": "Requested",
         "fixity_accept": null,
         "protocol": "R",
@@ -1414,8 +1414,8 @@
         "fixity_algorithm": "sha256",
         "created_at": "2015-05-22T19:53:26.965Z",
         "updated_at": "2015-05-22T20:37:29.331Z",
-        "bag": "005e7793-8253-4585-7118-2da702e29aa0",
-        "link": "dpn.chron@devops.aptrust.org:outbound/005e7793-8253-4585-7118-2da702e29aa0.tar",
+        "bag": "1eddfbb5-a030-4e23-9ac5-e5abea4b0b26",
+        "link": "dpn.chron@devops.sdr.org:outbound/1eddfbb5-a030-4e23-9ac5-e5abea4b0b26.tar",
         "fixity_value": ""
     }
 },
@@ -1426,7 +1426,7 @@
         "to_node": 3,
         "from_node": 1,
         "bag_valid": null,
-        "replication_id": "aptrust-10",
+        "replication_id": "sdr-10",
         "status": "Requested",
         "fixity_accept": null,
         "protocol": "R",
@@ -1434,8 +1434,8 @@
         "fixity_algorithm": "sha256",
         "created_at": "2015-05-22T19:53:53.202Z",
         "updated_at": "2015-05-22T20:37:19.193Z",
-        "bag": "41e5376c-cc13-4c3e-6af3-297cc2e005aa",
-        "link": "dpn.chron@devops.aptrust.org:outbound/41e5376c-cc13-4c3e-6af3-297cc2e005aa.tar",
+        "bag": "e304a855-8258-4937-a18f-647568ce7eb4",
+        "link": "dpn.chron@devops.sdr.org:outbound/e304a855-8258-4937-a18f-647568ce7eb4.tar",
         "fixity_value": ""
     }
 },
@@ -1446,7 +1446,7 @@
         "to_node": 3,
         "from_node": 1,
         "bag_valid": null,
-        "replication_id": "aptrust-11",
+        "replication_id": "sdr-11",
         "status": "Requested",
         "fixity_accept": null,
         "protocol": "R",
@@ -1454,8 +1454,8 @@
         "fixity_algorithm": "sha256",
         "created_at": "2015-05-22T19:54:22.781Z",
         "updated_at": "2015-05-22T20:37:09.977Z",
-        "bag": "8839f294-c7c0-404d-4467-7ab223ff461b",
-        "link": "dpn.chron@devops.aptrust.org:outbound/8839f294-c7c0-404d-4467-7ab223ff461b.tar",
+        "bag": "9923ef83-423e-439f-8af1-b438748d2509",
+        "link": "dpn.chron@devops.sdr.org:outbound/9923ef83-423e-439f-8af1-b438748d2509.tar",
         "fixity_value": ""
     }
 },
@@ -1466,7 +1466,7 @@
         "to_node": 3,
         "from_node": 1,
         "bag_valid": null,
-        "replication_id": "aptrust-12",
+        "replication_id": "sdr-12",
         "status": "Requested",
         "fixity_accept": null,
         "protocol": "R",
@@ -1474,8 +1474,8 @@
         "fixity_algorithm": "sha256",
         "created_at": "2015-05-22T19:54:46.423Z",
         "updated_at": "2015-05-22T20:37:00.601Z",
-        "bag": "06edc30f-af04-4a4e-4ad6-3c679a195d46",
-        "link": "dpn.chron@devops.aptrust.org:outbound/06edc30f-af04-4a4e-4ad6-3c679a195d46.tar",
+        "bag": "8a3ff13a-f8e4-415f-b467-5cec55002c81",
+        "link": "dpn.chron@devops.sdr.org:outbound/8a3ff13a-f8e4-415f-b467-5cec55002c81.tar",
         "fixity_value": ""
     }
 },
@@ -1486,7 +1486,7 @@
         "to_node": 2,
         "from_node": 1,
         "bag_valid": null,
-        "replication_id": "aptrust-13",
+        "replication_id": "sdr-13",
         "status": "Requested",
         "fixity_accept": null,
         "protocol": "R",
@@ -1494,8 +1494,8 @@
         "fixity_algorithm": "sha256",
         "created_at": "2015-05-22T19:55:04.597Z",
         "updated_at": "2015-05-22T20:36:50.800Z",
-        "bag": "472218b3-95ce-4b8e-6c21-6e514cfbe43f",
-        "link": "dpn.hathi@devops.aptrust.org:outbound/472218b3-95ce-4b8e-6c21-6e514cfbe43f.tar",
+        "bag": "c32ec5e6-63af-4344-9e8a-a44f372f5540",
+        "link": "dpn.hathi@devops.sdr.org:outbound/c32ec5e6-63af-4344-9e8a-a44f372f5540.tar",
         "fixity_value": ""
     }
 },
@@ -1506,7 +1506,7 @@
         "to_node": 2,
         "from_node": 1,
         "bag_valid": null,
-        "replication_id": "aptrust-14",
+        "replication_id": "sdr-14",
         "status": "Requested",
         "fixity_accept": null,
         "protocol": "R",
@@ -1514,8 +1514,8 @@
         "fixity_algorithm": "sha256",
         "created_at": "2015-05-22T19:55:22.456Z",
         "updated_at": "2015-05-22T20:36:41.319Z",
-        "bag": "4d11736c-c0ab-44b0-66c6-a947f414d4f1",
-        "link": "dpn.hathi@devops.aptrust.org:outbound/4d11736c-c0ab-44b0-66c6-a947f414d4f1.tar",
+        "bag": "65a7ad25-eada-44a3-8809-d01029fe26c8",
+        "link": "dpn.hathi@devops.sdr.org:outbound/65a7ad25-eada-44a3-8809-d01029fe26c8.tar",
         "fixity_value": ""
     }
 },
@@ -1526,7 +1526,7 @@
         "to_node": 2,
         "from_node": 1,
         "bag_valid": null,
-        "replication_id": "aptrust-15",
+        "replication_id": "sdr-15",
         "status": "Requested",
         "fixity_accept": null,
         "protocol": "R",
@@ -1534,8 +1534,8 @@
         "fixity_algorithm": "sha256",
         "created_at": "2015-05-22T19:55:39.498Z",
         "updated_at": "2015-05-22T20:36:32.965Z",
-        "bag": "005e7793-8253-4585-7118-2da702e29aa0",
-        "link": "dpn.hathi@devops.aptrust.org:outbound/005e7793-8253-4585-7118-2da702e29aa0.tar",
+        "bag": "1eddfbb5-a030-4e23-9ac5-e5abea4b0b26",
+        "link": "dpn.hathi@devops.sdr.org:outbound/1eddfbb5-a030-4e23-9ac5-e5abea4b0b26.tar",
         "fixity_value": ""
     }
 },
@@ -1546,7 +1546,7 @@
         "to_node": 2,
         "from_node": 1,
         "bag_valid": null,
-        "replication_id": "aptrust-16",
+        "replication_id": "sdr-16",
         "status": "Requested",
         "fixity_accept": null,
         "protocol": "R",
@@ -1554,8 +1554,8 @@
         "fixity_algorithm": "sha256",
         "created_at": "2015-05-22T19:55:56.121Z",
         "updated_at": "2015-05-22T20:36:23.461Z",
-        "bag": "41e5376c-cc13-4c3e-6af3-297cc2e005aa",
-        "link": "dpn.hathi@devops.aptrust.org:outbound/41e5376c-cc13-4c3e-6af3-297cc2e005aa.tar",
+        "bag": "e304a855-8258-4937-a18f-647568ce7eb4",
+        "link": "dpn.hathi@devops.sdr.org:outbound/e304a855-8258-4937-a18f-647568ce7eb4.tar",
         "fixity_value": ""
     }
 },
@@ -1566,7 +1566,7 @@
         "to_node": 2,
         "from_node": 1,
         "bag_valid": null,
-        "replication_id": "aptrust-17",
+        "replication_id": "sdr-17",
         "status": "Requested",
         "fixity_accept": null,
         "protocol": "R",
@@ -1574,8 +1574,8 @@
         "fixity_algorithm": "sha256",
         "created_at": "2015-05-22T19:56:15.190Z",
         "updated_at": "2015-05-22T20:36:13.376Z",
-        "bag": "8839f294-c7c0-404d-4467-7ab223ff461b",
-        "link": "dpn.hathi@devops.aptrust.org:outbound/8839f294-c7c0-404d-4467-7ab223ff461b.tar",
+        "bag": "9923ef83-423e-439f-8af1-b438748d2509",
+        "link": "dpn.hathi@devops.sdr.org:outbound/9923ef83-423e-439f-8af1-b438748d2509.tar",
         "fixity_value": ""
     }
 },
@@ -1586,7 +1586,7 @@
         "to_node": 2,
         "from_node": 1,
         "bag_valid": null,
-        "replication_id": "aptrust-18",
+        "replication_id": "sdr-18",
         "status": "Requested",
         "fixity_accept": null,
         "protocol": "R",
@@ -1594,8 +1594,8 @@
         "fixity_algorithm": "sha256",
         "created_at": "2015-05-22T19:56:33.495Z",
         "updated_at": "2015-05-22T20:35:59.506Z",
-        "bag": "06edc30f-af04-4a4e-4ad6-3c679a195d46",
-        "link": "dpn.hathi@devops.aptrust.org:outbound/06edc30f-af04-4a4e-4ad6-3c679a195d46.tar",
+        "bag": "8a3ff13a-f8e4-415f-b467-5cec55002c81",
+        "link": "dpn.hathi@devops.sdr.org:outbound/8a3ff13a-f8e4-415f-b467-5cec55002c81.tar",
         "fixity_value": ""
     }
 },
@@ -1606,7 +1606,7 @@
         "to_node": 5,
         "from_node": 1,
         "bag_valid": null,
-        "replication_id": "aptrust-19",
+        "replication_id": "sdr-19",
         "status": "Requested",
         "fixity_accept": null,
         "protocol": "R",
@@ -1614,8 +1614,8 @@
         "fixity_algorithm": "sha256",
         "created_at": "2015-05-22T19:58:45.141Z",
         "updated_at": "2015-05-22T20:35:51.999Z",
-        "bag": "472218b3-95ce-4b8e-6c21-6e514cfbe43f",
-        "link": "dpn.sdr@devops.aptrust.org:outbound/472218b3-95ce-4b8e-6c21-6e514cfbe43f.tar",
+        "bag": "c32ec5e6-63af-4344-9e8a-a44f372f5540",
+        "link": "dpn.sdr@devops.sdr.org:outbound/c32ec5e6-63af-4344-9e8a-a44f372f5540.tar",
         "fixity_value": ""
     }
 },
@@ -1626,7 +1626,7 @@
         "to_node": 5,
         "from_node": 1,
         "bag_valid": null,
-        "replication_id": "aptrust-20",
+        "replication_id": "sdr-20",
         "status": "Requested",
         "fixity_accept": null,
         "protocol": "R",
@@ -1634,8 +1634,8 @@
         "fixity_algorithm": "sha256",
         "created_at": "2015-05-22T19:59:00.615Z",
         "updated_at": "2015-05-22T20:35:44.029Z",
-        "bag": "4d11736c-c0ab-44b0-66c6-a947f414d4f1",
-        "link": "dpn.sdr@devops.aptrust.org:outbound/4d11736c-c0ab-44b0-66c6-a947f414d4f1.tar",
+        "bag": "65a7ad25-eada-44a3-8809-d01029fe26c8",
+        "link": "dpn.sdr@devops.sdr.org:outbound/65a7ad25-eada-44a3-8809-d01029fe26c8.tar",
         "fixity_value": ""
     }
 },
@@ -1646,7 +1646,7 @@
         "to_node": 5,
         "from_node": 1,
         "bag_valid": null,
-        "replication_id": "aptrust-21",
+        "replication_id": "sdr-21",
         "status": "Requested",
         "fixity_accept": null,
         "protocol": "R",
@@ -1654,8 +1654,8 @@
         "fixity_algorithm": "sha256",
         "created_at": "2015-05-22T19:59:17.197Z",
         "updated_at": "2015-05-22T20:35:32.192Z",
-        "bag": "005e7793-8253-4585-7118-2da702e29aa0",
-        "link": "dpn.sdr@devops.aptrust.org:outbound/005e7793-8253-4585-7118-2da702e29aa0.tar",
+        "bag": "1eddfbb5-a030-4e23-9ac5-e5abea4b0b26",
+        "link": "dpn.sdr@devops.sdr.org:outbound/1eddfbb5-a030-4e23-9ac5-e5abea4b0b26.tar",
         "fixity_value": ""
     }
 },
@@ -1666,7 +1666,7 @@
         "to_node": 5,
         "from_node": 1,
         "bag_valid": null,
-        "replication_id": "aptrust-22",
+        "replication_id": "sdr-22",
         "status": "Requested",
         "fixity_accept": null,
         "protocol": "R",
@@ -1674,8 +1674,8 @@
         "fixity_algorithm": "sha256",
         "created_at": "2015-05-22T19:59:34.479Z",
         "updated_at": "2015-05-22T20:35:24.670Z",
-        "bag": "41e5376c-cc13-4c3e-6af3-297cc2e005aa",
-        "link": "dpn.sdr@devops.aptrust.org:outbound/41e5376c-cc13-4c3e-6af3-297cc2e005aa.tar",
+        "bag": "e304a855-8258-4937-a18f-647568ce7eb4",
+        "link": "dpn.sdr@devops.sdr.org:outbound/e304a855-8258-4937-a18f-647568ce7eb4.tar",
         "fixity_value": ""
     }
 },
@@ -1686,7 +1686,7 @@
         "to_node": 5,
         "from_node": 1,
         "bag_valid": null,
-        "replication_id": "aptrust-23",
+        "replication_id": "sdr-23",
         "status": "Requested",
         "fixity_accept": null,
         "protocol": "R",
@@ -1694,8 +1694,8 @@
         "fixity_algorithm": "sha256",
         "created_at": "2015-05-22T19:59:54.032Z",
         "updated_at": "2015-05-22T20:35:14.862Z",
-        "bag": "8839f294-c7c0-404d-4467-7ab223ff461b",
-        "link": "dpn.sdr@devops.aptrust.org:outbound/8839f294-c7c0-404d-4467-7ab223ff461b.tar",
+        "bag": "9923ef83-423e-439f-8af1-b438748d2509",
+        "link": "dpn.sdr@devops.sdr.org:outbound/9923ef83-423e-439f-8af1-b438748d2509.tar",
         "fixity_value": ""
     }
 },
@@ -1706,7 +1706,7 @@
         "to_node": 5,
         "from_node": 1,
         "bag_valid": null,
-        "replication_id": "aptrust-24",
+        "replication_id": "sdr-24",
         "status": "Requested",
         "fixity_accept": null,
         "protocol": "R",
@@ -1714,21 +1714,21 @@
         "fixity_algorithm": "sha256",
         "created_at": "2015-05-22T20:00:12.597Z",
         "updated_at": "2015-05-22T20:35:04.963Z",
-        "bag": "06edc30f-af04-4a4e-4ad6-3c679a195d46",
-        "link": "dpn.sdr@devops.aptrust.org:outbound/06edc30f-af04-4a4e-4ad6-3c679a195d46.tar",
+        "bag": "8a3ff13a-f8e4-415f-b467-5cec55002c81",
+        "link": "dpn.sdr@devops.sdr.org:outbound/8a3ff13a-f8e4-415f-b467-5cec55002c81.tar",
         "fixity_value": ""
     }
 },
 {
     "pk": 1,
     "fields": {
-        "restore_id": "aptrust-1",
-        "bag": "41e5376c-cc13-4c3e-6af3-297cc2e005aa",
+        "restore_id": "sdr-1",
+        "bag": "e304a855-8258-4937-a18f-647568ce7eb4",
         "protocol": "R",
         "updated_at": "2015-06-01T19:07:53.918Z",
         "to_node": 1,
         "created_at": "2015-06-01T19:07:53.917Z",
-        "link": "rsync://mnt/staging/41e5376c-cc13-4c3e-6af3-297cc2e005aa.tar",
+        "link": "rsync://mnt/staging/e304a855-8258-4937-a18f-647568ce7eb4.tar",
         "from_node": 4,
         "status": "Requested"
     },
@@ -1737,13 +1737,13 @@
 {
     "pk": 2,
     "fields": {
-        "restore_id": "aptrust-2",
-        "bag": "06edc30f-af04-4a4e-4ad6-3c679a195d46",
+        "restore_id": "sdr-2",
+        "bag": "8a3ff13a-f8e4-415f-b467-5cec55002c81",
         "protocol": "R",
         "updated_at": "2015-06-01T19:15:14.867Z",
         "to_node": 1,
         "created_at": "2015-06-01T19:07:53.951Z",
-        "link": "rsync://mnt/staging/06edc30f-af04-4a4e-4ad6-3c679a195d46.tar",
+        "link": "rsync://mnt/staging/8a3ff13a-f8e4-415f-b467-5cec55002c81.tar",
         "from_node": 3,
         "status": "Prepared"
     },
@@ -1752,13 +1752,13 @@
 {
     "pk": 3,
     "fields": {
-        "restore_id": "aptrust-3",
-        "bag": "6029850a-b6a3-4c77-8c7a-606170ea9f95",
+        "restore_id": "sdr-3",
+        "bag": "4f0ea99b-97e1-45e0-ac11-bf77bfb0470e",
         "protocol": "R",
         "updated_at": "2015-06-01T19:09:16.091Z",
         "to_node": 1,
         "created_at": "2015-06-01T19:09:16.090Z",
-        "link": "rsync://mnt/staging/6029850a-b6a3-4c77-8c7a-606170ea9f95.tar",
+        "link": "rsync://mnt/staging/4f0ea99b-97e1-45e0-ac11-bf77bfb0470e.tar",
         "from_node": 4,
         "status": "Requested"
     },
@@ -1767,13 +1767,13 @@
 {
     "pk": 4,
     "fields": {
-        "restore_id": "aptrust-4",
-        "bag": "472218b3-95ce-4b8e-6c21-6e514cfbe43f",
+        "restore_id": "sdr-4",
+        "bag": "c32ec5e6-63af-4344-9e8a-a44f372f5540",
         "protocol": "R",
         "updated_at": "2015-06-01T19:15:59.535Z",
         "to_node": 1,
         "created_at": "2015-06-01T19:09:16.123Z",
-        "link": "rsync://mnt/staging/472218b3-95ce-4b8e-6c21-6e514cfbe43f.tar",
+        "link": "rsync://mnt/staging/c32ec5e6-63af-4344-9e8a-a44f372f5540.tar",
         "from_node": 3,
         "status": "Prepared"
     },
@@ -2252,12 +2252,12 @@
         "date_joined": "2015-05-04T17:27:12Z",
         "is_staff": true,
         "username": "andrew.diamond@aptrust.org",
-        "is_active": true,
+ "is_superuser": false,        "is_active": true,
         "groups": [
             2
         ],
         "first_name": "",
-        "email": "andrew.diamond@aptrust.org"
+        "email": "andrew.diamond@sdr.org"
     }
 },
 {
@@ -2272,7 +2272,7 @@
         "date_joined": "2015-05-04T17:30:31Z",
         "is_staff": false,
         "username": "chron_user",
-        "is_active": true,
+ "is_superuser": false,        "is_active": true,
         "groups": [
             1
         ],
@@ -2292,7 +2292,7 @@
         "date_joined": "2015-05-04T17:30:42Z",
         "is_staff": false,
         "username": "hathi_user",
-        "is_active": true,
+ "is_superuser": false,        "is_active": true,
         "groups": [
             1
         ],
@@ -2312,7 +2312,7 @@
         "date_joined": "2015-05-04T17:31:13Z",
         "is_staff": false,
         "username": "sdr_user",
-        "is_active": true,
+ "is_superuser": true,        "is_active": true,
         "groups": [
             1
         ],
@@ -2332,7 +2332,7 @@
         "date_joined": "2015-05-04T17:31:28Z",
         "is_staff": false,
         "username": "tdr_user",
-        "is_active": true,
+ "is_superuser": false,        "is_active": true,
         "groups": [
             1
         ],
@@ -2352,7 +2352,7 @@
         "date_joined": "2015-05-04T17:32:19Z",
         "is_staff": false,
         "username": "aptrust_user",
-        "is_active": true,
+ "is_superuser": false,        "is_active": true,
         "groups": [
             2
         ],

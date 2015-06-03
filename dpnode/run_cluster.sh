@@ -19,10 +19,10 @@ IMPERSONATE_DPN_NODE=tdr python manage.py migrate
 IMPERSONATE_DPN_NODE=sdr python manage.py migrate
 
 echo "Loading data for foreign nodes"
-IMPERSONATE_DPN_NODE=chron python manage.py loaddata ../data/TestServerData.json
-IMPERSONATE_DPN_NODE=hatni python manage.py loaddata ../data/TestServerData.json
-IMPERSONATE_DPN_NODE=tdr python manage.py loaddata ../data/TestServerData.json
-IMPERSONATE_DPN_NODE=sdr python manage.py loaddata ../data/TestServerData.json
+IMPERSONATE_DPN_NODE=chron python manage.py loaddata ../data/TestServerData_chron.json
+IMPERSONATE_DPN_NODE=hathi python manage.py loaddata ../data/TestServerData_hathi.json
+IMPERSONATE_DPN_NODE=tdr python manage.py loaddata ../data/TestServerData_tdr.json
+IMPERSONATE_DPN_NODE=sdr python manage.py loaddata ../data/TestServerData_sdr.json
 
 echo "Starting chron node on http://127.0.0.1:8001"
 IMPERSONATE_DPN_NODE=chron python manage.py runserver 127.0.0.1:8001 &
