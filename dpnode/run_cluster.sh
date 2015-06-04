@@ -12,7 +12,7 @@ rm dpnrest_hathi.db
 rm dpnrest_tdr.db
 rm dpnrest_sdr.db
 
-echo "Creating dbs and applying migrations for foreigh nodes"
+echo "Creating dbs and applying migrations for foreig nodes"
 IMPERSONATE_DPN_NODE=chron python manage.py migrate
 IMPERSONATE_DPN_NODE=hathi python manage.py migrate
 IMPERSONATE_DPN_NODE=tdr python manage.py migrate
@@ -39,11 +39,6 @@ TDR_PID=$!
 echo "Starting sdr node on http://127.0.0.1:8004"
 IMPERSONATE_DPN_NODE=sdr python manage.py runserver 127.0.0.1:8004 &
 SDR_PID=$!
-
-echo "--------------------------------------------------"
-echo $CHRON_PID
-echo $(pgrep -P $CHRON_PID)
-echo "--------------------------------------------------"
 
 # Shut down all servers in response to CTRL-C.
 # The django servers start child processes, and

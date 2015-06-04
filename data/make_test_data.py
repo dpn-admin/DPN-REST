@@ -42,6 +42,8 @@ uuid_regex = re.compile(r'([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a
 ingest_node_regex = re.compile(r'"ingest_node": (\d+)')
 admin_node_regex = re.compile(r'"admin_node": (\d+)')
 local_id_regex = re.compile(r'"local_id": "(.+)"')
+from_node_regex = re.compile(r'"from_node": (\d+)')
+to_node_regex = re.compile(r'"to_node": (\d+)')
 
 # Map original uuids to replacement uuids
 uuid_replacements = {}
@@ -77,6 +79,8 @@ def transform_file():
                 line = replace_node_name(line)
                 line = replace_ingest_node(line)
                 line = replace_admin_node(line)
+                line = replace_from_node(line)
+                line = replace_to_node(line)
                 line = replace_local_id(line)
                 line = set_superuser(line + os.linesep)
                 output_file.write(line)
@@ -129,6 +133,23 @@ def replace_admin_node(line):
         return line.replace(orig_node_id, node_id[target_node])
     return line
 
+def replace_from_node(line):
+    match = from_node_regex.search(line)
+    if match:
+        orig_node_id = match.group(1)
+        if orig_node_id == node_id['aptrust']:
+            #print("Replacing from_node {0} with {1}".format(orig_node_id, node_id[target_node]))
+            return line.replace(orig_node_id, node_id[target_node])
+    return line
+
+def replace_to_node(line):
+    match = to_node_regex.search(line)
+    if match:
+        orig_node_id = match.group(1)
+        if orig_node_id == node_id['aptrust']:
+            #print("Replacing to_node {0} with {1}".format(orig_node_id, node_id[target_node]))
+            return line.replace(orig_node_id, node_id[target_node])
+    return line
 
 def replace_local_id(line):
     global bag_counter
