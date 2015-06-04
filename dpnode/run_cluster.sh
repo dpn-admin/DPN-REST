@@ -25,14 +25,17 @@ rm dpnrest_sdr.db
 echo "Creating new DB for local aptrust node"
 python manage.py migrate
 
+# Our DPN Go integration tests depend on specific data
+# in TestServerData.json
+echo "Loading data for APTrust node"
+python manage.py loaddata ../data/TestServerData.json
+
+
 echo "Creating dbs for foreign nodes"
 IMPERSONATE_DPN_NODE=chron python manage.py migrate
 IMPERSONATE_DPN_NODE=hathi python manage.py migrate
 IMPERSONATE_DPN_NODE=tdr python manage.py migrate
 IMPERSONATE_DPN_NODE=sdr python manage.py migrate
-
-echo "Loading data for APTrust node"
-python manage.py loaddata ../data/TestServerData.json
 
 echo "Loading data for foreign nodes"
 IMPERSONATE_DPN_NODE=chron python manage.py loaddata ../data/TestServerData_chron.json
@@ -41,7 +44,7 @@ IMPERSONATE_DPN_NODE=sdr python manage.py loaddata ../data/TestServerData_sdr.js
 IMPERSONATE_DPN_NODE=tdr python manage.py loaddata ../data/TestServerData_tdr.json
 
 echo "Starting APTrust node on http://127.0.0.1:8000"
-IMPERSONATE_DPN_NODE=chron python manage.py runserver 127.0.0.1:8000 &
+python manage.py runserver 127.0.0.1:8000 &
 APTRUST_PID=$!
 
 echo "Starting chron node on http://127.0.0.1:8001"
