@@ -102,13 +102,13 @@ def replace_uuid(line):
     return line
 
 def replace_node_name(line):
-    if "username" in line or "namespace" in line:
+    if "username" in line or "namespace" in line or "email" in line:
         return line
     return line.replace('aptrust', target_node)
 
 def set_superuser(line):
     global target_node
-    if '"username"' in line:
+    if '"username"' in line and not "@aptrust.org" in line:
         if "{0}_user".format(target_node) in line:
             return '{0} "is_superuser": true,'.format(line)
         else:
