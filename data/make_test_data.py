@@ -107,12 +107,8 @@ def replace_node_name(line):
     return line.replace('aptrust', target_node)
 
 def set_superuser(line):
-    global target_node
-    if '"username"' in line and not "@aptrust.org" in line:
-        if "{0}_user".format(target_node) in line:
-            return '{0} "is_superuser": true,'.format(line)
-        else:
-            return '{0} "is_superuser": false,'.format(line)
+    if "is_superuser" in line:
+        line = line.replace('true', 'false')
     return line
 
 

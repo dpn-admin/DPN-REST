@@ -1799,11 +1799,11 @@
         "username": "aptrust_user",
         "email": "",
         "last_name": "",
-        "is_staff": false,
+        "is_staff": true,
         "groups": [
             2
         ],
-        "is_superuser": false
+        "is_superuser": true
     },
     "model": "auth.user"
 },
