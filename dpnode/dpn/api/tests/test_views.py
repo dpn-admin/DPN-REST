@@ -330,9 +330,10 @@ class ReplicationTransferListViewTest(APITestCase):
         self.assertTrue(len(rsp.data['created_at']) > 0)
         self.assertTrue(len(rsp.data['updated_at']) > 0)
 
-        # It should not allow you to create a replication request whose
-        # from_node is not your own local node.
-        data['from_node'] = Node.objects.exclude(namespace=settings.DPN_NAMESPACE)[1].namespace
+        # It should not allow non-admin users to create replication requests.
+        token = Token.objects.get(user=self.api_user)
+        self.client.credentials(HTTP_AUTHORIZATION="Token %s" % token.key)
+        #data['from_node'] = Node.objects.exclude(namespace=settings.DPN_NAMESPACE)[1].namespace
         rsp = self.client.post(self.url, data)
         self.assertEqual(rsp.status_code, status.HTTP_403_FORBIDDEN)
 

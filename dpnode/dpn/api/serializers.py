@@ -159,15 +159,18 @@ class CreateReplicationSerializer(serializers.ModelSerializer):
                   'status',)
         read_only_fields = ('replication_id',)
 
+    # TODO: Refactor. This appears in three places!
+    def _user_is_superuser(self):
+        request = self.context.get('request', None)
+        if request is not None:
+            return request.user.is_superuser
+        else:
+            return false
+
     def create(self, validated_data):
+        if not self._user_is_superuser():
+            raise PermissionDenied("Only the admin user can create replication requests on this node.")
         validated_data['bag'] = validated_data.pop('uuid')
-        # Default from_node should be this node. If from node is not this node,
-        # someone is doing something wrong.
-        if not 'from_node' in validated_data:
-            validated_data['from_node'] = settings.DPN_NAMESPACE
-        if str(validated_data['from_node']) != str(settings.DPN_NAMESPACE):
-            raise PermissionDenied("When you create a transfer request on this node, "
-                                   "the from_node can only be {0}".format(settings.DPN_NAMESPACE))
         return ReplicationTransfer.objects.create(**validated_data)
 
 
@@ -192,7 +195,7 @@ class BasicRestoreSerializer(serializers.ModelSerializer):
     def _user_is_superuser(self):
         request = self.context.get('request', None)
         if request is not None:
-            return self.request.user.is_superuser
+            return request.user.is_superuser
         else:
             return false
 
