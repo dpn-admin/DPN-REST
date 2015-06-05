@@ -35,6 +35,10 @@ class BagAdmin(admin.ModelAdmin):
     readonly_fields = ('rights', 'interpretive', 'replicating_nodes')
     search_fields = ['uuid',]
 
+@admin.register(models.Fixity)
+class FixityAdmin(admin.ModelAdmin):
+    pass
+
 @admin.register(models.ReplicationTransfer)
 class ReplicationTransferAdmin(admin.ModelAdmin):
     list_display = ('replication_id', 'fixity_nonce',
