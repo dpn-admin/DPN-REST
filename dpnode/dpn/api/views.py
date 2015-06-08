@@ -146,7 +146,6 @@ class ReplicationTransferListView(generics.ListCreateAPIView):
     queryset = ReplicationTransfer.objects.all().order_by('-updated_at')
     filter_backends = (filters.OrderingFilter, filters.DjangoFilterBackend)
     filter_class = ReplicationTransferFilterSet
-    #ordering_fields = ('created_on', 'updated_on')
 
     def get_serializer_class(self):
         if self.request.method == 'POST':
@@ -169,7 +168,6 @@ class RestoreTransferListView(generics.ListCreateAPIView):
     queryset = RestoreTransfer.objects.all().order_by('-updated_at')
     filter_backends = (filters.OrderingFilter, filters.DjangoFilterBackend)
     filter_class = RestoreTransferFilterSet
-    #ordering_fields = ('updated_at')
 
     def get_serializer_class(self):
         if self.request.method == 'POST':

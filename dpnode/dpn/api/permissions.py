@@ -34,3 +34,10 @@ class IsBagOwner(permissions.BasePermission):
         else:
             return (request.user.profile.node == obj.admin_node
                     and obj.pk is not None)
+
+def user_is_superuser(context):
+    request = context.get('request', None)
+    if request is not None:
+        return request.user.is_superuser
+    else:
+        return false

@@ -10,6 +10,7 @@ from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from dpn.data.models import Node, ReplicationTransfer, RestoreTransfer
 from dpn.data.models import Bag, Fixity, Storage, Protocol, FixityAlgorithm, Node
+from dpn.api.permissions import user_is_superuser
 
 
 class StorageSerializer(serializers.ModelSerializer):
@@ -114,13 +115,6 @@ class BasicReplicationSerializer(serializers.ModelSerializer):
                             'fixity_nonce', 'fixity_accept',
                             'link', 'protocol', 'created_at', 'updated_at',)
 
-    def _user_is_superuser(self):
-        request = self.context.get('request', None)
-        if request is not None:
-            return request.user.is_superuser
-        else:
-            return false
-
     # We have a custom update method because some ignorant clients
     # (including our own) may send JSON that includes related fields like
     # the fixity algorithm. Django Rest Framework will blow up on this
@@ -132,7 +126,7 @@ class BasicReplicationSerializer(serializers.ModelSerializer):
         instance.status = validated_data.get('status', instance.status)
         instance.bag_valid = validated_data.get('bag_valid', instance.bag_valid)
         instance.fixity_value = validated_data.get('fixity_value', instance.fixity_value)
-        if instance.status.lower() == "confirmed" and not was_already_confirmed and not self._user_is_superuser():
+        if instance.status.lower() == "confirmed" and not was_already_confirmed and not user_is_superuser(self.context):
             raise PermissionDenied("Only the local admin can set replication status to 'Confirmed'")
         instance.save()
         return instance
@@ -159,16 +153,8 @@ class CreateReplicationSerializer(serializers.ModelSerializer):
                   'status',)
         read_only_fields = ('replication_id',)
 
-    # TODO: Refactor. This appears in three places!
-    def _user_is_superuser(self):
-        request = self.context.get('request', None)
-        if request is not None:
-            return request.user.is_superuser
-        else:
-            return false
-
     def create(self, validated_data):
-        if not self._user_is_superuser():
+        if not user_is_superuser(self.context):
             raise PermissionDenied("Only the admin user can create replication requests on this node.")
         validated_data['bag'] = validated_data.pop('uuid')
         return ReplicationTransfer.objects.create(**validated_data)
@@ -192,19 +178,12 @@ class BasicRestoreSerializer(serializers.ModelSerializer):
         read_only_fields = ('restore_id', 'from_node', 'to_node', 'uuid',
                             'created_at', 'updated_at',)
 
-    def _user_is_superuser(self):
-        request = self.context.get('request', None)
-        if request is not None:
-            return request.user.is_superuser
-        else:
-            return false
-
     # Users can update only these three fields on the restoration request.
     def update(self, instance, validated_data):
         instance.status = validated_data.get('status', instance.status)
         instance.protocol = validated_data.get('protocol', instance.protocol)
         instance.link = validated_data.get('link', instance.link)
-        if instance.status.lower() == "finished" and not self._user_is_superuser():
+        if instance.status.lower() == "finished" and not user_is_superuser(self.context):
             raise PermissionDenied("Only the local admin can set replication status to 'Finished'")
         instance.save()
         return instance
@@ -230,13 +209,8 @@ class CreateRestoreSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         if 'uuid' in validated_data:
             validated_data['bag'] = validated_data.pop('uuid')
-        # Default to_node should be this node. If to_node is not this node,
-        # someone is doing something wrong.
-        if not 'to_node' in validated_data:
-            validated_data['to_node'] = settings.DPN_NAMESPACE
-        if str(validated_data['to_node']) != str(settings.DPN_NAMESPACE):
-            raise PermissionDenied("When you create a restore request on this node, "
-                                   "the to_node can only be {0}".format(settings.DPN_NAMESPACE))
+        if not user_is_superuser(self.context):
+            raise PermissionDenied("Only the admin user can create restore requests on this node.")
         return RestoreTransfer.objects.create(**validated_data)
 
 
