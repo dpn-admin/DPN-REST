@@ -141,3 +141,6 @@ elif IMPERSONATE_DPN_NODE == "sdr":
         from dpnode.sdr_settings import *
     except ImportError:
         pass
+
+print("Impersonating '{0}', DPN namespace is {1}".format(
+    IMPERSONATE_DPN_NODE, DPN_NAMESPACE))

@@ -190,10 +190,8 @@
     "fields": {
         "api_root": "https://devops.aptrust.org/dpnode/",
         "replicate_to": [
-            2,
             3,
-            4,
-            5
+            4
         ],
         "namespace": "aptrust",
         "protocols": [
@@ -236,8 +234,7 @@
         "replicate_to": [
             1,
             3,
-            4,
-            5
+            4
         ],
         "namespace": "hathi",
         "protocols": [
@@ -279,9 +276,7 @@
         "api_root": "https://chronopolis01.umiacs.umd.edu/",
         "replicate_to": [
             1,
-            2,
-            4,
-            5
+            4
         ],
         "namespace": "chron",
         "protocols": [
@@ -323,9 +318,7 @@
         "api_root": "https://rest.lib.utexas.edu/",
         "replicate_to": [
             1,
-            2,
-            3,
-            5
+            3
         ],
         "namespace": "tdr",
         "protocols": [
@@ -367,7 +360,6 @@
         "api_root": "https://dpn.stanford.edu/dpnrest/",
         "replicate_to": [
             1,
-            2,
             3,
             4
         ],
@@ -690,14 +682,14 @@
     "pk": 1,
     "fields": {
         "replication_id": "aptrust-1",
-        "fixity_value": "5329a5d06216ca9effc42a6f5b7c492952334d8b188ebbdefbbd0b970ab981a3",
+        "fixity_value": "",
         "bag_valid": null,
-        "fixity_accept": true,
+        "fixity_accept": null,
         "fixity_nonce": "",
         "created_at": "2015-05-22T19:46:45.761Z",
         "to_node": 4,
         "link": "dpn.tdr@devops.aptrust.org:outbound/472218b3-95ce-4b8e-6c21-6e514cfbe43f.tar",
-        "status": "Confirmed",
+        "status": "Requested",
         "protocol": "R",
         "from_node": 1,
         "updated_at": "2015-05-28T16:15:35.884Z",
@@ -710,14 +702,14 @@
     "pk": 2,
     "fields": {
         "replication_id": "aptrust-2",
-        "fixity_value": "6cb820f17c147ab9cd25a8c1f2adc7cf12a8070448dba35551e9c992e409688c",
+        "fixity_value": "",
         "bag_valid": null,
-        "fixity_accept": true,
+        "fixity_accept": null,
         "fixity_nonce": "",
         "created_at": "2015-05-22T19:47:17.440Z",
         "to_node": 4,
         "link": "dpn.tdr@devops.aptrust.org:outbound/4d11736c-c0ab-44b0-66c6-a947f414d4f1.tar",
-        "status": "Confirmed",
+        "status": "Requested",
         "protocol": "R",
         "from_node": 1,
         "updated_at": "2015-05-28T16:15:37.916Z",
@@ -730,14 +722,14 @@
     "pk": 3,
     "fields": {
         "replication_id": "aptrust-3",
-        "fixity_value": "13743e26e07afcdab0600104989c5e5de0271ed2dff61cf7804ea294060a75ac",
+        "fixity_value": "",
         "bag_valid": null,
-        "fixity_accept": true,
+        "fixity_accept": null,
         "fixity_nonce": "",
         "created_at": "2015-05-22T19:47:54.012Z",
         "to_node": 4,
         "link": "dpn.tdr@devops.aptrust.org:outbound/005e7793-8253-4585-7118-2da702e29aa0.tar",
-        "status": "Confirmed",
+        "status": "Requested",
         "protocol": "R",
         "from_node": 1,
         "updated_at": "2015-05-28T16:15:39.936Z",
@@ -750,14 +742,14 @@
     "pk": 4,
     "fields": {
         "replication_id": "aptrust-4",
-        "fixity_value": "e112ad47b3b280b92a38af2c5be38da7f04b79f4b180cbb92811f74ebc831d18",
+        "fixity_value": "",
         "bag_valid": null,
-        "fixity_accept": true,
+        "fixity_accept": null,
         "fixity_nonce": "",
         "created_at": "2015-05-22T19:48:25.049Z",
         "to_node": 4,
         "link": "dpn.tdr@devops.aptrust.org:outbound/41e5376c-cc13-4c3e-6af3-297cc2e005aa.tar",
-        "status": "Confirmed",
+        "status": "Requested",
         "protocol": "R",
         "from_node": 1,
         "updated_at": "2015-05-28T16:15:41.844Z",
@@ -770,14 +762,14 @@
     "pk": 5,
     "fields": {
         "replication_id": "aptrust-5",
-        "fixity_value": "e81f79fed2b4515e6a5c3f23161d0805172be1ca1f560ce29d3793cec2c79d89",
+        "fixity_value": "",
         "bag_valid": null,
-        "fixity_accept": true,
+        "fixity_accept": null,
         "fixity_nonce": "",
         "created_at": "2015-05-22T19:48:47.638Z",
         "to_node": 4,
         "link": "dpn.tdr@devops.aptrust.org:outbound/8839f294-c7c0-404d-4467-7ab223ff461b.tar",
-        "status": "Confirmed",
+        "status": "Requested",
         "protocol": "R",
         "from_node": 1,
         "updated_at": "2015-05-28T16:15:43.665Z",
@@ -790,14 +782,14 @@
     "pk": 6,
     "fields": {
         "replication_id": "aptrust-6",
-        "fixity_value": "353fba29e2bad3101de89533eb3b5882646af1353ab3aec7e27e5c5b8e0c5b69",
+        "fixity_value": "",
         "bag_valid": null,
-        "fixity_accept": true,
+        "fixity_accept": null,
         "fixity_nonce": "",
         "created_at": "2015-05-22T19:49:14.137Z",
         "to_node": 4,
         "link": "dpn.tdr@devops.aptrust.org:outbound/06edc30f-af04-4a4e-4ad6-3c679a195d46.tar",
-        "status": "Confirmed",
+        "status": "Requested",
         "protocol": "R",
         "from_node": 1,
         "updated_at": "2015-05-28T16:15:46.247Z",

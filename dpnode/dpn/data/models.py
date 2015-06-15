@@ -90,13 +90,17 @@ class Node(models.Model):
     ssh_username = models.CharField(max_length=20)
     ssh_pubkey = models.TextField(null=True, blank=True)
     replicate_from = models.ManyToManyField(
-        "self", null=True, blank=True, related_name='+')
+        "self", null=True, blank=True,
+        related_name='reverse_replicate_from', symmetrical=False)
     replicate_to = models.ManyToManyField(
-        "self", null=True, blank=True, related_name='+')
+        "self", null=True, blank=True,
+        related_name='reverse_replicate_to', symmetrical=False)
     restore_from = models.ManyToManyField(
-        "self", null=True, blank=True, related_name='+')
+        "self", null=True, blank=True,
+        related_name='reverse_restore_from', symmetrical=False)
     restore_to = models.ManyToManyField(
-        "self", null=True, blank=True, related_name='+')
+        "self", null=True, blank=True,
+        related_name='reverse_restore_to', symmetrical=False)
     fixity_algorithms = models.ManyToManyField(
         FixityAlgorithm, null=True, blank=True, related_name='+')
     protocols = models.ManyToManyField(Protocol, blank=True)
