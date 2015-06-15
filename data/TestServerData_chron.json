@@ -443,7 +443,7 @@
     "model": "data.storage"
 },
 {
-    "pk": "368cb6d4-c95e-4920-9bf5-6f5059996705",
+    "pk": "5d2b24f0-6fa1-4952-a101-3314933ba187",
     "fields": {
         "ingest_node": 3,
         "rights": [],
@@ -456,14 +456,14 @@
             4
         ],
         "local_id": "chron_bag_1",
-        "first_version_uuid": "368cb6d4-c95e-4920-9bf5-6f5059996705",
+        "first_version_uuid": "5d2b24f0-6fa1-4952-a101-3314933ba187",
         "created_at": "2015-05-22T19:08:37.847Z",
         "updated_at": "2015-05-22T19:08:37.847Z"
     },
     "model": "data.bag"
 },
 {
-    "pk": "282de529-dcea-4a4a-87f7-e229033dc60a",
+    "pk": "30efc176-91cb-4b5a-9524-8858699c683e",
     "fields": {
         "ingest_node": 3,
         "rights": [],
@@ -476,14 +476,14 @@
             4
         ],
         "local_id": "chron_bag_2",
-        "first_version_uuid": "282de529-dcea-4a4a-87f7-e229033dc60a",
+        "first_version_uuid": "30efc176-91cb-4b5a-9524-8858699c683e",
         "created_at": "2015-05-22T19:08:34.295Z",
         "updated_at": "2015-05-22T19:08:34.295Z"
     },
     "model": "data.bag"
 },
 {
-    "pk": "d372f01c-6c8e-4a0c-90b4-7b32bcfc46f1",
+    "pk": "7c7b3154-1220-42b5-b06e-4a8278285f13",
     "fields": {
         "ingest_node": 3,
         "rights": [],
@@ -496,14 +496,14 @@
             4
         ],
         "local_id": "chron_bag_3",
-        "first_version_uuid": "d372f01c-6c8e-4a0c-90b4-7b32bcfc46f1",
+        "first_version_uuid": "7c7b3154-1220-42b5-b06e-4a8278285f13",
         "created_at": "2015-05-22T19:08:36.599Z",
         "updated_at": "2015-05-22T19:08:36.599Z"
     },
     "model": "data.bag"
 },
 {
-    "pk": "281e1eab-632d-4430-9af1-375bce9cfe3f",
+    "pk": "4f394cb6-1b29-4b7c-bd13-7333dbde2682",
     "fields": {
         "ingest_node": 3,
         "rights": [],
@@ -516,14 +516,14 @@
             4
         ],
         "local_id": "chron_bag_4",
-        "first_version_uuid": "281e1eab-632d-4430-9af1-375bce9cfe3f",
+        "first_version_uuid": "4f394cb6-1b29-4b7c-bd13-7333dbde2682",
         "created_at": "2015-05-22T19:08:48.299Z",
         "updated_at": "2015-05-22T19:08:48.299Z"
     },
     "model": "data.bag"
 },
 {
-    "pk": "c3650009-f702-4081-9b19-c616e1cdb596",
+    "pk": "842f27a6-f7ca-4544-b4e3-afa07faf19aa",
     "fields": {
         "ingest_node": 3,
         "rights": [],
@@ -536,14 +536,14 @@
             4
         ],
         "local_id": "chron_bag_5",
-        "first_version_uuid": "c3650009-f702-4081-9b19-c616e1cdb596",
+        "first_version_uuid": "842f27a6-f7ca-4544-b4e3-afa07faf19aa",
         "created_at": "2015-05-22T19:08:38.798Z",
         "updated_at": "2015-05-22T19:08:38.798Z"
     },
     "model": "data.bag"
 },
 {
-    "pk": "8c0e41b9-5ffc-4dd8-bdb5-79f7fb6bdef3",
+    "pk": "b01db968-2950-4807-add7-31f5ce98de78",
     "fields": {
         "ingest_node": 3,
         "rights": [],
@@ -554,14 +554,14 @@
         "version": 1,
         "replicating_nodes": [],
         "local_id": "chron_bag_6",
-        "first_version_uuid": "8c0e41b9-5ffc-4dd8-bdb5-79f7fb6bdef3",
+        "first_version_uuid": "b01db968-2950-4807-add7-31f5ce98de78",
         "created_at": "2015-05-04T17:41:22.903Z",
         "updated_at": "2015-05-04T17:41:22.903Z"
     },
     "model": "data.bag"
 },
 {
-    "pk": "85fa66c7-6790-40f3-8735-e23762f9e2e7",
+    "pk": "0dbfa822-9092-48c7-9516-e71586289626",
     "fields": {
         "ingest_node": 3,
         "rights": [],
@@ -572,14 +572,14 @@
         "version": 1,
         "replicating_nodes": [],
         "local_id": "chron_bag_7",
-        "first_version_uuid": "85fa66c7-6790-40f3-8735-e23762f9e2e7",
+        "first_version_uuid": "0dbfa822-9092-48c7-9516-e71586289626",
         "created_at": "2015-05-04T17:41:51.909Z",
         "updated_at": "2015-05-04T17:41:51.909Z"
     },
     "model": "data.bag"
 },
 {
-    "pk": "9367fd50-3067-430c-a5ec-3a7d0f3dd55c",
+    "pk": "567366b3-c1b1-4e85-94d5-af426a9dc88e",
     "fields": {
         "ingest_node": 3,
         "rights": [],
@@ -592,7 +592,7 @@
             4
         ],
         "local_id": "chron_bag_8",
-        "first_version_uuid": "9367fd50-3067-430c-a5ec-3a7d0f3dd55c",
+        "first_version_uuid": "567366b3-c1b1-4e85-94d5-af426a9dc88e",
         "created_at": "2015-05-22T19:08:35.388Z",
         "updated_at": "2015-05-22T19:08:35.388Z"
     },
@@ -604,7 +604,7 @@
         "digest": "353fba29e2bad3101de89533eb3b5882646af1353ab3aec7e27e5c5b8e0c5b69",
         "algorithm": "sha256",
         "created_at": "2015-05-22T19:08:34.298Z",
-        "bag": "282de529-dcea-4a4a-87f7-e229033dc60a"
+        "bag": "30efc176-91cb-4b5a-9524-8858699c683e"
     },
     "model": "data.fixity"
 },
@@ -614,7 +614,7 @@
         "digest": "e81f79fed2b4515e6a5c3f23161d0805172be1ca1f560ce29d3793cec2c79d89",
         "algorithm": "sha256",
         "created_at": "2015-05-22T19:08:35.390Z",
-        "bag": "9367fd50-3067-430c-a5ec-3a7d0f3dd55c"
+        "bag": "567366b3-c1b1-4e85-94d5-af426a9dc88e"
     },
     "model": "data.fixity"
 },
@@ -624,7 +624,7 @@
         "digest": "e112ad47b3b280b92a38af2c5be38da7f04b79f4b180cbb92811f74ebc831d18",
         "algorithm": "sha256",
         "created_at": "2015-05-22T19:08:36.602Z",
-        "bag": "d372f01c-6c8e-4a0c-90b4-7b32bcfc46f1"
+        "bag": "7c7b3154-1220-42b5-b06e-4a8278285f13"
     },
     "model": "data.fixity"
 },
@@ -634,7 +634,7 @@
         "digest": "13743e26e07afcdab0600104989c5e5de0271ed2dff61cf7804ea294060a75ac",
         "algorithm": "sha256",
         "created_at": "2015-05-22T19:08:37.850Z",
-        "bag": "368cb6d4-c95e-4920-9bf5-6f5059996705"
+        "bag": "5d2b24f0-6fa1-4952-a101-3314933ba187"
     },
     "model": "data.fixity"
 },
@@ -644,7 +644,7 @@
         "digest": "6cb820f17c147ab9cd25a8c1f2adc7cf12a8070448dba35551e9c992e409688c",
         "algorithm": "sha256",
         "created_at": "2015-05-22T19:08:38.800Z",
-        "bag": "c3650009-f702-4081-9b19-c616e1cdb596"
+        "bag": "842f27a6-f7ca-4544-b4e3-afa07faf19aa"
     },
     "model": "data.fixity"
 },
@@ -654,7 +654,7 @@
         "digest": "5329a5d06216ca9effc42a6f5b7c492952334d8b188ebbdefbbd0b970ab981a3",
         "algorithm": "sha256",
         "created_at": "2015-05-22T19:08:48.301Z",
-        "bag": "281e1eab-632d-4430-9af1-375bce9cfe3f"
+        "bag": "4f394cb6-1b29-4b7c-bd13-7333dbde2682"
     },
     "model": "data.fixity"
 },
@@ -664,7 +664,7 @@
         "digest": "0000000000000000000000000000000000000000000000000000000000000000",
         "algorithm": "sha256",
         "created_at": "2015-06-05T14:56:54.626Z",
-        "bag": "85fa66c7-6790-40f3-8735-e23762f9e2e7"
+        "bag": "0dbfa822-9092-48c7-9516-e71586289626"
     },
     "model": "data.fixity"
 },
@@ -674,7 +674,7 @@
         "digest": "9999999999999999999999999999999999999999999999999999999999999999",
         "algorithm": "sha256",
         "created_at": "2015-06-05T14:58:37.263Z",
-        "bag": "8c0e41b9-5ffc-4dd8-bdb5-79f7fb6bdef3"
+        "bag": "b01db968-2950-4807-add7-31f5ce98de78"
     },
     "model": "data.fixity"
 },
@@ -688,13 +688,13 @@
         "fixity_nonce": "",
         "created_at": "2015-05-22T19:46:45.761Z",
         "to_node": 4,
-        "link": "dpn.tdr@devops.chron.org:outbound/281e1eab-632d-4430-9af1-375bce9cfe3f.tar",
+        "link": "dpn.tdr@devops.chron.org:outbound/4f394cb6-1b29-4b7c-bd13-7333dbde2682.tar",
         "status": "Requested",
         "protocol": "R",
-        "from_node": 1,
+        "from_node": 3,
         "updated_at": "2015-05-28T16:15:35.884Z",
         "fixity_algorithm": "sha256",
-        "bag": "281e1eab-632d-4430-9af1-375bce9cfe3f"
+        "bag": "4f394cb6-1b29-4b7c-bd13-7333dbde2682"
     },
     "model": "data.replicationtransfer"
 },
@@ -708,13 +708,13 @@
         "fixity_nonce": "",
         "created_at": "2015-05-22T19:47:17.440Z",
         "to_node": 4,
-        "link": "dpn.tdr@devops.chron.org:outbound/c3650009-f702-4081-9b19-c616e1cdb596.tar",
+        "link": "dpn.tdr@devops.chron.org:outbound/842f27a6-f7ca-4544-b4e3-afa07faf19aa.tar",
         "status": "Requested",
         "protocol": "R",
-        "from_node": 1,
+        "from_node": 3,
         "updated_at": "2015-05-28T16:15:37.916Z",
         "fixity_algorithm": "sha256",
-        "bag": "c3650009-f702-4081-9b19-c616e1cdb596"
+        "bag": "842f27a6-f7ca-4544-b4e3-afa07faf19aa"
     },
     "model": "data.replicationtransfer"
 },
@@ -728,13 +728,13 @@
         "fixity_nonce": "",
         "created_at": "2015-05-22T19:47:54.012Z",
         "to_node": 4,
-        "link": "dpn.tdr@devops.chron.org:outbound/368cb6d4-c95e-4920-9bf5-6f5059996705.tar",
+        "link": "dpn.tdr@devops.chron.org:outbound/5d2b24f0-6fa1-4952-a101-3314933ba187.tar",
         "status": "Requested",
         "protocol": "R",
-        "from_node": 1,
+        "from_node": 3,
         "updated_at": "2015-05-28T16:15:39.936Z",
         "fixity_algorithm": "sha256",
-        "bag": "368cb6d4-c95e-4920-9bf5-6f5059996705"
+        "bag": "5d2b24f0-6fa1-4952-a101-3314933ba187"
     },
     "model": "data.replicationtransfer"
 },
@@ -748,13 +748,13 @@
         "fixity_nonce": "",
         "created_at": "2015-05-22T19:48:25.049Z",
         "to_node": 4,
-        "link": "dpn.tdr@devops.chron.org:outbound/d372f01c-6c8e-4a0c-90b4-7b32bcfc46f1.tar",
+        "link": "dpn.tdr@devops.chron.org:outbound/7c7b3154-1220-42b5-b06e-4a8278285f13.tar",
         "status": "Requested",
         "protocol": "R",
-        "from_node": 1,
+        "from_node": 3,
         "updated_at": "2015-05-28T16:15:41.844Z",
         "fixity_algorithm": "sha256",
-        "bag": "d372f01c-6c8e-4a0c-90b4-7b32bcfc46f1"
+        "bag": "7c7b3154-1220-42b5-b06e-4a8278285f13"
     },
     "model": "data.replicationtransfer"
 },
@@ -768,13 +768,13 @@
         "fixity_nonce": "",
         "created_at": "2015-05-22T19:48:47.638Z",
         "to_node": 4,
-        "link": "dpn.tdr@devops.chron.org:outbound/9367fd50-3067-430c-a5ec-3a7d0f3dd55c.tar",
+        "link": "dpn.tdr@devops.chron.org:outbound/567366b3-c1b1-4e85-94d5-af426a9dc88e.tar",
         "status": "Requested",
         "protocol": "R",
-        "from_node": 1,
+        "from_node": 3,
         "updated_at": "2015-05-28T16:15:43.665Z",
         "fixity_algorithm": "sha256",
-        "bag": "9367fd50-3067-430c-a5ec-3a7d0f3dd55c"
+        "bag": "567366b3-c1b1-4e85-94d5-af426a9dc88e"
     },
     "model": "data.replicationtransfer"
 },
@@ -788,13 +788,13 @@
         "fixity_nonce": "",
         "created_at": "2015-05-22T19:49:14.137Z",
         "to_node": 4,
-        "link": "dpn.tdr@devops.chron.org:outbound/282de529-dcea-4a4a-87f7-e229033dc60a.tar",
+        "link": "dpn.tdr@devops.chron.org:outbound/30efc176-91cb-4b5a-9524-8858699c683e.tar",
         "status": "Requested",
         "protocol": "R",
-        "from_node": 1,
+        "from_node": 3,
         "updated_at": "2015-05-28T16:15:46.247Z",
         "fixity_algorithm": "sha256",
-        "bag": "282de529-dcea-4a4a-87f7-e229033dc60a"
+        "bag": "30efc176-91cb-4b5a-9524-8858699c683e"
     },
     "model": "data.replicationtransfer"
 },
@@ -808,13 +808,13 @@
         "fixity_nonce": "",
         "created_at": "2015-05-22T19:52:35.558Z",
         "to_node": 3,
-        "link": "dpn.chron@devops.chron.org:outbound/281e1eab-632d-4430-9af1-375bce9cfe3f.tar",
+        "link": "dpn.chron@devops.chron.org:outbound/4f394cb6-1b29-4b7c-bd13-7333dbde2682.tar",
         "status": "Requested",
         "protocol": "R",
-        "from_node": 1,
+        "from_node": 3,
         "updated_at": "2015-05-22T20:37:49.018Z",
         "fixity_algorithm": "sha256",
-        "bag": "281e1eab-632d-4430-9af1-375bce9cfe3f"
+        "bag": "4f394cb6-1b29-4b7c-bd13-7333dbde2682"
     },
     "model": "data.replicationtransfer"
 },
@@ -828,13 +828,13 @@
         "fixity_nonce": "",
         "created_at": "2015-05-22T19:53:05.313Z",
         "to_node": 3,
-        "link": "dpn.chron@devops.chron.org:outbound/c3650009-f702-4081-9b19-c616e1cdb596.tar",
+        "link": "dpn.chron@devops.chron.org:outbound/842f27a6-f7ca-4544-b4e3-afa07faf19aa.tar",
         "status": "Requested",
         "protocol": "R",
-        "from_node": 1,
+        "from_node": 3,
         "updated_at": "2015-05-22T20:37:39.660Z",
         "fixity_algorithm": "sha256",
-        "bag": "c3650009-f702-4081-9b19-c616e1cdb596"
+        "bag": "842f27a6-f7ca-4544-b4e3-afa07faf19aa"
     },
     "model": "data.replicationtransfer"
 },
@@ -848,13 +848,13 @@
         "fixity_nonce": "",
         "created_at": "2015-05-22T19:53:26.965Z",
         "to_node": 3,
-        "link": "dpn.chron@devops.chron.org:outbound/368cb6d4-c95e-4920-9bf5-6f5059996705.tar",
+        "link": "dpn.chron@devops.chron.org:outbound/5d2b24f0-6fa1-4952-a101-3314933ba187.tar",
         "status": "Requested",
         "protocol": "R",
-        "from_node": 1,
+        "from_node": 3,
         "updated_at": "2015-05-22T20:37:29.331Z",
         "fixity_algorithm": "sha256",
-        "bag": "368cb6d4-c95e-4920-9bf5-6f5059996705"
+        "bag": "5d2b24f0-6fa1-4952-a101-3314933ba187"
     },
     "model": "data.replicationtransfer"
 },
@@ -868,13 +868,13 @@
         "fixity_nonce": "",
         "created_at": "2015-05-22T19:53:53.202Z",
         "to_node": 3,
-        "link": "dpn.chron@devops.chron.org:outbound/d372f01c-6c8e-4a0c-90b4-7b32bcfc46f1.tar",
+        "link": "dpn.chron@devops.chron.org:outbound/7c7b3154-1220-42b5-b06e-4a8278285f13.tar",
         "status": "Requested",
         "protocol": "R",
-        "from_node": 1,
+        "from_node": 3,
         "updated_at": "2015-05-22T20:37:19.193Z",
         "fixity_algorithm": "sha256",
-        "bag": "d372f01c-6c8e-4a0c-90b4-7b32bcfc46f1"
+        "bag": "7c7b3154-1220-42b5-b06e-4a8278285f13"
     },
     "model": "data.replicationtransfer"
 },
@@ -888,13 +888,13 @@
         "fixity_nonce": "",
         "created_at": "2015-05-22T19:54:22.781Z",
         "to_node": 3,
-        "link": "dpn.chron@devops.chron.org:outbound/9367fd50-3067-430c-a5ec-3a7d0f3dd55c.tar",
+        "link": "dpn.chron@devops.chron.org:outbound/567366b3-c1b1-4e85-94d5-af426a9dc88e.tar",
         "status": "Requested",
         "protocol": "R",
-        "from_node": 1,
+        "from_node": 3,
         "updated_at": "2015-05-22T20:37:09.977Z",
         "fixity_algorithm": "sha256",
-        "bag": "9367fd50-3067-430c-a5ec-3a7d0f3dd55c"
+        "bag": "567366b3-c1b1-4e85-94d5-af426a9dc88e"
     },
     "model": "data.replicationtransfer"
 },
@@ -908,13 +908,13 @@
         "fixity_nonce": "",
         "created_at": "2015-05-22T19:54:46.423Z",
         "to_node": 3,
-        "link": "dpn.chron@devops.chron.org:outbound/282de529-dcea-4a4a-87f7-e229033dc60a.tar",
+        "link": "dpn.chron@devops.chron.org:outbound/30efc176-91cb-4b5a-9524-8858699c683e.tar",
         "status": "Requested",
         "protocol": "R",
-        "from_node": 1,
+        "from_node": 3,
         "updated_at": "2015-05-22T20:37:00.601Z",
         "fixity_algorithm": "sha256",
-        "bag": "282de529-dcea-4a4a-87f7-e229033dc60a"
+        "bag": "30efc176-91cb-4b5a-9524-8858699c683e"
     },
     "model": "data.replicationtransfer"
 },
@@ -928,13 +928,13 @@
         "fixity_nonce": "",
         "created_at": "2015-05-22T19:55:04.597Z",
         "to_node": 2,
-        "link": "dpn.hathi@devops.chron.org:outbound/281e1eab-632d-4430-9af1-375bce9cfe3f.tar",
+        "link": "dpn.hathi@devops.chron.org:outbound/4f394cb6-1b29-4b7c-bd13-7333dbde2682.tar",
         "status": "Requested",
         "protocol": "R",
-        "from_node": 1,
+        "from_node": 3,
         "updated_at": "2015-05-22T20:36:50.800Z",
         "fixity_algorithm": "sha256",
-        "bag": "281e1eab-632d-4430-9af1-375bce9cfe3f"
+        "bag": "4f394cb6-1b29-4b7c-bd13-7333dbde2682"
     },
     "model": "data.replicationtransfer"
 },
@@ -948,13 +948,13 @@
         "fixity_nonce": "",
         "created_at": "2015-05-22T19:55:22.456Z",
         "to_node": 2,
-        "link": "dpn.hathi@devops.chron.org:outbound/c3650009-f702-4081-9b19-c616e1cdb596.tar",
+        "link": "dpn.hathi@devops.chron.org:outbound/842f27a6-f7ca-4544-b4e3-afa07faf19aa.tar",
         "status": "Requested",
         "protocol": "R",
-        "from_node": 1,
+        "from_node": 3,
         "updated_at": "2015-05-22T20:36:41.319Z",
         "fixity_algorithm": "sha256",
-        "bag": "c3650009-f702-4081-9b19-c616e1cdb596"
+        "bag": "842f27a6-f7ca-4544-b4e3-afa07faf19aa"
     },
     "model": "data.replicationtransfer"
 },
@@ -968,13 +968,13 @@
         "fixity_nonce": "",
         "created_at": "2015-05-22T19:55:39.498Z",
         "to_node": 2,
-        "link": "dpn.hathi@devops.chron.org:outbound/368cb6d4-c95e-4920-9bf5-6f5059996705.tar",
+        "link": "dpn.hathi@devops.chron.org:outbound/5d2b24f0-6fa1-4952-a101-3314933ba187.tar",
         "status": "Requested",
         "protocol": "R",
-        "from_node": 1,
+        "from_node": 3,
         "updated_at": "2015-05-22T20:36:32.965Z",
         "fixity_algorithm": "sha256",
-        "bag": "368cb6d4-c95e-4920-9bf5-6f5059996705"
+        "bag": "5d2b24f0-6fa1-4952-a101-3314933ba187"
     },
     "model": "data.replicationtransfer"
 },
@@ -988,13 +988,13 @@
         "fixity_nonce": "",
         "created_at": "2015-05-22T19:55:56.121Z",
         "to_node": 2,
-        "link": "dpn.hathi@devops.chron.org:outbound/d372f01c-6c8e-4a0c-90b4-7b32bcfc46f1.tar",
+        "link": "dpn.hathi@devops.chron.org:outbound/7c7b3154-1220-42b5-b06e-4a8278285f13.tar",
         "status": "Requested",
         "protocol": "R",
-        "from_node": 1,
+        "from_node": 3,
         "updated_at": "2015-05-22T20:36:23.461Z",
         "fixity_algorithm": "sha256",
-        "bag": "d372f01c-6c8e-4a0c-90b4-7b32bcfc46f1"
+        "bag": "7c7b3154-1220-42b5-b06e-4a8278285f13"
     },
     "model": "data.replicationtransfer"
 },
@@ -1008,13 +1008,13 @@
         "fixity_nonce": "",
         "created_at": "2015-05-22T19:56:15.190Z",
         "to_node": 2,
-        "link": "dpn.hathi@devops.chron.org:outbound/9367fd50-3067-430c-a5ec-3a7d0f3dd55c.tar",
+        "link": "dpn.hathi@devops.chron.org:outbound/567366b3-c1b1-4e85-94d5-af426a9dc88e.tar",
         "status": "Requested",
         "protocol": "R",
-        "from_node": 1,
+        "from_node": 3,
         "updated_at": "2015-05-22T20:36:13.376Z",
         "fixity_algorithm": "sha256",
-        "bag": "9367fd50-3067-430c-a5ec-3a7d0f3dd55c"
+        "bag": "567366b3-c1b1-4e85-94d5-af426a9dc88e"
     },
     "model": "data.replicationtransfer"
 },
@@ -1028,13 +1028,13 @@
         "fixity_nonce": "",
         "created_at": "2015-05-22T19:56:33.495Z",
         "to_node": 2,
-        "link": "dpn.hathi@devops.chron.org:outbound/282de529-dcea-4a4a-87f7-e229033dc60a.tar",
+        "link": "dpn.hathi@devops.chron.org:outbound/30efc176-91cb-4b5a-9524-8858699c683e.tar",
         "status": "Requested",
         "protocol": "R",
-        "from_node": 1,
+        "from_node": 3,
         "updated_at": "2015-05-22T20:35:59.506Z",
         "fixity_algorithm": "sha256",
-        "bag": "282de529-dcea-4a4a-87f7-e229033dc60a"
+        "bag": "30efc176-91cb-4b5a-9524-8858699c683e"
     },
     "model": "data.replicationtransfer"
 },
@@ -1048,13 +1048,13 @@
         "fixity_nonce": "",
         "created_at": "2015-05-22T19:58:45.141Z",
         "to_node": 5,
-        "link": "dpn.sdr@devops.chron.org:outbound/281e1eab-632d-4430-9af1-375bce9cfe3f.tar",
+        "link": "dpn.sdr@devops.chron.org:outbound/4f394cb6-1b29-4b7c-bd13-7333dbde2682.tar",
         "status": "Requested",
         "protocol": "R",
-        "from_node": 1,
+        "from_node": 3,
         "updated_at": "2015-05-22T20:35:51.999Z",
         "fixity_algorithm": "sha256",
-        "bag": "281e1eab-632d-4430-9af1-375bce9cfe3f"
+        "bag": "4f394cb6-1b29-4b7c-bd13-7333dbde2682"
     },
     "model": "data.replicationtransfer"
 },
@@ -1068,13 +1068,13 @@
         "fixity_nonce": "",
         "created_at": "2015-05-22T19:59:00.615Z",
         "to_node": 5,
-        "link": "dpn.sdr@devops.chron.org:outbound/c3650009-f702-4081-9b19-c616e1cdb596.tar",
+        "link": "dpn.sdr@devops.chron.org:outbound/842f27a6-f7ca-4544-b4e3-afa07faf19aa.tar",
         "status": "Requested",
         "protocol": "R",
-        "from_node": 1,
+        "from_node": 3,
         "updated_at": "2015-05-22T20:35:44.029Z",
         "fixity_algorithm": "sha256",
-        "bag": "c3650009-f702-4081-9b19-c616e1cdb596"
+        "bag": "842f27a6-f7ca-4544-b4e3-afa07faf19aa"
     },
     "model": "data.replicationtransfer"
 },
@@ -1088,13 +1088,13 @@
         "fixity_nonce": "",
         "created_at": "2015-05-22T19:59:17.197Z",
         "to_node": 5,
-        "link": "dpn.sdr@devops.chron.org:outbound/368cb6d4-c95e-4920-9bf5-6f5059996705.tar",
+        "link": "dpn.sdr@devops.chron.org:outbound/5d2b24f0-6fa1-4952-a101-3314933ba187.tar",
         "status": "Requested",
         "protocol": "R",
-        "from_node": 1,
+        "from_node": 3,
         "updated_at": "2015-05-22T20:35:32.192Z",
         "fixity_algorithm": "sha256",
-        "bag": "368cb6d4-c95e-4920-9bf5-6f5059996705"
+        "bag": "5d2b24f0-6fa1-4952-a101-3314933ba187"
     },
     "model": "data.replicationtransfer"
 },
@@ -1108,13 +1108,13 @@
         "fixity_nonce": "",
         "created_at": "2015-05-22T19:59:34.479Z",
         "to_node": 5,
-        "link": "dpn.sdr@devops.chron.org:outbound/d372f01c-6c8e-4a0c-90b4-7b32bcfc46f1.tar",
+        "link": "dpn.sdr@devops.chron.org:outbound/7c7b3154-1220-42b5-b06e-4a8278285f13.tar",
         "status": "Requested",
         "protocol": "R",
-        "from_node": 1,
+        "from_node": 3,
         "updated_at": "2015-05-22T20:35:24.670Z",
         "fixity_algorithm": "sha256",
-        "bag": "d372f01c-6c8e-4a0c-90b4-7b32bcfc46f1"
+        "bag": "7c7b3154-1220-42b5-b06e-4a8278285f13"
     },
     "model": "data.replicationtransfer"
 },
@@ -1128,13 +1128,13 @@
         "fixity_nonce": "",
         "created_at": "2015-05-22T19:59:54.032Z",
         "to_node": 5,
-        "link": "dpn.sdr@devops.chron.org:outbound/9367fd50-3067-430c-a5ec-3a7d0f3dd55c.tar",
+        "link": "dpn.sdr@devops.chron.org:outbound/567366b3-c1b1-4e85-94d5-af426a9dc88e.tar",
         "status": "Requested",
         "protocol": "R",
-        "from_node": 1,
+        "from_node": 3,
         "updated_at": "2015-05-22T20:35:14.862Z",
         "fixity_algorithm": "sha256",
-        "bag": "9367fd50-3067-430c-a5ec-3a7d0f3dd55c"
+        "bag": "567366b3-c1b1-4e85-94d5-af426a9dc88e"
     },
     "model": "data.replicationtransfer"
 },
@@ -1148,73 +1148,73 @@
         "fixity_nonce": "",
         "created_at": "2015-05-22T20:00:12.597Z",
         "to_node": 5,
-        "link": "dpn.sdr@devops.chron.org:outbound/282de529-dcea-4a4a-87f7-e229033dc60a.tar",
+        "link": "dpn.sdr@devops.chron.org:outbound/30efc176-91cb-4b5a-9524-8858699c683e.tar",
         "status": "Requested",
         "protocol": "R",
-        "from_node": 1,
+        "from_node": 3,
         "updated_at": "2015-05-22T20:35:04.963Z",
         "fixity_algorithm": "sha256",
-        "bag": "282de529-dcea-4a4a-87f7-e229033dc60a"
+        "bag": "30efc176-91cb-4b5a-9524-8858699c683e"
     },
     "model": "data.replicationtransfer"
 },
 {
     "pk": 1,
     "fields": {
-        "to_node": 1,
+        "to_node": 3,
         "from_node": 4,
         "status": "Requested",
         "protocol": "R",
-        "link": "rsync://mnt/staging/d372f01c-6c8e-4a0c-90b4-7b32bcfc46f1.tar",
+        "link": "rsync://mnt/staging/7c7b3154-1220-42b5-b06e-4a8278285f13.tar",
         "updated_at": "2015-06-01T19:07:53.918Z",
         "created_at": "2015-06-01T19:07:53.917Z",
         "restore_id": "chron-1",
-        "bag": "d372f01c-6c8e-4a0c-90b4-7b32bcfc46f1"
+        "bag": "7c7b3154-1220-42b5-b06e-4a8278285f13"
     },
     "model": "data.restoretransfer"
 },
 {
     "pk": 2,
     "fields": {
-        "to_node": 1,
+        "to_node": 3,
         "from_node": 3,
         "status": "Prepared",
         "protocol": "R",
-        "link": "rsync://mnt/staging/282de529-dcea-4a4a-87f7-e229033dc60a.tar",
+        "link": "rsync://mnt/staging/30efc176-91cb-4b5a-9524-8858699c683e.tar",
         "updated_at": "2015-06-01T19:15:14.867Z",
         "created_at": "2015-06-01T19:07:53.951Z",
         "restore_id": "chron-2",
-        "bag": "282de529-dcea-4a4a-87f7-e229033dc60a"
+        "bag": "30efc176-91cb-4b5a-9524-8858699c683e"
     },
     "model": "data.restoretransfer"
 },
 {
     "pk": 3,
     "fields": {
-        "to_node": 1,
+        "to_node": 3,
         "from_node": 4,
         "status": "Requested",
         "protocol": "R",
-        "link": "rsync://mnt/staging/85fa66c7-6790-40f3-8735-e23762f9e2e7.tar",
+        "link": "rsync://mnt/staging/0dbfa822-9092-48c7-9516-e71586289626.tar",
         "updated_at": "2015-06-01T19:09:16.091Z",
         "created_at": "2015-06-01T19:09:16.090Z",
         "restore_id": "chron-3",
-        "bag": "85fa66c7-6790-40f3-8735-e23762f9e2e7"
+        "bag": "0dbfa822-9092-48c7-9516-e71586289626"
     },
     "model": "data.restoretransfer"
 },
 {
     "pk": 4,
     "fields": {
-        "to_node": 1,
+        "to_node": 3,
         "from_node": 3,
         "status": "Prepared",
         "protocol": "R",
-        "link": "rsync://mnt/staging/281e1eab-632d-4430-9af1-375bce9cfe3f.tar",
+        "link": "rsync://mnt/staging/4f394cb6-1b29-4b7c-bd13-7333dbde2682.tar",
         "updated_at": "2015-06-01T19:15:59.535Z",
         "created_at": "2015-06-01T19:09:16.123Z",
         "restore_id": "chron-4",
-        "bag": "281e1eab-632d-4430-9af1-375bce9cfe3f"
+        "bag": "4f394cb6-1b29-4b7c-bd13-7333dbde2682"
     },
     "model": "data.restoretransfer"
 },
