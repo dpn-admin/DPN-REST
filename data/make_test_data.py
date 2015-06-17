@@ -38,6 +38,7 @@ this_dir = os.path.dirname(os.path.abspath(__file__))
 data_file = os.path.join(this_dir, "TestServerData.json")
 
 # Match and capture UUIDs & other data
+# USING REGEXES FOR THIS KIND OF WORK IS A MISTAKE!!! Jackass.
 uuid_regex = re.compile(r'([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})', re.IGNORECASE)
 ingest_node_regex = re.compile(r'"ingest_node": (\d+)')
 admin_node_regex = re.compile(r'"admin_node": (\d+)')
@@ -104,6 +105,10 @@ def replace_uuid(line):
 def replace_node_name(line):
     if "username" in line or "namespace" in line or "api_root" in line or "email" in line:
         return line
+    if "link" in line:
+        orig = "dpn.{0}@devops.aptrust".format(target_node)
+        replacement = "dpn.aptrust@devops.{0}".format(target_node)
+        return line.replace(orig, replacement)
     return line.replace('aptrust', target_node)
 
 def set_superuser(line):
@@ -145,6 +150,8 @@ def replace_to_node(line):
         if orig_node_id == node_id['aptrust']:
             #print("Replacing to_node {0} with {1}".format(orig_node_id, node_id[target_node]))
             return line.replace(orig_node_id, node_id[target_node])
+        elif orig_node_id == node_id[target_node]:
+            return line.replace(orig_node_id, node_id['aptrust'])
     return line
 
 def replace_local_id(line):

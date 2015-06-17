@@ -1178,7 +1178,7 @@
     "fields": {
         "to_node": 1,
         "from_node": 3,
-        "status": "Prepared",
+        "status": "Requested",
         "protocol": "R",
         "link": "rsync://mnt/staging/06edc30f-af04-4a4e-4ad6-3c679a195d46.tar",
         "updated_at": "2015-06-01T19:15:14.867Z",
@@ -1208,7 +1208,7 @@
     "fields": {
         "to_node": 1,
         "from_node": 3,
-        "status": "Prepared",
+        "status": "Requested",
         "protocol": "R",
         "link": "rsync://mnt/staging/472218b3-95ce-4b8e-6c21-6e514cfbe43f.tar",
         "updated_at": "2015-06-01T19:15:59.535Z",
