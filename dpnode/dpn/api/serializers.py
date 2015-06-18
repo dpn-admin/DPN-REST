@@ -128,6 +128,8 @@ class BasicReplicationSerializer(serializers.ModelSerializer):
         instance.fixity_value = validated_data.get('fixity_value', instance.fixity_value)
         if instance.status.lower() == "confirmed" and not was_already_confirmed and not user_is_superuser(self.context):
             raise PermissionDenied("Only the local admin can set replication status to 'Confirmed'")
+        if instance.status.lower() == "stored" and not was_already_confirmed:
+            raise PermissionDenied("You cannot mark a bag as stored if this server did not previously confirm its fixity value.")
         instance.save()
         return instance
 
