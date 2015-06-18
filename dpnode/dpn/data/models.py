@@ -243,7 +243,9 @@ class ReplicationTransfer(models.Model):
         if self.pk is not None:
             if self._fixity_matches():
                 self.fixity_accept = True
-                self.status = CONFIRMED
+                # Don't overwrite STORED states
+                if self.status != STORED:
+                    self.status = CONFIRMED
             elif self.fixity_value:
                 self.fixity_accept = False
                 self.status = CANCELLED
