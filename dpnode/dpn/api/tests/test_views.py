@@ -17,11 +17,13 @@ from rest_framework import status
 from rest_framework.authtoken.models import Token
 
 from dpn.data.models import Node, Bag, ReplicationTransfer
-from dpn.data.models import RestoreTransfer, UserProfile, REJECTED
+from dpn.data.models import RestoreTransfer, UserProfile
+from dpn.data.models import REQUESTED, REJECTED, STORED, CANCELLED
 from dpn.data.utils import dpn_strptime
 from dpn.data.tests.utils import make_test_transfers, make_test_bags
 from dpn.data.tests.utils import make_test_nodes, make_bag_postdata
 from dpn.data.tests.utils import make_test_user
+from dpn.api.serializers import BasicReplicationSerializer
 
 
 def _make_api_user():
@@ -464,3 +466,47 @@ class ReplicationTransferDetailViewTest(APITestCase):
 
         # _test_other_node(self.api_user)
         # _test_other_node(self.api_admin)
+
+
+    def test_cannot_overwrite_stored(self):
+        usr = self.api_user
+        xfer = ReplicationTransfer.objects.filter(to_node=usr.profile.node)[0]
+        xfer.status = STORED
+        xfer.bag_valid = True
+        xfer.save()
+
+        # Transfer is now stored. Try to change the status to cancelled.
+        # The system should not let us do that!
+        xfer.fixity_value = xfer.bag.original_fixity('sha256')
+        xfer.status = CANCELLED
+        url = reverse('api:replication-detail',
+                      kwargs={'replication_id': xfer.replication_id})
+        xfer_serializer = BasicReplicationSerializer(xfer)
+        token = Token.objects.get(user=usr)
+        self.client.credentials(HTTP_AUTHORIZATION="Token %s"
+                                % token.key)
+        rsp = self.client.put(url,data=xfer_serializer.data)
+        #print(rsp.status_code)
+        #print(rsp.data)
+        #print(rsp.content)
+        self.assertEqual(rsp.status_code, status.HTTP_200_OK)
+
+    def test_cannot_store_if_not_confirmed(self):
+        usr = self.api_user
+        xfer = ReplicationTransfer.objects.filter(to_node=usr.profile.node)[0]
+        xfer.status = REQUESTED
+        xfer.bag_valid = True
+        xfer.save()
+
+        # Transfer is now stored. Try to change the status to cancelled.
+        # The system should not let us do that!
+        xfer.fixity_value = xfer.bag.original_fixity('sha256')
+        xfer.status = STORED
+        url = reverse('api:replication-detail',
+                      kwargs={'replication_id': xfer.replication_id})
+        xfer_serializer = BasicReplicationSerializer(xfer)
+        token = Token.objects.get(user=usr)
+        self.client.credentials(HTTP_AUTHORIZATION="Token %s"
+                                % token.key)
+        rsp = self.client.put(url,data=xfer_serializer.data)
+        self.assertEqual(rsp.status_code, status.HTTP_403_FORBIDDEN)

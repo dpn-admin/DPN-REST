@@ -240,12 +240,15 @@ class ReplicationTransfer(models.Model):
                 self.fixity_value == expected_fixity.digest)
 
     def save(self, *args, **kwargs):
+        # Don't overwrite STORED states
         if self.pk is not None:
             if self._fixity_matches():
                 self.fixity_accept = True
-                self.status = CONFIRMED
+                if self.status != STORED:
+                    self.status = CONFIRMED
             elif self.fixity_value:
-                self.fixity_accept = False
+                if self.status != STORED:
+                    self.fixity_accept = False
                 self.status = CANCELLED
         super(ReplicationTransfer, self).save(*args, **kwargs)
 
