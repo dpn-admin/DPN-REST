@@ -24,8 +24,8 @@
 # The run_cluster.py script then loads the data for each node from the
 # correct json file.
 
+import json
 import os
-import re
 import sys
 import uuid
 
@@ -36,15 +36,7 @@ target_node = None
 # This is the basic test data file, dumped from the test server.
 this_dir = os.path.dirname(os.path.abspath(__file__))
 data_file = os.path.join(this_dir, "TestServerData.json")
-
-# Match and capture UUIDs & other data
-# USING REGEXES FOR THIS KIND OF WORK IS A MISTAKE!!! Jackass.
-uuid_regex = re.compile(r'([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})', re.IGNORECASE)
-ingest_node_regex = re.compile(r'"ingest_node": (\d+)')
-admin_node_regex = re.compile(r'"admin_node": (\d+)')
-local_id_regex = re.compile(r'"local_id": "(.+)"')
-from_node_regex = re.compile(r'"from_node": (\d+)')
-to_node_regex = re.compile(r'"to_node": (\d+)')
+highest_user_id = 0
 
 # Map original uuids to replacement uuids
 uuid_replacements = {}
@@ -58,33 +50,27 @@ node_id = {
     'sdr': '5',
 }
 
-# Used for generating new bag names
-bag_counter = 1
-
 def run():
-    global target_node
     target_node = get_target_node()
     if target_node not in allowed_targets:
         print("Usage: python make_test_data.py <node>")
         print("Node must be one of {0}".format(", ".join(allowed_targets)))
         sys.exit(1)
-    transform_file()
+    transform_data(target_node)
 
-def transform_file():
-    global target_node
+def transform_data(target_node):
     outfile_name = "TestServerData_{0}.json".format(target_node)
-    with open(outfile_name, 'w') as output_file:
-        with open(data_file) as input_file:
-            for line in input_file:
-                line = replace_uuid(line.rstrip())
-                line = replace_node_name(line)
-                line = replace_ingest_node(line)
-                line = replace_admin_node(line)
-                line = replace_from_node(line)
-                line = replace_to_node(line)
-                line = replace_local_id(line)
-                line = set_superuser(line + os.linesep)
-                output_file.write(line)
+    with open(data_file) as input_file:
+        data = json.loads(input_file.read())
+        update_users(data, target_node)
+        update_bags(data, target_node)
+        update_fixities(data, target_node)
+        update_transfer_requests(data, target_node)
+        update_restore_requests(data, target_node)
+        create_local_admin(data, target_node)
+        with open(outfile_name, 'w') as output_file:
+            output_file.write(json.dumps(data, indent=4))
+            output_file.write("\n")
     print("Transformed data is in {0}".format(outfile_name))
 
 def get_target_node():
@@ -92,78 +78,111 @@ def get_target_node():
         return sys.argv[1]
     return None
 
-def replace_uuid(line):
-    match = uuid_regex.search(line)
-    if match:
-        orig_uuid = match.group(0)
-        if orig_uuid not in uuid_replacements:
-            uuid_replacements[orig_uuid] = str(uuid.uuid4())
-        #print("Replacing {0} with {1}".format(orig_uuid, uuid_replacements[orig_uuid]))
-        return line.replace(orig_uuid, uuid_replacements[orig_uuid])
-    return line
+def update_users(data, target_node):
+    global highest_user_id
+    for obj in data:
+        if obj['model'] == 'auth.user':
+            if obj['pk'] > highest_user_id:
+                highest_user_id = obj['pk']
+            if obj['fields']['is_superuser'] == False:
+                obj['fields']['is_staff'] = False
+                obj['fields']['groups'] = [1]
 
-def replace_node_name(line):
-    if "username" in line or "namespace" in line or "api_root" in line or "email" in line:
-        return line
-    if "link" in line:
-        orig = "dpn.{0}@devops.aptrust".format(target_node)
-        replacement = "dpn.aptrust@devops.{0}".format(target_node)
-        return line.replace(orig, replacement)
-    return line.replace('aptrust', target_node)
+def update_bags(data, target_node):
+    bag_counter = 1
+    target_node_id = node_id[target_node]
+    for obj in data:
+        if obj['model'] == 'data.bag':
+            orig_uuid = obj['pk']
+            if orig_uuid not in uuid_replacements:
+                uuid_replacements[orig_uuid] = str(uuid.uuid4())
+            obj['pk'] = uuid_replacements[orig_uuid]
+            obj['fields']['first_version_uuid'] = uuid_replacements[orig_uuid]
+            obj['fields']['ingest_node'] = target_node_id
+            obj['fields']['admin_node'] = target_node_id
+            obj['fields']['replicating_nodes'] = []
+            obj['fields']['local_id'] = "{0}_bag_{1}".format(target_node, bag_counter)
+            bag_counter += 1
 
-def set_superuser(line):
-    if "is_superuser" in line:
-        line = line.replace('true', 'false')
-    return line
+def update_fixities(data, target_node):
+    for obj in data:
+        if obj['model'] == 'data.fixity':
+            obj['fields']['bag'] = uuid_replacements[obj['fields']['bag']]
 
+def update_transfer_requests(data, target_node):
+    target_node_id = node_id[target_node]
+    for obj in data:
+        if obj['model'] == 'data.replicationtransfer':
+            new_id = obj['fields']['replication_id'].replace('aptrust', target_node)
+            obj['fields']['replication_id'] = new_id
+            obj['fields']['from_node'] = target_node_id
+            if obj['fields']['to_node'] == target_node_id:
+                obj['fields']['to_node'] = node_id['aptrust']
+            new_link = obj['fields']['link'].replace('aptrust', target_node)
+            obj['fields']['link'] = new_link
+            obj['fields']['bag'] = uuid_replacements[obj['fields']['bag']]
 
-def replace_ingest_node(line):
-    match = ingest_node_regex.search(line)
-    if match:
-        orig_node_id = match.group(1)
-        #print("Replacing ingest_node {0} with {1}".format(orig_node_id, node_id[target_node]))
-        return line.replace(orig_node_id, node_id[target_node])
-    return line
+def update_restore_requests(data, target_node):
+    target_node_id = node_id[target_node]
+    for obj in data:
+        if obj['model'] == 'data.restoretransfer':
+            new_id = obj['fields']['restore_id'].replace('aptrust', target_node)
+            obj['fields']['restore_id'] = new_id
+            obj['fields']['to_node'] = target_node_id
+            if obj['fields']['from_node'] == target_node_id:
+                obj['fields']['from_node'] = node_id['aptrust']
+            new_link = obj['fields']['link'].replace('aptrust', target_node)
+            obj['fields']['link'] = new_link
+            obj['fields']['bag'] = uuid_replacements[obj['fields']['bag']]
 
-
-def replace_admin_node(line):
-    match = admin_node_regex.search(line)
-    if match:
-        orig_node_id = match.group(1)
-        #print("Replacing admin_node {0} with {1}".format(orig_node_id, node_id[target_node]))
-        return line.replace(orig_node_id, node_id[target_node])
-    return line
-
-def replace_from_node(line):
-    match = from_node_regex.search(line)
-    if match:
-        orig_node_id = match.group(1)
-        if orig_node_id == node_id['aptrust']:
-            #print("Replacing from_node {0} with {1}".format(orig_node_id, node_id[target_node]))
-            return line.replace(orig_node_id, node_id[target_node])
-    return line
-
-def replace_to_node(line):
-    match = to_node_regex.search(line)
-    if match:
-        orig_node_id = match.group(1)
-        if orig_node_id == node_id['aptrust']:
-            #print("Replacing to_node {0} with {1}".format(orig_node_id, node_id[target_node]))
-            return line.replace(orig_node_id, node_id[target_node])
-        elif orig_node_id == node_id[target_node]:
-            return line.replace(orig_node_id, node_id['aptrust'])
-    return line
-
-def replace_local_id(line):
-    global bag_counter
-    match = local_id_regex.search(line)
-    if match:
-        orig_local_id = match.group(1)
-        new_local_id = "{0}_bag_{1}".format(target_node, bag_counter)
-        bag_counter += 1
-        #print("Replacing local_id {0} with {1}".format(orig_local_id, new_local_id))
-        return line.replace(orig_local_id, new_local_id)
-    return line
+def create_local_admin(data, target_node):
+    global highest_user_id
+    new_admin_user_id = highest_user_id + 1
+    new_admin = {
+        "pk": new_admin_user_id,
+        "fields": {
+            "is_active": True,
+            "last_login": "2015-06-05T14:46:20.744Z",
+            "date_joined": "2015-05-04T17:27:12Z",
+            "user_permissions": [],
+            "first_name": target_node,
+            "password": "pbkdf2_sha256$15000$Klz2TFoxY8xE$/I58ocVVFVI2xLCEfaCS0BJXEuKbCMSu7nmBAPENGXo=",
+            "username": "{0}_admin".format(target_node),
+            "email": "{0}_admin@aptrust.org".format(target_node),
+            "last_name": "admin",
+            "is_staff": True,
+            "groups": [
+                2
+            ],
+            "is_superuser": True
+        },
+        "model": "auth.user"
+    }
+    new_admin_token = {
+        "pk": "0000000000000000000000000000000000000000",
+        "fields": {
+            "created": "2015-05-04T17:32:48.340Z",
+            "user": new_admin_user_id
+        },
+        "model": "authtoken.token"
+    }
+    new_admin_profile = {
+        "pk": new_admin_user_id,
+        "fields": {
+            "node": node_id[target_node],
+            "user": new_admin_user_id
+        },
+        "model": "data.userprofile"
+    }
+    # index = 0
+    # for obj in data:
+    #     index += 1
+    #     if obj['model'] == 'auth.user':
+    #         data.insert(index, new_admin)
+    #         break
+    data.append(new_admin)
+    data.append(new_admin_token)
+    data.append(new_admin_profile)
 
 
 if __name__ == "__main__":
