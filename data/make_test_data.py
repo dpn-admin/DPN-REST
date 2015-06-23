@@ -63,6 +63,7 @@ def transform_data(target_node):
     with open(data_file) as input_file:
         data = json.loads(input_file.read())
         update_users(data, target_node)
+        update_api_tokens(data, target_node)
         update_bags(data, target_node)
         update_fixities(data, target_node)
         update_transfer_requests(data, target_node)
@@ -87,6 +88,16 @@ def update_users(data, target_node):
             if obj['fields']['is_superuser'] == False:
                 obj['fields']['is_staff'] = False
                 obj['fields']['groups'] = [1]
+
+# Simplify API tokens for testing. Chron user is user id 2,
+# and Chron API token becomes 22222... (40 times). Hathi is
+# user id 3, and their API token becomes 33333... (40 times).
+# SDR is 4 and TDR is 5. There are corresponding settings in
+# the Go code, in bagman/dpn/dpn_config.go.
+def update_api_tokens(data, target_node):
+    for obj in data:
+        if obj['model'] == 'authtoken.token' and obj['fields']['user'] != 1:
+            obj['pk'] = 40 * str(obj['fields']['user'])
 
 def update_bags(data, target_node):
     bag_counter = 1
