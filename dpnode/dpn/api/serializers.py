@@ -152,8 +152,7 @@ class CreateReplicationSerializer(serializers.ModelSerializer):
         fields = ('from_node', 'to_node', 'fixity_algorithm',
                   'fixity_nonce', 'protocol', 'link', 'uuid',
                   'replication_id', 'created_at', 'updated_at',
-                  'status',)
-        read_only_fields = ('replication_id',)
+                  'status', 'replication_id',)
 
     def create(self, validated_data):
         if not user_is_superuser(self.context):
