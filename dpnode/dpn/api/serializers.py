@@ -335,14 +335,6 @@ class BagSerializer(serializers.ModelSerializer):
         if fixities is None or len(fixities) == 0:
             raise serializers.ValidationError("Bag must have exactly one sha256 fixity value when created.")
 
-        # You can create bags ONLY at your own node. So we set
-        # ingest_node and admin_node to our own node namespace.
-        our_node = Node.objects.filter(namespace=settings.DPN_NAMESPACE).first()
-        if our_node is None:
-            raise ObjectDoesNotExist("Node entry for {0} not found in database".format(settings.DPN_NAMESPACE))
-        validated_data['ingest_node'] = our_node
-        validated_data['admin_node'] = our_node
-
         # Create the bag, then add the many-to-many relations
         bag = Bag.objects.create(**validated_data)
         self._assign_relations(bag, rights, interpretive, replicating_nodes)
