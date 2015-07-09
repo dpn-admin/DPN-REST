@@ -19,9 +19,32 @@ class StorageSerializer(serializers.ModelSerializer):
         exclude = ('id', 'node',)
 
 
+# Original design was to support multiple fixities on a bag.
+# One at ingest, then one each time we do a scheduled fixity check.
+# So the fixities property was a list. That's changed. Now it's
+# a hash in which key is the name of the digest algorithm, and value
+# is the actual digest. This is not quite how it's modeled in the
+# database, so we have a custom serializer.
 class FixitySerializer(serializers.ModelSerializer):
 
-    sha256 = serializers.CharField(source='digest', required=True)
+    # We have to specify first.digest instead of just digest,
+    # because we're serializing a relation, not a property.
+    # This actually calles first().digest. And yes, that means
+    # we serialize only the first digest value. While the underlying
+    # DB schema supports multiple digests, the assumption at launch
+    # is that will only ever be one per bag.
+    #
+    # Another problem here is that when we run Django tests, we
+    # get an error saying the sha256 field is missing even when
+    # we supply. This problem doesn't affect real-world requests,
+    # only requests coming from the Django tests. So we have
+    # required=False, even though it should be true. The bag
+    # serializer's custom create method enforces the sha256
+    # requirement.
+    #
+    # All of this trouble stems from the JSON serialization
+    # requirements straying too far from the DB schema.
+    sha256 = serializers.CharField(source='first.digest', required=False)
 
     class Meta:
         model = Fixity
@@ -242,7 +265,7 @@ class BagSerializer(serializers.ModelSerializer):
         queryset=Node.objects.all(),
         slug_field='namespace',
         allow_null=True)
-    fixities = FixitySerializer(required=True, many=True)
+    fixities = FixitySerializer(required=True, many=False)
 
 
     class Meta:
@@ -260,6 +283,8 @@ class BagSerializer(serializers.ModelSerializer):
             interpretive = validated_data.pop('interpretive')
         if 'fixities' in validated_data:
             fixities = validated_data.pop('fixities')
+            if 'first' in fixities:
+                fixities = fixities['first']
         if 'replicating_nodes' in validated_data:
             replicating_nodes = validated_data.pop('replicating_nodes')
         return fixities, rights, interpretive, replicating_nodes
@@ -307,8 +332,8 @@ class BagSerializer(serializers.ModelSerializer):
         # so we create the bag first, then assign the relations.
         # http://bit.ly/1RcvTzZ
         fixities, rights, interpretive, replicating_nodes = self._extract_relations(validated_data)
-        if fixities is None or len(fixities) != 1:
-            raise serializers.ValidationError("Bag must have exactly one fixity value when created.")
+        if fixities is None or len(fixities) == 0:
+            raise serializers.ValidationError("Bag must have exactly one sha256 fixity value when created.")
 
         # You can create bags ONLY at your own node. So we set
         # ingest_node and admin_node to our own node namespace.
@@ -326,10 +351,15 @@ class BagSerializer(serializers.ModelSerializer):
         # Digest *should* be in the 'sha256' key, but when running tests,
         # we create key 'sha256' and we receive key 'digest'. Not sure
         # WTF is up with that.
-        if 'digest' in fixities[0]:
-            fixity_data['digest'] = fixities[0].pop('digest')
-        if 'sha256' in fixities[0]:
-            fixity_data['digest'] = fixities[0].pop('sha256')
+        #
+        # Also, this wonky nested dict, where the 'digest' or 'sha256' key
+        # is inside the entry for 'first' is a side effect of the wierd
+        # tricks we had to perform in the FixitySerializer to get it to
+        # serialize a list as a hash.
+        if 'digest' in fixities:
+            fixity_data['digest'] = fixities.pop('digest')
+        if 'sha256' in fixities:
+            fixity_data['digest'] = fixities.pop('sha256')
         fixity_data['algorithm'] = FixityAlgorithm.objects.filter(name='sha256').first()
         Fixity.objects.create(bag=bag, **fixity_data)
         return bag

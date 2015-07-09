@@ -99,10 +99,7 @@ class BagListViewTest(APITestCase):
 
     def test_post(self):
         data = make_bag_postdata()
-        data['fixities'] = [
-            {
-                    "sha256": "909090909078787878781234"
-            }]
+        data['fixities'] = { "sha256": "909090909078787878781234" }
         data['ingest_node'] = 'aptrust'
         data['admin_node'] = 'aptrust'
 
@@ -395,6 +392,9 @@ class BagDetailViewTest(APITestCase):
             data = rsp.data.copy()
             data["bag_size"] = "100"
             rsp = self.client.put(self.url, data)
+            if rsp.status_code != exp_code:
+                print(data)
+                print(rsp.data)
             self.assertEqual(rsp.status_code, exp_code)
 
         # It should allow api_admins to update bags

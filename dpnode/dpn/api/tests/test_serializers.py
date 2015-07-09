@@ -112,10 +112,10 @@ BAG_DATA = json.loads("""{
     "object_type":"D",
     "first_version_uuid":"892c3cca-4e18-4873-9c7e-758f5d17a5e9",
     "size": 78776,
-    "fixities": [
+    "fixities":
         {
           "sha256": "765765765765"
-        }]
+        }
 }""")
 
 #****** TESTS ******#
