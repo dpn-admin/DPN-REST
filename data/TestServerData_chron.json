@@ -2,196 +2,199 @@
     {
         "fields": {
             "app_label": "admin",
-            "model": "logentry",
-            "name": "log entry"
+            "name": "log entry",
+            "model": "logentry"
         },
-        "model": "contenttypes.contenttype",
-        "pk": 1
+        "pk": 1,
+        "model": "contenttypes.contenttype"
     },
     {
         "fields": {
             "app_label": "auth",
-            "model": "permission",
-            "name": "permission"
+            "name": "permission",
+            "model": "permission"
         },
-        "model": "contenttypes.contenttype",
-        "pk": 2
+        "pk": 2,
+        "model": "contenttypes.contenttype"
     },
     {
         "fields": {
             "app_label": "auth",
-            "model": "group",
-            "name": "group"
+            "name": "group",
+            "model": "group"
         },
-        "model": "contenttypes.contenttype",
-        "pk": 3
+        "pk": 3,
+        "model": "contenttypes.contenttype"
     },
     {
         "fields": {
             "app_label": "auth",
-            "model": "user",
-            "name": "user"
+            "name": "user",
+            "model": "user"
         },
-        "model": "contenttypes.contenttype",
-        "pk": 4
+        "pk": 4,
+        "model": "contenttypes.contenttype"
     },
     {
         "fields": {
             "app_label": "contenttypes",
-            "model": "contenttype",
-            "name": "content type"
+            "name": "content type",
+            "model": "contenttype"
         },
-        "model": "contenttypes.contenttype",
-        "pk": 5
+        "pk": 5,
+        "model": "contenttypes.contenttype"
     },
     {
         "fields": {
             "app_label": "sessions",
-            "model": "session",
-            "name": "session"
+            "name": "session",
+            "model": "session"
         },
-        "model": "contenttypes.contenttype",
-        "pk": 6
+        "pk": 6,
+        "model": "contenttypes.contenttype"
     },
     {
         "fields": {
             "app_label": "authtoken",
-            "model": "token",
-            "name": "token"
+            "name": "token",
+            "model": "token"
         },
-        "model": "contenttypes.contenttype",
-        "pk": 7
+        "pk": 7,
+        "model": "contenttypes.contenttype"
     },
     {
         "fields": {
             "app_label": "data",
-            "model": "protocol",
-            "name": "protocol"
+            "name": "protocol",
+            "model": "protocol"
         },
-        "model": "contenttypes.contenttype",
-        "pk": 8
+        "pk": 8,
+        "model": "contenttypes.contenttype"
     },
     {
         "fields": {
             "app_label": "data",
-            "model": "fixityalgorithm",
-            "name": "fixity algorithm"
+            "name": "fixity algorithm",
+            "model": "fixityalgorithm"
         },
-        "model": "contenttypes.contenttype",
-        "pk": 9
+        "pk": 9,
+        "model": "contenttypes.contenttype"
     },
     {
         "fields": {
             "app_label": "data",
-            "model": "node",
-            "name": "node"
+            "name": "node",
+            "model": "node"
         },
-        "model": "contenttypes.contenttype",
-        "pk": 10
+        "pk": 10,
+        "model": "contenttypes.contenttype"
     },
     {
         "fields": {
             "app_label": "data",
-            "model": "storage",
-            "name": "storage"
+            "name": "storage",
+            "model": "storage"
         },
-        "model": "contenttypes.contenttype",
-        "pk": 11
+        "pk": 11,
+        "model": "contenttypes.contenttype"
     },
     {
         "fields": {
             "app_label": "data",
-            "model": "bag",
-            "name": "bag"
+            "name": "bag",
+            "model": "bag"
         },
-        "model": "contenttypes.contenttype",
-        "pk": 12
+        "pk": 12,
+        "model": "contenttypes.contenttype"
     },
     {
         "fields": {
             "app_label": "data",
-            "model": "fixity",
-            "name": "fixity"
+            "name": "fixity",
+            "model": "fixity"
         },
-        "model": "contenttypes.contenttype",
-        "pk": 13
+        "pk": 13,
+        "model": "contenttypes.contenttype"
     },
     {
         "fields": {
             "app_label": "data",
-            "model": "replicationtransfer",
-            "name": "replication transfer"
+            "name": "replication transfer",
+            "model": "replicationtransfer"
         },
-        "model": "contenttypes.contenttype",
-        "pk": 14
+        "pk": 14,
+        "model": "contenttypes.contenttype"
     },
     {
         "fields": {
             "app_label": "data",
-            "model": "restoretransfer",
-            "name": "restore transfer"
+            "name": "restore transfer",
+            "model": "restoretransfer"
         },
-        "model": "contenttypes.contenttype",
-        "pk": 15
+        "pk": 15,
+        "model": "contenttypes.contenttype"
     },
     {
         "fields": {
             "app_label": "data",
-            "model": "userprofile",
-            "name": "user profile"
+            "name": "user profile",
+            "model": "userprofile"
         },
-        "model": "contenttypes.contenttype",
-        "pk": 16
+        "pk": 16,
+        "model": "contenttypes.contenttype"
     },
     {
         "fields": {
             "expire_date": "2015-06-11T15:27:32.973Z",
             "session_data": "NTg2OGYzZGY0ZDg4NzgzMmJhNjc1ZmI1YTVkNTU4NjQ5OTI4ZWI0Zjp7fQ=="
         },
-        "model": "sessions.session",
-        "pk": "avyqv3v2o241jaeubjgrqxhvuusq5869"
+        "pk": "avyqv3v2o241jaeubjgrqxhvuusq5869",
+        "model": "sessions.session"
     },
     {
         "fields": {
             "expire_date": "2015-06-11T15:37:38.369Z",
             "session_data": "NGQ0M2M5Y2VmYTdmYTU1N2Q3ODY4YTcyYWYwZTI3ZTY0MWViOTIzZjp7Il9hdXRoX3VzZXJfaGFzaCI6IjYyNzc0ZDEzNjU5ZDNmMjMzZjU1YTU0ZmIyMTFkN2QxY2I4Y2EyMTAiLCJfYXV0aF91c2VyX2lkIjoxLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCJ9"
         },
-        "model": "sessions.session",
-        "pk": "mwq5wdy13bdicy3q0aa81fxgds57io1s"
+        "pk": "mwq5wdy13bdicy3q0aa81fxgds57io1s",
+        "model": "sessions.session"
     },
     {
         "fields": {
             "expire_date": "2015-06-19T14:46:20.746Z",
             "session_data": "MTdjM2MwMDhiMjk3ZTkzNzZhNzQ2NjJhYjY0ZDI3Nzc0MzE3OTc2ZTp7Il9hdXRoX3VzZXJfaWQiOjEsIl9hdXRoX3VzZXJfaGFzaCI6IjJiOThkZjg4NWFkZTBkNjM1MzAyNWQ4ZWUxNThmMzM4YTUyMzQxMDIiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCJ9"
         },
-        "model": "sessions.session",
-        "pk": "r7qvyc2j5b61anwkwkdjycjo4ooi6tw6"
+        "pk": "r7qvyc2j5b61anwkwkdjycjo4ooi6tw6",
+        "model": "sessions.session"
     },
     {
         "fields": {
             "expire_date": "2015-05-18T17:28:10.868Z",
             "session_data": "MjZlYmU4OTIyYmE0ZDk1NDgxZWI2OTg4N2FjYWQ5NTJjMjQ0NmE0Njp7Il9hdXRoX3VzZXJfaWQiOjEsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9oYXNoIjoiNjI3NzRkMTM2NTlkM2YyMzNmNTVhNTRmYjIxMWQ3ZDFjYjhjYTIxMCJ9"
         },
-        "model": "sessions.session",
-        "pk": "u2vcbildcyb30u58brkxt5dt3klydizn"
+        "pk": "u2vcbildcyb30u58brkxt5dt3klydizn",
+        "model": "sessions.session"
     },
     {
         "fields": {},
-        "model": "data.protocol",
-        "pk": "rsync"
+        "pk": "rsync",
+        "model": "data.protocol"
     },
     {
         "fields": {},
-        "model": "data.fixityalgorithm",
-        "pk": "sha256"
+        "pk": "sha256",
+        "model": "data.fixityalgorithm"
     },
     {
         "fields": {
+            "api_root": "https://devops.aptrust.org/dpnode/",
+            "ssh_pubkey": "",
+            "replicate_to": [
+                3,
+                4
+            ],
             "namespace": "aptrust",
-            "updated_at": "2015-05-22T19:31:13.235Z",
-            "ssh_username": "dpn.aptrust",
-            "last_pull_date": null,
-            "restore_to": [
+            "replicate_from": [
                 2,
                 3,
                 4,
@@ -200,40 +203,41 @@
             "fixity_algorithms": [
                 "sha256"
             ],
-            "api_root": "https://devops.aptrust.org/dpnode/",
             "name": "APTrust",
+            "ssh_username": "dpn.aptrust",
             "protocols": [
                 "rsync"
+            ],
+            "restore_to": [
+                2,
+                3,
+                4,
+                5
             ],
             "restore_from": [
                 2,
                 3,
                 4,
                 5
-            ],
-            "ssh_pubkey": "",
-            "replicate_to": [
-                3,
-                4
             ],
             "created_at": "2015-05-04T17:34:41.782Z",
-            "replicate_from": [
-                2,
-                3,
-                4,
-                5
-            ]
+            "updated_at": "2015-05-22T19:31:13.235Z",
+            "last_pull_date": null
         },
-        "model": "data.node",
-        "pk": 1
+        "pk": 1,
+        "model": "data.node"
     },
     {
         "fields": {
+            "api_root": "https://dpn.hathitrust.org/",
+            "ssh_pubkey": "",
+            "replicate_to": [
+                1,
+                3,
+                4
+            ],
             "namespace": "hathi",
-            "updated_at": "2015-05-22T19:31:06.857Z",
-            "ssh_username": "dpn.hathi",
-            "last_pull_date": null,
-            "restore_to": [
+            "replicate_from": [
                 1,
                 3,
                 4,
@@ -242,125 +246,125 @@
             "fixity_algorithms": [
                 "sha256"
             ],
-            "api_root": "https://dpn.hathitrust.org/dpnrest/",
             "name": "Hathi Trust",
+            "ssh_username": "dpn.hathi",
             "protocols": [
                 "rsync"
+            ],
+            "restore_to": [
+                1,
+                3,
+                4,
+                5
             ],
             "restore_from": [
                 1,
                 3,
                 4,
                 5
-            ],
-            "ssh_pubkey": "",
-            "replicate_to": [
-                1,
-                3,
-                4
             ],
             "created_at": "2015-05-04T17:36:16.462Z",
-            "replicate_from": [
-                1,
-                3,
-                4,
-                5
-            ]
+            "updated_at": "2015-05-22T19:31:06.857Z",
+            "last_pull_date": null
         },
-        "model": "data.node",
-        "pk": 2
+        "pk": 2,
+        "model": "data.node"
     },
     {
         "fields": {
-            "namespace": "chron",
-            "updated_at": "2015-05-22T19:31:00.048Z",
-            "ssh_username": "dpn.chron",
-            "last_pull_date": null,
-            "restore_to": [
-                1,
-                2,
-                4,
-                5
-            ],
-            "fixity_algorithms": [
-                "sha256"
-            ],
             "api_root": "https://chronopolis01.umiacs.umd.edu/",
-            "name": "Chronopolis",
-            "protocols": [
-                "rsync"
-            ],
-            "restore_from": [
-                1,
-                2,
-                4,
-                5
-            ],
             "ssh_pubkey": "",
             "replicate_to": [
                 1,
                 4
             ],
-            "created_at": "2015-05-04T17:36:47.116Z",
+            "namespace": "chron",
             "replicate_from": [
                 1,
                 2,
                 4,
                 5
-            ]
-        },
-        "model": "data.node",
-        "pk": 3
-    },
-    {
-        "fields": {
-            "namespace": "tdr",
-            "updated_at": "2015-05-22T19:30:53.523Z",
-            "ssh_username": "dpn.tdr",
-            "last_pull_date": null,
-            "restore_to": [
-                1,
-                2,
-                3,
-                5
             ],
             "fixity_algorithms": [
                 "sha256"
             ],
-            "api_root": "https://rest.lib.utexas.edu/",
-            "name": "TDR",
+            "name": "Chronopolis",
+            "ssh_username": "dpn.chron",
             "protocols": [
                 "rsync"
+            ],
+            "restore_to": [
+                1,
+                2,
+                4,
+                5
             ],
             "restore_from": [
                 1,
                 2,
-                3,
+                4,
                 5
             ],
+            "created_at": "2015-05-04T17:36:47.116Z",
+            "updated_at": "2015-05-22T19:31:00.048Z",
+            "last_pull_date": null
+        },
+        "pk": 3,
+        "model": "data.node"
+    },
+    {
+        "fields": {
+            "api_root": "https://rest.lib.utexas.edu/",
             "ssh_pubkey": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCs/ZRcJQhegudN7jWEbW7jUJuMtiIruhNeiLOUXQwfZ4tV4ksOFribYLHnFaTTPtPVFtkt6Rsc+4h9FfqPE83QXKFucJ3DYAmW0/baYbzOmdEn+EsajiDQA4B/mCbjfiFTHK0bLsYshCx+jfcRmKzgMHbj5qoW8Dy8IK0TR+iA+KyPLaZPoXB+jb7xlF8lKppsvNfZzebMGqvO3XMGM0QIVKzmJEOg8QBCUl4hPxRApwLc5UJz2up/nhO4g3Yv6Uh1/IGpxZopCF9Svl3rQNPyu43rsWuyF/R0tu0saVCb/e21L9ZUG3jb2BOmRIPozwPgpWMNFrnk3dDmcpVHc0Kp tdr@rest.lib.utexas.edu",
             "replicate_to": [
                 1,
                 3
             ],
-            "created_at": "2015-05-04T17:37:14.930Z",
+            "namespace": "tdr",
             "replicate_from": [
                 1,
                 2,
                 3,
                 5
-            ]
+            ],
+            "fixity_algorithms": [
+                "sha256"
+            ],
+            "name": "TDR",
+            "ssh_username": "dpn.tdr",
+            "protocols": [
+                "rsync"
+            ],
+            "restore_to": [
+                1,
+                2,
+                3,
+                5
+            ],
+            "restore_from": [
+                1,
+                2,
+                3,
+                5
+            ],
+            "created_at": "2015-05-04T17:37:14.930Z",
+            "updated_at": "2015-05-22T19:30:53.523Z",
+            "last_pull_date": null
         },
-        "model": "data.node",
-        "pk": 4
+        "pk": 4,
+        "model": "data.node"
     },
     {
         "fields": {
+            "api_root": "https://dpn.stanford.edu/dpnrest/",
+            "ssh_pubkey": "",
+            "replicate_to": [
+                1,
+                3,
+                4
+            ],
             "namespace": "sdr",
-            "updated_at": "2015-05-22T19:30:47.386Z",
-            "ssh_username": "dpn.sdr",
-            "last_pull_date": null,
-            "restore_to": [
+            "replicate_from": [
                 1,
                 2,
                 3,
@@ -369,10 +373,16 @@
             "fixity_algorithms": [
                 "sha256"
             ],
-            "api_root": "https://dpn.stanford.edu/dpnrest/",
             "name": "SDR",
+            "ssh_username": "dpn.sdr",
             "protocols": [
                 "rsync"
+            ],
+            "restore_to": [
+                1,
+                2,
+                3,
+                4
             ],
             "restore_from": [
                 1,
@@ -380,22 +390,12 @@
                 3,
                 4
             ],
-            "ssh_pubkey": "",
-            "replicate_to": [
-                1,
-                3,
-                4
-            ],
             "created_at": "2015-05-04T17:37:43.640Z",
-            "replicate_from": [
-                1,
-                2,
-                3,
-                4
-            ]
+            "updated_at": "2015-05-22T19:30:47.386Z",
+            "last_pull_date": null
         },
-        "model": "data.node",
-        "pk": 5
+        "pk": 5,
+        "model": "data.node"
     },
     {
         "fields": {
@@ -403,8 +403,8 @@
             "region": "CA",
             "storage_type": "Disk"
         },
-        "model": "data.storage",
-        "pk": 1
+        "pk": 1,
+        "model": "data.storage"
     },
     {
         "fields": {
@@ -412,8 +412,8 @@
             "region": "TX",
             "storage_type": "irods"
         },
-        "model": "data.storage",
-        "pk": 2
+        "pk": 2,
+        "model": "data.storage"
     },
     {
         "fields": {
@@ -421,8 +421,8 @@
             "region": "CA",
             "storage_type": "Disk"
         },
-        "model": "data.storage",
-        "pk": 3
+        "pk": 3,
+        "model": "data.storage"
     },
     {
         "fields": {
@@ -430,8 +430,8 @@
             "region": "CO",
             "storage_type": "Disk"
         },
-        "model": "data.storage",
-        "pk": 4
+        "pk": 4,
+        "model": "data.storage"
     },
     {
         "fields": {
@@ -439,1204 +439,1204 @@
             "region": "VA",
             "storage_type": "Amazon Glacier"
         },
-        "model": "data.storage",
-        "pk": 5
+        "pk": 5,
+        "model": "data.storage"
     },
     {
         "fields": {
-            "replicating_nodes": [],
-            "version": 1,
-            "interpretive": [],
-            "updated_at": "2015-05-22T19:08:37.847Z",
-            "local_id": "chron_bag_1",
-            "rights": [],
-            "size": 71680,
             "ingest_node": "3",
+            "interpretive": [],
+            "version": 1,
+            "replicating_nodes": [],
+            "first_version_uuid": "2fe3af6d-fed0-4a0d-bc63-b68ec202ad82",
             "created_at": "2015-05-22T19:08:37.847Z",
-            "first_version_uuid": "4cc2f72c-341e-4e30-9b9f-3906813a31f4",
+            "size": 71680,
+            "local_id": "chron_bag_1",
+            "updated_at": "2015-05-22T19:08:37.847Z",
             "bag_type": "D",
+            "rights": [],
             "admin_node": "3"
         },
-        "model": "data.bag",
-        "pk": "4cc2f72c-341e-4e30-9b9f-3906813a31f4"
+        "pk": "2fe3af6d-fed0-4a0d-bc63-b68ec202ad82",
+        "model": "data.bag"
     },
     {
         "fields": {
-            "replicating_nodes": [],
-            "version": 1,
-            "interpretive": [],
-            "updated_at": "2015-05-22T19:08:34.295Z",
-            "local_id": "chron_bag_2",
-            "rights": [],
-            "size": 4005888,
             "ingest_node": "3",
+            "interpretive": [],
+            "version": 1,
+            "replicating_nodes": [],
+            "first_version_uuid": "031af3bd-af9d-4105-b440-5bcee6e94c92",
             "created_at": "2015-05-22T19:08:34.295Z",
-            "first_version_uuid": "f5dd8e95-e1be-4b75-bbb9-d2101fd1cea1",
+            "size": 4005888,
+            "local_id": "chron_bag_2",
+            "updated_at": "2015-05-22T19:08:34.295Z",
             "bag_type": "D",
+            "rights": [],
             "admin_node": "3"
         },
-        "model": "data.bag",
-        "pk": "f5dd8e95-e1be-4b75-bbb9-d2101fd1cea1"
+        "pk": "031af3bd-af9d-4105-b440-5bcee6e94c92",
+        "model": "data.bag"
     },
     {
         "fields": {
-            "replicating_nodes": [],
-            "version": 1,
-            "interpretive": [],
-            "updated_at": "2015-05-22T19:08:36.599Z",
-            "local_id": "chron_bag_3",
-            "rights": [],
-            "size": 44544,
             "ingest_node": "3",
+            "interpretive": [],
+            "version": 1,
+            "replicating_nodes": [],
+            "first_version_uuid": "66318fe4-45f1-4dd1-b7c1-a7f5b4aeb516",
             "created_at": "2015-05-22T19:08:36.599Z",
-            "first_version_uuid": "62d24394-fcce-4fff-8d00-670e306fccdc",
-            "bag_type": "D",
-            "admin_node": "3"
-        },
-        "model": "data.bag",
-        "pk": "62d24394-fcce-4fff-8d00-670e306fccdc"
-    },
-    {
-        "fields": {
-            "replicating_nodes": [],
-            "version": 1,
-            "interpretive": [],
-            "updated_at": "2015-05-22T19:08:48.299Z",
-            "local_id": "chron_bag_4",
-            "rights": [],
-            "size": 3974144,
-            "ingest_node": "3",
-            "created_at": "2015-05-22T19:08:48.299Z",
-            "first_version_uuid": "c1f95e9f-1bdf-4355-94a1-94475447cdd1",
-            "bag_type": "D",
-            "admin_node": "3"
-        },
-        "model": "data.bag",
-        "pk": "c1f95e9f-1bdf-4355-94a1-94475447cdd1"
-    },
-    {
-        "fields": {
-            "replicating_nodes": [],
-            "version": 1,
-            "interpretive": [],
-            "updated_at": "2015-05-22T19:08:38.798Z",
-            "local_id": "chron_bag_5",
-            "rights": [],
             "size": 44544,
+            "local_id": "chron_bag_3",
+            "updated_at": "2015-05-22T19:08:36.599Z",
+            "bag_type": "D",
+            "rights": [],
+            "admin_node": "3"
+        },
+        "pk": "66318fe4-45f1-4dd1-b7c1-a7f5b4aeb516",
+        "model": "data.bag"
+    },
+    {
+        "fields": {
             "ingest_node": "3",
+            "interpretive": [],
+            "version": 1,
+            "replicating_nodes": [],
+            "first_version_uuid": "daa4a099-a643-4431-bd72-dfd5bb942a5b",
+            "created_at": "2015-05-22T19:08:48.299Z",
+            "size": 3974144,
+            "local_id": "chron_bag_4",
+            "updated_at": "2015-05-22T19:08:48.299Z",
+            "bag_type": "D",
+            "rights": [],
+            "admin_node": "3"
+        },
+        "pk": "daa4a099-a643-4431-bd72-dfd5bb942a5b",
+        "model": "data.bag"
+    },
+    {
+        "fields": {
+            "ingest_node": "3",
+            "interpretive": [],
+            "version": 1,
+            "replicating_nodes": [],
+            "first_version_uuid": "0d5cd03d-0b7e-4917-981b-17e90df38c3b",
             "created_at": "2015-05-22T19:08:38.798Z",
-            "first_version_uuid": "b136e6d4-3359-4591-bad8-99d61d61d85e",
+            "size": 44544,
+            "local_id": "chron_bag_5",
+            "updated_at": "2015-05-22T19:08:38.798Z",
             "bag_type": "D",
+            "rights": [],
             "admin_node": "3"
         },
-        "model": "data.bag",
-        "pk": "b136e6d4-3359-4591-bad8-99d61d61d85e"
+        "pk": "0d5cd03d-0b7e-4917-981b-17e90df38c3b",
+        "model": "data.bag"
     },
     {
         "fields": {
-            "replicating_nodes": [],
-            "version": 1,
-            "interpretive": [],
-            "updated_at": "2015-05-04T17:41:22.903Z",
-            "local_id": "chron_bag_6",
-            "rights": [],
-            "size": 44455566,
             "ingest_node": "3",
+            "interpretive": [],
+            "version": 1,
+            "replicating_nodes": [],
+            "first_version_uuid": "67c35559-91d6-49e9-abbe-bbc3fd427db1",
             "created_at": "2015-05-04T17:41:22.903Z",
-            "first_version_uuid": "ee8e1216-0a7b-4181-b6e1-7ff9dd8b071f",
+            "size": 44455566,
+            "local_id": "chron_bag_6",
+            "updated_at": "2015-05-04T17:41:22.903Z",
             "bag_type": "D",
+            "rights": [],
             "admin_node": "3"
         },
-        "model": "data.bag",
-        "pk": "ee8e1216-0a7b-4181-b6e1-7ff9dd8b071f"
+        "pk": "67c35559-91d6-49e9-abbe-bbc3fd427db1",
+        "model": "data.bag"
     },
     {
         "fields": {
-            "replicating_nodes": [],
-            "version": 1,
-            "interpretive": [],
-            "updated_at": "2015-05-04T17:41:51.909Z",
-            "local_id": "chron_bag_7",
-            "rights": [],
-            "size": 7766554,
             "ingest_node": "3",
+            "interpretive": [],
+            "version": 1,
+            "replicating_nodes": [],
+            "first_version_uuid": "ec4d430c-49ed-494e-a203-8a6a42984a25",
             "created_at": "2015-05-04T17:41:51.909Z",
-            "first_version_uuid": "d0937c15-353d-4d35-8fdc-255063cc79b2",
+            "size": 7766554,
+            "local_id": "chron_bag_7",
+            "updated_at": "2015-05-04T17:41:51.909Z",
             "bag_type": "D",
+            "rights": [],
             "admin_node": "3"
         },
-        "model": "data.bag",
-        "pk": "d0937c15-353d-4d35-8fdc-255063cc79b2"
+        "pk": "ec4d430c-49ed-494e-a203-8a6a42984a25",
+        "model": "data.bag"
     },
     {
         "fields": {
-            "replicating_nodes": [],
-            "version": 1,
-            "interpretive": [],
-            "updated_at": "2015-05-22T19:08:35.388Z",
-            "local_id": "chron_bag_8",
-            "rights": [],
-            "size": 62464,
             "ingest_node": "3",
+            "interpretive": [],
+            "version": 1,
+            "replicating_nodes": [],
+            "first_version_uuid": "1c6a24ad-9f6d-47dc-a490-57928f3372a4",
             "created_at": "2015-05-22T19:08:35.388Z",
-            "first_version_uuid": "2f8acf98-c4c2-4418-8bf1-4eb5c43099f7",
+            "size": 62464,
+            "local_id": "chron_bag_8",
+            "updated_at": "2015-05-22T19:08:35.388Z",
             "bag_type": "D",
+            "rights": [],
             "admin_node": "3"
         },
-        "model": "data.bag",
-        "pk": "2f8acf98-c4c2-4418-8bf1-4eb5c43099f7"
+        "pk": "1c6a24ad-9f6d-47dc-a490-57928f3372a4",
+        "model": "data.bag"
     },
     {
         "fields": {
             "created_at": "2015-05-22T19:08:34.298Z",
-            "algorithm": "sha256",
-            "bag": "f5dd8e95-e1be-4b75-bbb9-d2101fd1cea1",
-            "digest": "353fba29e2bad3101de89533eb3b5882646af1353ab3aec7e27e5c5b8e0c5b69"
+            "bag": "031af3bd-af9d-4105-b440-5bcee6e94c92",
+            "digest": "353fba29e2bad3101de89533eb3b5882646af1353ab3aec7e27e5c5b8e0c5b69",
+            "algorithm": "sha256"
         },
-        "model": "data.fixity",
-        "pk": 1180
+        "pk": 1180,
+        "model": "data.fixity"
     },
     {
         "fields": {
             "created_at": "2015-05-22T19:08:35.390Z",
-            "algorithm": "sha256",
-            "bag": "2f8acf98-c4c2-4418-8bf1-4eb5c43099f7",
-            "digest": "e81f79fed2b4515e6a5c3f23161d0805172be1ca1f560ce29d3793cec2c79d89"
+            "bag": "1c6a24ad-9f6d-47dc-a490-57928f3372a4",
+            "digest": "e81f79fed2b4515e6a5c3f23161d0805172be1ca1f560ce29d3793cec2c79d89",
+            "algorithm": "sha256"
         },
-        "model": "data.fixity",
-        "pk": 1181
+        "pk": 1181,
+        "model": "data.fixity"
     },
     {
         "fields": {
             "created_at": "2015-05-22T19:08:36.602Z",
-            "algorithm": "sha256",
-            "bag": "62d24394-fcce-4fff-8d00-670e306fccdc",
-            "digest": "e112ad47b3b280b92a38af2c5be38da7f04b79f4b180cbb92811f74ebc831d18"
+            "bag": "66318fe4-45f1-4dd1-b7c1-a7f5b4aeb516",
+            "digest": "e112ad47b3b280b92a38af2c5be38da7f04b79f4b180cbb92811f74ebc831d18",
+            "algorithm": "sha256"
         },
-        "model": "data.fixity",
-        "pk": 1182
+        "pk": 1182,
+        "model": "data.fixity"
     },
     {
         "fields": {
             "created_at": "2015-05-22T19:08:37.850Z",
-            "algorithm": "sha256",
-            "bag": "4cc2f72c-341e-4e30-9b9f-3906813a31f4",
-            "digest": "13743e26e07afcdab0600104989c5e5de0271ed2dff61cf7804ea294060a75ac"
+            "bag": "2fe3af6d-fed0-4a0d-bc63-b68ec202ad82",
+            "digest": "13743e26e07afcdab0600104989c5e5de0271ed2dff61cf7804ea294060a75ac",
+            "algorithm": "sha256"
         },
-        "model": "data.fixity",
-        "pk": 1183
+        "pk": 1183,
+        "model": "data.fixity"
     },
     {
         "fields": {
             "created_at": "2015-05-22T19:08:38.800Z",
-            "algorithm": "sha256",
-            "bag": "b136e6d4-3359-4591-bad8-99d61d61d85e",
-            "digest": "6cb820f17c147ab9cd25a8c1f2adc7cf12a8070448dba35551e9c992e409688c"
+            "bag": "0d5cd03d-0b7e-4917-981b-17e90df38c3b",
+            "digest": "6cb820f17c147ab9cd25a8c1f2adc7cf12a8070448dba35551e9c992e409688c",
+            "algorithm": "sha256"
         },
-        "model": "data.fixity",
-        "pk": 1184
+        "pk": 1184,
+        "model": "data.fixity"
     },
     {
         "fields": {
             "created_at": "2015-05-22T19:08:48.301Z",
-            "algorithm": "sha256",
-            "bag": "c1f95e9f-1bdf-4355-94a1-94475447cdd1",
-            "digest": "5329a5d06216ca9effc42a6f5b7c492952334d8b188ebbdefbbd0b970ab981a3"
+            "bag": "daa4a099-a643-4431-bd72-dfd5bb942a5b",
+            "digest": "5329a5d06216ca9effc42a6f5b7c492952334d8b188ebbdefbbd0b970ab981a3",
+            "algorithm": "sha256"
         },
-        "model": "data.fixity",
-        "pk": 1185
+        "pk": 1185,
+        "model": "data.fixity"
     },
     {
         "fields": {
             "created_at": "2015-06-05T14:56:54.626Z",
-            "algorithm": "sha256",
-            "bag": "d0937c15-353d-4d35-8fdc-255063cc79b2",
-            "digest": "0000000000000000000000000000000000000000000000000000000000000000"
+            "bag": "ec4d430c-49ed-494e-a203-8a6a42984a25",
+            "digest": "0000000000000000000000000000000000000000000000000000000000000000",
+            "algorithm": "sha256"
         },
-        "model": "data.fixity",
-        "pk": 1186
+        "pk": 1186,
+        "model": "data.fixity"
     },
     {
         "fields": {
             "created_at": "2015-06-05T14:58:37.263Z",
-            "algorithm": "sha256",
-            "bag": "ee8e1216-0a7b-4181-b6e1-7ff9dd8b071f",
-            "digest": "9999999999999999999999999999999999999999999999999999999999999999"
+            "bag": "67c35559-91d6-49e9-abbe-bbc3fd427db1",
+            "digest": "9999999999999999999999999999999999999999999999999999999999999999",
+            "algorithm": "sha256"
         },
-        "model": "data.fixity",
-        "pk": 1187
+        "pk": 1187,
+        "model": "data.fixity"
     },
     {
         "fields": {
-            "bag": "c1f95e9f-1bdf-4355-94a1-94475447cdd1",
-            "to_node": 4,
-            "fixity_nonce": "",
             "updated_at": "2015-05-28T16:15:35.884Z",
-            "replication_id": "chron-1",
-            "fixity_accept": null,
-            "protocol": "R",
-            "bag_valid": null,
             "fixity_value": "",
-            "status": "Requested",
-            "from_node": "3",
+            "link": "dpn.tdr@devops.chron.org:outbound/472218b3-95ce-4b8e-6c21-6e514cfbe43f.tar",
+            "protocol": "R",
+            "fixity_algorithm": "sha256",
+            "bag_valid": null,
             "created_at": "2015-05-22T19:46:45.761Z",
-            "fixity_algorithm": "sha256",
-            "link": "dpn.tdr@devops.chron.org:outbound/472218b3-95ce-4b8e-6c21-6e514cfbe43f.tar"
+            "to_node": 4,
+            "replication_id": "chron-1",
+            "fixity_nonce": "",
+            "from_node": "3",
+            "status": "Requested",
+            "bag": "daa4a099-a643-4431-bd72-dfd5bb942a5b",
+            "fixity_accept": null
         },
-        "model": "data.replicationtransfer",
-        "pk": 1
+        "pk": 1,
+        "model": "data.replicationtransfer"
     },
     {
         "fields": {
-            "bag": "b136e6d4-3359-4591-bad8-99d61d61d85e",
-            "to_node": 4,
-            "fixity_nonce": "",
             "updated_at": "2015-05-28T16:15:37.916Z",
-            "replication_id": "chron-2",
-            "fixity_accept": null,
-            "protocol": "R",
-            "bag_valid": null,
             "fixity_value": "",
-            "status": "Requested",
-            "from_node": "3",
+            "link": "dpn.tdr@devops.chron.org:outbound/4d11736c-c0ab-44b0-66c6-a947f414d4f1.tar",
+            "protocol": "R",
+            "fixity_algorithm": "sha256",
+            "bag_valid": null,
             "created_at": "2015-05-22T19:47:17.440Z",
-            "fixity_algorithm": "sha256",
-            "link": "dpn.tdr@devops.chron.org:outbound/4d11736c-c0ab-44b0-66c6-a947f414d4f1.tar"
+            "to_node": 4,
+            "replication_id": "chron-2",
+            "fixity_nonce": "",
+            "from_node": "3",
+            "status": "Requested",
+            "bag": "0d5cd03d-0b7e-4917-981b-17e90df38c3b",
+            "fixity_accept": null
         },
-        "model": "data.replicationtransfer",
-        "pk": 2
+        "pk": 2,
+        "model": "data.replicationtransfer"
     },
     {
         "fields": {
-            "bag": "4cc2f72c-341e-4e30-9b9f-3906813a31f4",
-            "to_node": 4,
-            "fixity_nonce": "",
             "updated_at": "2015-05-28T16:15:39.936Z",
-            "replication_id": "chron-3",
-            "fixity_accept": null,
-            "protocol": "R",
-            "bag_valid": null,
             "fixity_value": "",
-            "status": "Requested",
-            "from_node": "3",
+            "link": "dpn.tdr@devops.chron.org:outbound/005e7793-8253-4585-7118-2da702e29aa0.tar",
+            "protocol": "R",
+            "fixity_algorithm": "sha256",
+            "bag_valid": null,
             "created_at": "2015-05-22T19:47:54.012Z",
-            "fixity_algorithm": "sha256",
-            "link": "dpn.tdr@devops.chron.org:outbound/005e7793-8253-4585-7118-2da702e29aa0.tar"
+            "to_node": 4,
+            "replication_id": "chron-3",
+            "fixity_nonce": "",
+            "from_node": "3",
+            "status": "Requested",
+            "bag": "2fe3af6d-fed0-4a0d-bc63-b68ec202ad82",
+            "fixity_accept": null
         },
-        "model": "data.replicationtransfer",
-        "pk": 3
+        "pk": 3,
+        "model": "data.replicationtransfer"
     },
     {
         "fields": {
-            "bag": "62d24394-fcce-4fff-8d00-670e306fccdc",
-            "to_node": 4,
-            "fixity_nonce": "",
             "updated_at": "2015-05-28T16:15:41.844Z",
-            "replication_id": "chron-4",
-            "fixity_accept": null,
-            "protocol": "R",
-            "bag_valid": null,
             "fixity_value": "",
-            "status": "Requested",
-            "from_node": "3",
+            "link": "dpn.tdr@devops.chron.org:outbound/41e5376c-cc13-4c3e-6af3-297cc2e005aa.tar",
+            "protocol": "R",
+            "fixity_algorithm": "sha256",
+            "bag_valid": null,
             "created_at": "2015-05-22T19:48:25.049Z",
-            "fixity_algorithm": "sha256",
-            "link": "dpn.tdr@devops.chron.org:outbound/41e5376c-cc13-4c3e-6af3-297cc2e005aa.tar"
+            "to_node": 4,
+            "replication_id": "chron-4",
+            "fixity_nonce": "",
+            "from_node": "3",
+            "status": "Requested",
+            "bag": "66318fe4-45f1-4dd1-b7c1-a7f5b4aeb516",
+            "fixity_accept": null
         },
-        "model": "data.replicationtransfer",
-        "pk": 4
+        "pk": 4,
+        "model": "data.replicationtransfer"
     },
     {
         "fields": {
-            "bag": "2f8acf98-c4c2-4418-8bf1-4eb5c43099f7",
-            "to_node": 4,
-            "fixity_nonce": "",
             "updated_at": "2015-05-28T16:15:43.665Z",
-            "replication_id": "chron-5",
-            "fixity_accept": null,
-            "protocol": "R",
-            "bag_valid": null,
             "fixity_value": "",
-            "status": "Requested",
-            "from_node": "3",
+            "link": "dpn.tdr@devops.chron.org:outbound/8839f294-c7c0-404d-4467-7ab223ff461b.tar",
+            "protocol": "R",
+            "fixity_algorithm": "sha256",
+            "bag_valid": null,
             "created_at": "2015-05-22T19:48:47.638Z",
-            "fixity_algorithm": "sha256",
-            "link": "dpn.tdr@devops.chron.org:outbound/8839f294-c7c0-404d-4467-7ab223ff461b.tar"
-        },
-        "model": "data.replicationtransfer",
-        "pk": 5
-    },
-    {
-        "fields": {
-            "bag": "f5dd8e95-e1be-4b75-bbb9-d2101fd1cea1",
             "to_node": 4,
+            "replication_id": "chron-5",
             "fixity_nonce": "",
+            "from_node": "3",
+            "status": "Requested",
+            "bag": "1c6a24ad-9f6d-47dc-a490-57928f3372a4",
+            "fixity_accept": null
+        },
+        "pk": 5,
+        "model": "data.replicationtransfer"
+    },
+    {
+        "fields": {
             "updated_at": "2015-05-28T16:15:46.247Z",
-            "replication_id": "chron-6",
-            "fixity_accept": null,
-            "protocol": "R",
-            "bag_valid": null,
             "fixity_value": "",
-            "status": "Requested",
-            "from_node": "3",
+            "link": "dpn.tdr@devops.chron.org:outbound/06edc30f-af04-4a4e-4ad6-3c679a195d46.tar",
+            "protocol": "R",
+            "fixity_algorithm": "sha256",
+            "bag_valid": null,
             "created_at": "2015-05-22T19:49:14.137Z",
-            "fixity_algorithm": "sha256",
-            "link": "dpn.tdr@devops.chron.org:outbound/06edc30f-af04-4a4e-4ad6-3c679a195d46.tar"
+            "to_node": 4,
+            "replication_id": "chron-6",
+            "fixity_nonce": "",
+            "from_node": "3",
+            "status": "Requested",
+            "bag": "031af3bd-af9d-4105-b440-5bcee6e94c92",
+            "fixity_accept": null
         },
-        "model": "data.replicationtransfer",
-        "pk": 6
+        "pk": 6,
+        "model": "data.replicationtransfer"
     },
     {
         "fields": {
-            "bag": "c1f95e9f-1bdf-4355-94a1-94475447cdd1",
-            "to_node": 3,
-            "fixity_nonce": "",
             "updated_at": "2015-05-22T20:37:49.018Z",
-            "replication_id": "chron-7",
-            "fixity_accept": null,
-            "protocol": "R",
-            "bag_valid": null,
             "fixity_value": "",
-            "status": "Requested",
-            "from_node": "3",
+            "link": "dpn.chron@devops.chron.org:outbound/472218b3-95ce-4b8e-6c21-6e514cfbe43f.tar",
+            "protocol": "R",
+            "fixity_algorithm": "sha256",
+            "bag_valid": null,
             "created_at": "2015-05-22T19:52:35.558Z",
-            "fixity_algorithm": "sha256",
-            "link": "dpn.chron@devops.chron.org:outbound/472218b3-95ce-4b8e-6c21-6e514cfbe43f.tar"
+            "to_node": 3,
+            "replication_id": "chron-7",
+            "fixity_nonce": "",
+            "from_node": "3",
+            "status": "Requested",
+            "bag": "daa4a099-a643-4431-bd72-dfd5bb942a5b",
+            "fixity_accept": null
         },
-        "model": "data.replicationtransfer",
-        "pk": 7
+        "pk": 7,
+        "model": "data.replicationtransfer"
     },
     {
         "fields": {
-            "bag": "b136e6d4-3359-4591-bad8-99d61d61d85e",
-            "to_node": 3,
-            "fixity_nonce": "",
             "updated_at": "2015-05-22T20:37:39.660Z",
-            "replication_id": "chron-8",
-            "fixity_accept": null,
-            "protocol": "R",
-            "bag_valid": null,
             "fixity_value": "",
-            "status": "Requested",
-            "from_node": "3",
+            "link": "dpn.chron@devops.chron.org:outbound/4d11736c-c0ab-44b0-66c6-a947f414d4f1.tar",
+            "protocol": "R",
+            "fixity_algorithm": "sha256",
+            "bag_valid": null,
             "created_at": "2015-05-22T19:53:05.313Z",
-            "fixity_algorithm": "sha256",
-            "link": "dpn.chron@devops.chron.org:outbound/4d11736c-c0ab-44b0-66c6-a947f414d4f1.tar"
+            "to_node": 3,
+            "replication_id": "chron-8",
+            "fixity_nonce": "",
+            "from_node": "3",
+            "status": "Requested",
+            "bag": "0d5cd03d-0b7e-4917-981b-17e90df38c3b",
+            "fixity_accept": null
         },
-        "model": "data.replicationtransfer",
-        "pk": 8
+        "pk": 8,
+        "model": "data.replicationtransfer"
     },
     {
         "fields": {
-            "bag": "4cc2f72c-341e-4e30-9b9f-3906813a31f4",
-            "to_node": 3,
-            "fixity_nonce": "",
             "updated_at": "2015-05-22T20:37:29.331Z",
-            "replication_id": "chron-9",
-            "fixity_accept": null,
-            "protocol": "R",
-            "bag_valid": null,
             "fixity_value": "",
-            "status": "Requested",
-            "from_node": "3",
+            "link": "dpn.chron@devops.chron.org:outbound/005e7793-8253-4585-7118-2da702e29aa0.tar",
+            "protocol": "R",
+            "fixity_algorithm": "sha256",
+            "bag_valid": null,
             "created_at": "2015-05-22T19:53:26.965Z",
-            "fixity_algorithm": "sha256",
-            "link": "dpn.chron@devops.chron.org:outbound/005e7793-8253-4585-7118-2da702e29aa0.tar"
+            "to_node": 3,
+            "replication_id": "chron-9",
+            "fixity_nonce": "",
+            "from_node": "3",
+            "status": "Requested",
+            "bag": "2fe3af6d-fed0-4a0d-bc63-b68ec202ad82",
+            "fixity_accept": null
         },
-        "model": "data.replicationtransfer",
-        "pk": 9
+        "pk": 9,
+        "model": "data.replicationtransfer"
     },
     {
         "fields": {
-            "bag": "62d24394-fcce-4fff-8d00-670e306fccdc",
-            "to_node": 3,
-            "fixity_nonce": "",
             "updated_at": "2015-05-22T20:37:19.193Z",
-            "replication_id": "chron-10",
-            "fixity_accept": null,
-            "protocol": "R",
-            "bag_valid": null,
             "fixity_value": "",
-            "status": "Requested",
-            "from_node": "3",
+            "link": "dpn.chron@devops.chron.org:outbound/41e5376c-cc13-4c3e-6af3-297cc2e005aa.tar",
+            "protocol": "R",
+            "fixity_algorithm": "sha256",
+            "bag_valid": null,
             "created_at": "2015-05-22T19:53:53.202Z",
-            "fixity_algorithm": "sha256",
-            "link": "dpn.chron@devops.chron.org:outbound/41e5376c-cc13-4c3e-6af3-297cc2e005aa.tar"
+            "to_node": 3,
+            "replication_id": "chron-10",
+            "fixity_nonce": "",
+            "from_node": "3",
+            "status": "Requested",
+            "bag": "66318fe4-45f1-4dd1-b7c1-a7f5b4aeb516",
+            "fixity_accept": null
         },
-        "model": "data.replicationtransfer",
-        "pk": 10
+        "pk": 10,
+        "model": "data.replicationtransfer"
     },
     {
         "fields": {
-            "bag": "2f8acf98-c4c2-4418-8bf1-4eb5c43099f7",
-            "to_node": 3,
-            "fixity_nonce": "",
             "updated_at": "2015-05-22T20:37:09.977Z",
-            "replication_id": "chron-11",
-            "fixity_accept": null,
-            "protocol": "R",
-            "bag_valid": null,
             "fixity_value": "",
-            "status": "Requested",
-            "from_node": "3",
+            "link": "dpn.chron@devops.chron.org:outbound/8839f294-c7c0-404d-4467-7ab223ff461b.tar",
+            "protocol": "R",
+            "fixity_algorithm": "sha256",
+            "bag_valid": null,
             "created_at": "2015-05-22T19:54:22.781Z",
-            "fixity_algorithm": "sha256",
-            "link": "dpn.chron@devops.chron.org:outbound/8839f294-c7c0-404d-4467-7ab223ff461b.tar"
-        },
-        "model": "data.replicationtransfer",
-        "pk": 11
-    },
-    {
-        "fields": {
-            "bag": "f5dd8e95-e1be-4b75-bbb9-d2101fd1cea1",
             "to_node": 3,
+            "replication_id": "chron-11",
             "fixity_nonce": "",
+            "from_node": "3",
+            "status": "Requested",
+            "bag": "1c6a24ad-9f6d-47dc-a490-57928f3372a4",
+            "fixity_accept": null
+        },
+        "pk": 11,
+        "model": "data.replicationtransfer"
+    },
+    {
+        "fields": {
             "updated_at": "2015-05-22T20:37:00.601Z",
-            "replication_id": "chron-12",
-            "fixity_accept": null,
-            "protocol": "R",
-            "bag_valid": null,
             "fixity_value": "",
-            "status": "Requested",
-            "from_node": "3",
+            "link": "dpn.chron@devops.chron.org:outbound/06edc30f-af04-4a4e-4ad6-3c679a195d46.tar",
+            "protocol": "R",
+            "fixity_algorithm": "sha256",
+            "bag_valid": null,
             "created_at": "2015-05-22T19:54:46.423Z",
-            "fixity_algorithm": "sha256",
-            "link": "dpn.chron@devops.chron.org:outbound/06edc30f-af04-4a4e-4ad6-3c679a195d46.tar"
+            "to_node": 3,
+            "replication_id": "chron-12",
+            "fixity_nonce": "",
+            "from_node": "3",
+            "status": "Requested",
+            "bag": "031af3bd-af9d-4105-b440-5bcee6e94c92",
+            "fixity_accept": null
         },
-        "model": "data.replicationtransfer",
-        "pk": 12
+        "pk": 12,
+        "model": "data.replicationtransfer"
     },
     {
         "fields": {
-            "bag": "c1f95e9f-1bdf-4355-94a1-94475447cdd1",
-            "to_node": 2,
-            "fixity_nonce": "",
             "updated_at": "2015-05-22T20:36:50.800Z",
-            "replication_id": "chron-13",
-            "fixity_accept": null,
-            "protocol": "R",
-            "bag_valid": null,
             "fixity_value": "",
-            "status": "Requested",
-            "from_node": "3",
+            "link": "dpn.hathi@devops.chron.org:outbound/472218b3-95ce-4b8e-6c21-6e514cfbe43f.tar",
+            "protocol": "R",
+            "fixity_algorithm": "sha256",
+            "bag_valid": null,
             "created_at": "2015-05-22T19:55:04.597Z",
-            "fixity_algorithm": "sha256",
-            "link": "dpn.hathi@devops.chron.org:outbound/472218b3-95ce-4b8e-6c21-6e514cfbe43f.tar"
+            "to_node": 2,
+            "replication_id": "chron-13",
+            "fixity_nonce": "",
+            "from_node": "3",
+            "status": "Requested",
+            "bag": "daa4a099-a643-4431-bd72-dfd5bb942a5b",
+            "fixity_accept": null
         },
-        "model": "data.replicationtransfer",
-        "pk": 13
+        "pk": 13,
+        "model": "data.replicationtransfer"
     },
     {
         "fields": {
-            "bag": "b136e6d4-3359-4591-bad8-99d61d61d85e",
-            "to_node": 2,
-            "fixity_nonce": "",
             "updated_at": "2015-05-22T20:36:41.319Z",
-            "replication_id": "chron-14",
-            "fixity_accept": null,
-            "protocol": "R",
-            "bag_valid": null,
             "fixity_value": "",
-            "status": "Requested",
-            "from_node": "3",
+            "link": "dpn.hathi@devops.chron.org:outbound/4d11736c-c0ab-44b0-66c6-a947f414d4f1.tar",
+            "protocol": "R",
+            "fixity_algorithm": "sha256",
+            "bag_valid": null,
             "created_at": "2015-05-22T19:55:22.456Z",
-            "fixity_algorithm": "sha256",
-            "link": "dpn.hathi@devops.chron.org:outbound/4d11736c-c0ab-44b0-66c6-a947f414d4f1.tar"
+            "to_node": 2,
+            "replication_id": "chron-14",
+            "fixity_nonce": "",
+            "from_node": "3",
+            "status": "Requested",
+            "bag": "0d5cd03d-0b7e-4917-981b-17e90df38c3b",
+            "fixity_accept": null
         },
-        "model": "data.replicationtransfer",
-        "pk": 14
+        "pk": 14,
+        "model": "data.replicationtransfer"
     },
     {
         "fields": {
-            "bag": "4cc2f72c-341e-4e30-9b9f-3906813a31f4",
-            "to_node": 2,
-            "fixity_nonce": "",
             "updated_at": "2015-05-22T20:36:32.965Z",
-            "replication_id": "chron-15",
-            "fixity_accept": null,
-            "protocol": "R",
-            "bag_valid": null,
             "fixity_value": "",
-            "status": "Requested",
-            "from_node": "3",
+            "link": "dpn.hathi@devops.chron.org:outbound/005e7793-8253-4585-7118-2da702e29aa0.tar",
+            "protocol": "R",
+            "fixity_algorithm": "sha256",
+            "bag_valid": null,
             "created_at": "2015-05-22T19:55:39.498Z",
-            "fixity_algorithm": "sha256",
-            "link": "dpn.hathi@devops.chron.org:outbound/005e7793-8253-4585-7118-2da702e29aa0.tar"
+            "to_node": 2,
+            "replication_id": "chron-15",
+            "fixity_nonce": "",
+            "from_node": "3",
+            "status": "Requested",
+            "bag": "2fe3af6d-fed0-4a0d-bc63-b68ec202ad82",
+            "fixity_accept": null
         },
-        "model": "data.replicationtransfer",
-        "pk": 15
+        "pk": 15,
+        "model": "data.replicationtransfer"
     },
     {
         "fields": {
-            "bag": "62d24394-fcce-4fff-8d00-670e306fccdc",
-            "to_node": 2,
-            "fixity_nonce": "",
             "updated_at": "2015-05-22T20:36:23.461Z",
-            "replication_id": "chron-16",
-            "fixity_accept": null,
-            "protocol": "R",
-            "bag_valid": null,
             "fixity_value": "",
-            "status": "Requested",
-            "from_node": "3",
+            "link": "dpn.hathi@devops.chron.org:outbound/41e5376c-cc13-4c3e-6af3-297cc2e005aa.tar",
+            "protocol": "R",
+            "fixity_algorithm": "sha256",
+            "bag_valid": null,
             "created_at": "2015-05-22T19:55:56.121Z",
-            "fixity_algorithm": "sha256",
-            "link": "dpn.hathi@devops.chron.org:outbound/41e5376c-cc13-4c3e-6af3-297cc2e005aa.tar"
+            "to_node": 2,
+            "replication_id": "chron-16",
+            "fixity_nonce": "",
+            "from_node": "3",
+            "status": "Requested",
+            "bag": "66318fe4-45f1-4dd1-b7c1-a7f5b4aeb516",
+            "fixity_accept": null
         },
-        "model": "data.replicationtransfer",
-        "pk": 16
+        "pk": 16,
+        "model": "data.replicationtransfer"
     },
     {
         "fields": {
-            "bag": "2f8acf98-c4c2-4418-8bf1-4eb5c43099f7",
-            "to_node": 2,
-            "fixity_nonce": "",
             "updated_at": "2015-05-22T20:36:13.376Z",
-            "replication_id": "chron-17",
-            "fixity_accept": null,
-            "protocol": "R",
-            "bag_valid": null,
             "fixity_value": "",
-            "status": "Requested",
-            "from_node": "3",
+            "link": "dpn.hathi@devops.chron.org:outbound/8839f294-c7c0-404d-4467-7ab223ff461b.tar",
+            "protocol": "R",
+            "fixity_algorithm": "sha256",
+            "bag_valid": null,
             "created_at": "2015-05-22T19:56:15.190Z",
-            "fixity_algorithm": "sha256",
-            "link": "dpn.hathi@devops.chron.org:outbound/8839f294-c7c0-404d-4467-7ab223ff461b.tar"
-        },
-        "model": "data.replicationtransfer",
-        "pk": 17
-    },
-    {
-        "fields": {
-            "bag": "f5dd8e95-e1be-4b75-bbb9-d2101fd1cea1",
             "to_node": 2,
+            "replication_id": "chron-17",
             "fixity_nonce": "",
+            "from_node": "3",
+            "status": "Requested",
+            "bag": "1c6a24ad-9f6d-47dc-a490-57928f3372a4",
+            "fixity_accept": null
+        },
+        "pk": 17,
+        "model": "data.replicationtransfer"
+    },
+    {
+        "fields": {
             "updated_at": "2015-05-22T20:35:59.506Z",
-            "replication_id": "chron-18",
-            "fixity_accept": null,
-            "protocol": "R",
-            "bag_valid": null,
             "fixity_value": "",
-            "status": "Requested",
-            "from_node": "3",
+            "link": "dpn.hathi@devops.chron.org:outbound/06edc30f-af04-4a4e-4ad6-3c679a195d46.tar",
+            "protocol": "R",
+            "fixity_algorithm": "sha256",
+            "bag_valid": null,
             "created_at": "2015-05-22T19:56:33.495Z",
-            "fixity_algorithm": "sha256",
-            "link": "dpn.hathi@devops.chron.org:outbound/06edc30f-af04-4a4e-4ad6-3c679a195d46.tar"
+            "to_node": 2,
+            "replication_id": "chron-18",
+            "fixity_nonce": "",
+            "from_node": "3",
+            "status": "Requested",
+            "bag": "031af3bd-af9d-4105-b440-5bcee6e94c92",
+            "fixity_accept": null
         },
-        "model": "data.replicationtransfer",
-        "pk": 18
+        "pk": 18,
+        "model": "data.replicationtransfer"
     },
     {
         "fields": {
-            "bag": "c1f95e9f-1bdf-4355-94a1-94475447cdd1",
-            "to_node": 5,
-            "fixity_nonce": "",
             "updated_at": "2015-05-22T20:35:51.999Z",
-            "replication_id": "chron-19",
-            "fixity_accept": null,
-            "protocol": "R",
-            "bag_valid": null,
             "fixity_value": "",
-            "status": "Requested",
-            "from_node": "3",
+            "link": "dpn.sdr@devops.chron.org:outbound/472218b3-95ce-4b8e-6c21-6e514cfbe43f.tar",
+            "protocol": "R",
+            "fixity_algorithm": "sha256",
+            "bag_valid": null,
             "created_at": "2015-05-22T19:58:45.141Z",
-            "fixity_algorithm": "sha256",
-            "link": "dpn.sdr@devops.chron.org:outbound/472218b3-95ce-4b8e-6c21-6e514cfbe43f.tar"
+            "to_node": 5,
+            "replication_id": "chron-19",
+            "fixity_nonce": "",
+            "from_node": "3",
+            "status": "Requested",
+            "bag": "daa4a099-a643-4431-bd72-dfd5bb942a5b",
+            "fixity_accept": null
         },
-        "model": "data.replicationtransfer",
-        "pk": 19
+        "pk": 19,
+        "model": "data.replicationtransfer"
     },
     {
         "fields": {
-            "bag": "b136e6d4-3359-4591-bad8-99d61d61d85e",
-            "to_node": 5,
-            "fixity_nonce": "",
             "updated_at": "2015-05-22T20:35:44.029Z",
-            "replication_id": "chron-20",
-            "fixity_accept": null,
-            "protocol": "R",
-            "bag_valid": null,
             "fixity_value": "",
-            "status": "Requested",
-            "from_node": "3",
+            "link": "dpn.sdr@devops.chron.org:outbound/4d11736c-c0ab-44b0-66c6-a947f414d4f1.tar",
+            "protocol": "R",
+            "fixity_algorithm": "sha256",
+            "bag_valid": null,
             "created_at": "2015-05-22T19:59:00.615Z",
-            "fixity_algorithm": "sha256",
-            "link": "dpn.sdr@devops.chron.org:outbound/4d11736c-c0ab-44b0-66c6-a947f414d4f1.tar"
+            "to_node": 5,
+            "replication_id": "chron-20",
+            "fixity_nonce": "",
+            "from_node": "3",
+            "status": "Requested",
+            "bag": "0d5cd03d-0b7e-4917-981b-17e90df38c3b",
+            "fixity_accept": null
         },
-        "model": "data.replicationtransfer",
-        "pk": 20
+        "pk": 20,
+        "model": "data.replicationtransfer"
     },
     {
         "fields": {
-            "bag": "4cc2f72c-341e-4e30-9b9f-3906813a31f4",
-            "to_node": 5,
-            "fixity_nonce": "",
             "updated_at": "2015-05-22T20:35:32.192Z",
-            "replication_id": "chron-21",
-            "fixity_accept": null,
-            "protocol": "R",
-            "bag_valid": null,
             "fixity_value": "",
-            "status": "Requested",
-            "from_node": "3",
+            "link": "dpn.sdr@devops.chron.org:outbound/005e7793-8253-4585-7118-2da702e29aa0.tar",
+            "protocol": "R",
+            "fixity_algorithm": "sha256",
+            "bag_valid": null,
             "created_at": "2015-05-22T19:59:17.197Z",
-            "fixity_algorithm": "sha256",
-            "link": "dpn.sdr@devops.chron.org:outbound/005e7793-8253-4585-7118-2da702e29aa0.tar"
+            "to_node": 5,
+            "replication_id": "chron-21",
+            "fixity_nonce": "",
+            "from_node": "3",
+            "status": "Requested",
+            "bag": "2fe3af6d-fed0-4a0d-bc63-b68ec202ad82",
+            "fixity_accept": null
         },
-        "model": "data.replicationtransfer",
-        "pk": 21
+        "pk": 21,
+        "model": "data.replicationtransfer"
     },
     {
         "fields": {
-            "bag": "62d24394-fcce-4fff-8d00-670e306fccdc",
-            "to_node": 5,
-            "fixity_nonce": "",
             "updated_at": "2015-05-22T20:35:24.670Z",
-            "replication_id": "chron-22",
-            "fixity_accept": null,
-            "protocol": "R",
-            "bag_valid": null,
             "fixity_value": "",
-            "status": "Requested",
-            "from_node": "3",
+            "link": "dpn.sdr@devops.chron.org:outbound/41e5376c-cc13-4c3e-6af3-297cc2e005aa.tar",
+            "protocol": "R",
+            "fixity_algorithm": "sha256",
+            "bag_valid": null,
             "created_at": "2015-05-22T19:59:34.479Z",
-            "fixity_algorithm": "sha256",
-            "link": "dpn.sdr@devops.chron.org:outbound/41e5376c-cc13-4c3e-6af3-297cc2e005aa.tar"
+            "to_node": 5,
+            "replication_id": "chron-22",
+            "fixity_nonce": "",
+            "from_node": "3",
+            "status": "Requested",
+            "bag": "66318fe4-45f1-4dd1-b7c1-a7f5b4aeb516",
+            "fixity_accept": null
         },
-        "model": "data.replicationtransfer",
-        "pk": 22
+        "pk": 22,
+        "model": "data.replicationtransfer"
     },
     {
         "fields": {
-            "bag": "2f8acf98-c4c2-4418-8bf1-4eb5c43099f7",
-            "to_node": 5,
-            "fixity_nonce": "",
             "updated_at": "2015-05-22T20:35:14.862Z",
-            "replication_id": "chron-23",
-            "fixity_accept": null,
-            "protocol": "R",
-            "bag_valid": null,
             "fixity_value": "",
-            "status": "Requested",
-            "from_node": "3",
-            "created_at": "2015-05-22T19:59:54.032Z",
+            "link": "dpn.sdr@devops.chron.org:outbound/8839f294-c7c0-404d-4467-7ab223ff461b.tar",
+            "protocol": "R",
             "fixity_algorithm": "sha256",
-            "link": "dpn.sdr@devops.chron.org:outbound/8839f294-c7c0-404d-4467-7ab223ff461b.tar"
+            "bag_valid": null,
+            "created_at": "2015-05-22T19:59:54.032Z",
+            "to_node": 5,
+            "replication_id": "chron-23",
+            "fixity_nonce": "",
+            "from_node": "3",
+            "status": "Requested",
+            "bag": "1c6a24ad-9f6d-47dc-a490-57928f3372a4",
+            "fixity_accept": null
         },
-        "model": "data.replicationtransfer",
-        "pk": 23
+        "pk": 23,
+        "model": "data.replicationtransfer"
     },
     {
         "fields": {
-            "bag": "f5dd8e95-e1be-4b75-bbb9-d2101fd1cea1",
-            "to_node": 5,
-            "fixity_nonce": "",
             "updated_at": "2015-05-22T20:35:04.963Z",
-            "replication_id": "chron-24",
-            "fixity_accept": null,
-            "protocol": "R",
-            "bag_valid": null,
             "fixity_value": "",
-            "status": "Requested",
-            "from_node": "3",
-            "created_at": "2015-05-22T20:00:12.597Z",
+            "link": "dpn.sdr@devops.chron.org:outbound/06edc30f-af04-4a4e-4ad6-3c679a195d46.tar",
+            "protocol": "R",
             "fixity_algorithm": "sha256",
-            "link": "dpn.sdr@devops.chron.org:outbound/06edc30f-af04-4a4e-4ad6-3c679a195d46.tar"
+            "bag_valid": null,
+            "created_at": "2015-05-22T20:00:12.597Z",
+            "to_node": 5,
+            "replication_id": "chron-24",
+            "fixity_nonce": "",
+            "from_node": "3",
+            "status": "Requested",
+            "bag": "031af3bd-af9d-4105-b440-5bcee6e94c92",
+            "fixity_accept": null
         },
-        "model": "data.replicationtransfer",
-        "pk": 24
+        "pk": 24,
+        "model": "data.replicationtransfer"
     },
     {
         "fields": {
             "to_node": "3",
+            "bag": "66318fe4-45f1-4dd1-b7c1-a7f5b4aeb516",
+            "from_node": 4,
             "status": "Requested",
+            "link": "rsync://mnt/staging/41e5376c-cc13-4c3e-6af3-297cc2e005aa.tar",
+            "protocol": "R",
             "restore_id": "chron-1",
             "updated_at": "2015-06-01T19:07:53.918Z",
-            "from_node": 4,
-            "created_at": "2015-06-01T19:07:53.917Z",
-            "protocol": "R",
-            "link": "rsync://mnt/staging/41e5376c-cc13-4c3e-6af3-297cc2e005aa.tar",
-            "bag": "62d24394-fcce-4fff-8d00-670e306fccdc"
+            "created_at": "2015-06-01T19:07:53.917Z"
         },
-        "model": "data.restoretransfer",
-        "pk": 1
+        "pk": 1,
+        "model": "data.restoretransfer"
     },
     {
         "fields": {
             "to_node": "3",
+            "bag": "031af3bd-af9d-4105-b440-5bcee6e94c92",
+            "from_node": 3,
             "status": "Requested",
+            "link": "rsync://mnt/staging/06edc30f-af04-4a4e-4ad6-3c679a195d46.tar",
+            "protocol": "R",
             "restore_id": "chron-2",
             "updated_at": "2015-06-01T19:15:14.867Z",
-            "from_node": 3,
-            "created_at": "2015-06-01T19:07:53.951Z",
-            "protocol": "R",
-            "link": "rsync://mnt/staging/06edc30f-af04-4a4e-4ad6-3c679a195d46.tar",
-            "bag": "f5dd8e95-e1be-4b75-bbb9-d2101fd1cea1"
+            "created_at": "2015-06-01T19:07:53.951Z"
         },
-        "model": "data.restoretransfer",
-        "pk": 2
+        "pk": 2,
+        "model": "data.restoretransfer"
     },
     {
         "fields": {
             "to_node": "3",
+            "bag": "ec4d430c-49ed-494e-a203-8a6a42984a25",
+            "from_node": 4,
             "status": "Requested",
+            "link": "rsync://mnt/staging/6029850a-b6a3-4c77-8c7a-606170ea9f95.tar",
+            "protocol": "R",
             "restore_id": "chron-3",
             "updated_at": "2015-06-01T19:09:16.091Z",
-            "from_node": 4,
-            "created_at": "2015-06-01T19:09:16.090Z",
-            "protocol": "R",
-            "link": "rsync://mnt/staging/6029850a-b6a3-4c77-8c7a-606170ea9f95.tar",
-            "bag": "d0937c15-353d-4d35-8fdc-255063cc79b2"
+            "created_at": "2015-06-01T19:09:16.090Z"
         },
-        "model": "data.restoretransfer",
-        "pk": 3
+        "pk": 3,
+        "model": "data.restoretransfer"
     },
     {
         "fields": {
             "to_node": "3",
+            "bag": "daa4a099-a643-4431-bd72-dfd5bb942a5b",
+            "from_node": 3,
             "status": "Requested",
+            "link": "rsync://mnt/staging/472218b3-95ce-4b8e-6c21-6e514cfbe43f.tar",
+            "protocol": "R",
             "restore_id": "chron-4",
             "updated_at": "2015-06-01T19:15:59.535Z",
-            "from_node": 3,
-            "created_at": "2015-06-01T19:09:16.123Z",
-            "protocol": "R",
-            "link": "rsync://mnt/staging/472218b3-95ce-4b8e-6c21-6e514cfbe43f.tar",
-            "bag": "c1f95e9f-1bdf-4355-94a1-94475447cdd1"
+            "created_at": "2015-06-01T19:09:16.123Z"
         },
-        "model": "data.restoretransfer",
-        "pk": 4
+        "pk": 4,
+        "model": "data.restoretransfer"
     },
     {
         "fields": {
             "content_type": 1,
-            "codename": "add_logentry",
-            "name": "Can add log entry"
+            "name": "Can add log entry",
+            "codename": "add_logentry"
         },
-        "model": "auth.permission",
-        "pk": 1
+        "pk": 1,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 1,
-            "codename": "change_logentry",
-            "name": "Can change log entry"
+            "name": "Can change log entry",
+            "codename": "change_logentry"
         },
-        "model": "auth.permission",
-        "pk": 2
+        "pk": 2,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 1,
-            "codename": "delete_logentry",
-            "name": "Can delete log entry"
+            "name": "Can delete log entry",
+            "codename": "delete_logentry"
         },
-        "model": "auth.permission",
-        "pk": 3
+        "pk": 3,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 2,
-            "codename": "add_permission",
-            "name": "Can add permission"
+            "name": "Can add permission",
+            "codename": "add_permission"
         },
-        "model": "auth.permission",
-        "pk": 4
+        "pk": 4,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 2,
-            "codename": "change_permission",
-            "name": "Can change permission"
+            "name": "Can change permission",
+            "codename": "change_permission"
         },
-        "model": "auth.permission",
-        "pk": 5
+        "pk": 5,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 2,
-            "codename": "delete_permission",
-            "name": "Can delete permission"
+            "name": "Can delete permission",
+            "codename": "delete_permission"
         },
-        "model": "auth.permission",
-        "pk": 6
+        "pk": 6,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 3,
-            "codename": "add_group",
-            "name": "Can add group"
+            "name": "Can add group",
+            "codename": "add_group"
         },
-        "model": "auth.permission",
-        "pk": 7
+        "pk": 7,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 3,
-            "codename": "change_group",
-            "name": "Can change group"
+            "name": "Can change group",
+            "codename": "change_group"
         },
-        "model": "auth.permission",
-        "pk": 8
+        "pk": 8,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 3,
-            "codename": "delete_group",
-            "name": "Can delete group"
+            "name": "Can delete group",
+            "codename": "delete_group"
         },
-        "model": "auth.permission",
-        "pk": 9
+        "pk": 9,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 4,
-            "codename": "add_user",
-            "name": "Can add user"
+            "name": "Can add user",
+            "codename": "add_user"
         },
-        "model": "auth.permission",
-        "pk": 10
+        "pk": 10,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 4,
-            "codename": "change_user",
-            "name": "Can change user"
+            "name": "Can change user",
+            "codename": "change_user"
         },
-        "model": "auth.permission",
-        "pk": 11
+        "pk": 11,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 4,
-            "codename": "delete_user",
-            "name": "Can delete user"
+            "name": "Can delete user",
+            "codename": "delete_user"
         },
-        "model": "auth.permission",
-        "pk": 12
+        "pk": 12,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 5,
-            "codename": "add_contenttype",
-            "name": "Can add content type"
+            "name": "Can add content type",
+            "codename": "add_contenttype"
         },
-        "model": "auth.permission",
-        "pk": 13
+        "pk": 13,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 5,
-            "codename": "change_contenttype",
-            "name": "Can change content type"
+            "name": "Can change content type",
+            "codename": "change_contenttype"
         },
-        "model": "auth.permission",
-        "pk": 14
+        "pk": 14,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 5,
-            "codename": "delete_contenttype",
-            "name": "Can delete content type"
+            "name": "Can delete content type",
+            "codename": "delete_contenttype"
         },
-        "model": "auth.permission",
-        "pk": 15
+        "pk": 15,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 6,
-            "codename": "add_session",
-            "name": "Can add session"
+            "name": "Can add session",
+            "codename": "add_session"
         },
-        "model": "auth.permission",
-        "pk": 16
+        "pk": 16,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 6,
-            "codename": "change_session",
-            "name": "Can change session"
+            "name": "Can change session",
+            "codename": "change_session"
         },
-        "model": "auth.permission",
-        "pk": 17
+        "pk": 17,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 6,
-            "codename": "delete_session",
-            "name": "Can delete session"
+            "name": "Can delete session",
+            "codename": "delete_session"
         },
-        "model": "auth.permission",
-        "pk": 18
+        "pk": 18,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 7,
-            "codename": "add_token",
-            "name": "Can add token"
+            "name": "Can add token",
+            "codename": "add_token"
         },
-        "model": "auth.permission",
-        "pk": 19
+        "pk": 19,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 7,
-            "codename": "change_token",
-            "name": "Can change token"
+            "name": "Can change token",
+            "codename": "change_token"
         },
-        "model": "auth.permission",
-        "pk": 20
+        "pk": 20,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 7,
-            "codename": "delete_token",
-            "name": "Can delete token"
+            "name": "Can delete token",
+            "codename": "delete_token"
         },
-        "model": "auth.permission",
-        "pk": 21
+        "pk": 21,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 8,
-            "codename": "add_protocol",
-            "name": "Can add protocol"
+            "name": "Can add protocol",
+            "codename": "add_protocol"
         },
-        "model": "auth.permission",
-        "pk": 22
+        "pk": 22,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 8,
-            "codename": "change_protocol",
-            "name": "Can change protocol"
+            "name": "Can change protocol",
+            "codename": "change_protocol"
         },
-        "model": "auth.permission",
-        "pk": 23
+        "pk": 23,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 8,
-            "codename": "delete_protocol",
-            "name": "Can delete protocol"
+            "name": "Can delete protocol",
+            "codename": "delete_protocol"
         },
-        "model": "auth.permission",
-        "pk": 24
+        "pk": 24,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 9,
-            "codename": "add_fixityalgorithm",
-            "name": "Can add fixity algorithm"
+            "name": "Can add fixity algorithm",
+            "codename": "add_fixityalgorithm"
         },
-        "model": "auth.permission",
-        "pk": 25
+        "pk": 25,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 9,
-            "codename": "change_fixityalgorithm",
-            "name": "Can change fixity algorithm"
+            "name": "Can change fixity algorithm",
+            "codename": "change_fixityalgorithm"
         },
-        "model": "auth.permission",
-        "pk": 26
+        "pk": 26,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 9,
-            "codename": "delete_fixityalgorithm",
-            "name": "Can delete fixity algorithm"
+            "name": "Can delete fixity algorithm",
+            "codename": "delete_fixityalgorithm"
         },
-        "model": "auth.permission",
-        "pk": 27
+        "pk": 27,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 10,
-            "codename": "add_node",
-            "name": "Can add node"
+            "name": "Can add node",
+            "codename": "add_node"
         },
-        "model": "auth.permission",
-        "pk": 28
+        "pk": 28,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 10,
-            "codename": "change_node",
-            "name": "Can change node"
+            "name": "Can change node",
+            "codename": "change_node"
         },
-        "model": "auth.permission",
-        "pk": 29
+        "pk": 29,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 10,
-            "codename": "delete_node",
-            "name": "Can delete node"
+            "name": "Can delete node",
+            "codename": "delete_node"
         },
-        "model": "auth.permission",
-        "pk": 30
+        "pk": 30,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 11,
-            "codename": "add_storage",
-            "name": "Can add storage"
+            "name": "Can add storage",
+            "codename": "add_storage"
         },
-        "model": "auth.permission",
-        "pk": 31
+        "pk": 31,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 11,
-            "codename": "change_storage",
-            "name": "Can change storage"
+            "name": "Can change storage",
+            "codename": "change_storage"
         },
-        "model": "auth.permission",
-        "pk": 32
+        "pk": 32,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 11,
-            "codename": "delete_storage",
-            "name": "Can delete storage"
+            "name": "Can delete storage",
+            "codename": "delete_storage"
         },
-        "model": "auth.permission",
-        "pk": 33
+        "pk": 33,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 12,
-            "codename": "add_bag",
-            "name": "Can add bag"
+            "name": "Can add bag",
+            "codename": "add_bag"
         },
-        "model": "auth.permission",
-        "pk": 34
+        "pk": 34,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 12,
-            "codename": "change_bag",
-            "name": "Can change bag"
+            "name": "Can change bag",
+            "codename": "change_bag"
         },
-        "model": "auth.permission",
-        "pk": 35
+        "pk": 35,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 12,
-            "codename": "delete_bag",
-            "name": "Can delete bag"
+            "name": "Can delete bag",
+            "codename": "delete_bag"
         },
-        "model": "auth.permission",
-        "pk": 36
+        "pk": 36,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 13,
-            "codename": "add_fixity",
-            "name": "Can add fixity"
+            "name": "Can add fixity",
+            "codename": "add_fixity"
         },
-        "model": "auth.permission",
-        "pk": 37
+        "pk": 37,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 13,
-            "codename": "change_fixity",
-            "name": "Can change fixity"
+            "name": "Can change fixity",
+            "codename": "change_fixity"
         },
-        "model": "auth.permission",
-        "pk": 38
+        "pk": 38,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 13,
-            "codename": "delete_fixity",
-            "name": "Can delete fixity"
+            "name": "Can delete fixity",
+            "codename": "delete_fixity"
         },
-        "model": "auth.permission",
-        "pk": 39
+        "pk": 39,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 14,
-            "codename": "add_replicationtransfer",
-            "name": "Can add replication transfer"
+            "name": "Can add replication transfer",
+            "codename": "add_replicationtransfer"
         },
-        "model": "auth.permission",
-        "pk": 40
+        "pk": 40,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 14,
-            "codename": "change_replicationtransfer",
-            "name": "Can change replication transfer"
+            "name": "Can change replication transfer",
+            "codename": "change_replicationtransfer"
         },
-        "model": "auth.permission",
-        "pk": 41
+        "pk": 41,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 14,
-            "codename": "delete_replicationtransfer",
-            "name": "Can delete replication transfer"
+            "name": "Can delete replication transfer",
+            "codename": "delete_replicationtransfer"
         },
-        "model": "auth.permission",
-        "pk": 42
+        "pk": 42,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 15,
-            "codename": "add_restoretransfer",
-            "name": "Can add restore transfer"
+            "name": "Can add restore transfer",
+            "codename": "add_restoretransfer"
         },
-        "model": "auth.permission",
-        "pk": 43
+        "pk": 43,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 15,
-            "codename": "change_restoretransfer",
-            "name": "Can change restore transfer"
+            "name": "Can change restore transfer",
+            "codename": "change_restoretransfer"
         },
-        "model": "auth.permission",
-        "pk": 44
+        "pk": 44,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 15,
-            "codename": "delete_restoretransfer",
-            "name": "Can delete restore transfer"
+            "name": "Can delete restore transfer",
+            "codename": "delete_restoretransfer"
         },
-        "model": "auth.permission",
-        "pk": 45
+        "pk": 45,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 16,
-            "codename": "add_userprofile",
-            "name": "Can add user profile"
+            "name": "Can add user profile",
+            "codename": "add_userprofile"
         },
-        "model": "auth.permission",
-        "pk": 46
+        "pk": 46,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 16,
-            "codename": "change_userprofile",
-            "name": "Can change user profile"
+            "name": "Can change user profile",
+            "codename": "change_userprofile"
         },
-        "model": "auth.permission",
-        "pk": 47
+        "pk": 47,
+        "model": "auth.permission"
     },
     {
         "fields": {
             "content_type": 16,
-            "codename": "delete_userprofile",
-            "name": "Can delete user profile"
+            "name": "Can delete user profile",
+            "codename": "delete_userprofile"
         },
-        "model": "auth.permission",
-        "pk": 48
+        "pk": 48,
+        "model": "auth.permission"
     },
     {
         "fields": {
@@ -1646,8 +1646,8 @@
             ],
             "name": "api_users"
         },
-        "model": "auth.group",
-        "pk": 1
+        "pk": 1,
+        "model": "auth.group"
     },
     {
         "fields": {
@@ -1664,251 +1664,251 @@
             ],
             "name": "api_admins"
         },
-        "model": "auth.group",
-        "pk": 2
+        "pk": 2,
+        "model": "auth.group"
     },
     {
         "fields": {
-            "first_name": "",
             "last_name": "",
-            "last_login": "2015-06-05T14:46:20.744Z",
-            "is_staff": true,
             "is_superuser": true,
+            "password": "pbkdf2_sha256$15000$Klz2TFoxY8xE$/I58ocVVFVI2xLCEfaCS0BJXEuKbCMSu7nmBAPENGXo=",
+            "groups": [
+                2
+            ],
             "email": "andrew.diamond@aptrust.org",
-            "username": "andrew.diamond@aptrust.org",
+            "is_active": true,
+            "last_login": "2015-06-05T14:46:20.744Z",
+            "first_name": "",
             "date_joined": "2015-05-04T17:27:12Z",
-            "user_permissions": [],
-            "groups": [
-                2
-            ],
-            "is_active": true,
-            "password": "pbkdf2_sha256$15000$Klz2TFoxY8xE$/I58ocVVFVI2xLCEfaCS0BJXEuKbCMSu7nmBAPENGXo="
-        },
-        "model": "auth.user",
-        "pk": 1
-    },
-    {
-        "fields": {
-            "first_name": "",
-            "last_name": "",
-            "last_login": "2015-05-04T17:30:31Z",
-            "is_staff": false,
-            "is_superuser": false,
-            "email": "",
-            "username": "chron_user",
-            "date_joined": "2015-05-04T17:30:31Z",
-            "user_permissions": [],
-            "groups": [
-                1
-            ],
-            "is_active": true,
-            "password": "pbkdf2_sha256$15000$Vjhj7WKEdpQ6$SqeAlTHG9ViWwlWjt0ETYLFIN97WjOBb5uOb9x3hBSE="
-        },
-        "model": "auth.user",
-        "pk": 2
-    },
-    {
-        "fields": {
-            "first_name": "",
-            "last_name": "",
-            "last_login": "2015-05-04T17:30:42Z",
-            "is_staff": false,
-            "is_superuser": false,
-            "email": "",
-            "username": "hathi_user",
-            "date_joined": "2015-05-04T17:30:42Z",
-            "user_permissions": [],
-            "groups": [
-                1
-            ],
-            "is_active": true,
-            "password": "pbkdf2_sha256$15000$6QXSo1C11nc9$C+Dult7lXQtHbHYeJmwqzbyUuCXeF6acDPNtmy9eVqo="
-        },
-        "model": "auth.user",
-        "pk": 3
-    },
-    {
-        "fields": {
-            "first_name": "",
-            "last_name": "",
-            "last_login": "2015-05-04T17:31:13Z",
-            "is_staff": false,
-            "is_superuser": false,
-            "email": "",
-            "username": "sdr_user",
-            "date_joined": "2015-05-04T17:31:13Z",
-            "user_permissions": [],
-            "groups": [
-                1
-            ],
-            "is_active": true,
-            "password": "pbkdf2_sha256$15000$as2Swb1GL41J$RKGTkc9PtK5lVvqQ+lIgYI0N9EXxbbbiBq7OTausqiA="
-        },
-        "model": "auth.user",
-        "pk": 4
-    },
-    {
-        "fields": {
-            "first_name": "",
-            "last_name": "",
-            "last_login": "2015-05-04T17:31:28Z",
-            "is_staff": false,
-            "is_superuser": false,
-            "email": "",
-            "username": "tdr_user",
-            "date_joined": "2015-05-04T17:31:28Z",
-            "user_permissions": [],
-            "groups": [
-                1
-            ],
-            "is_active": true,
-            "password": "pbkdf2_sha256$15000$vuhkbKTdL7Y2$73CBo5jQEpVmVLmwshbbTYX4aQNuHm4DOA8b/HW6O8w="
-        },
-        "model": "auth.user",
-        "pk": 5
-    },
-    {
-        "fields": {
-            "first_name": "",
-            "last_name": "",
-            "last_login": "2015-05-04T17:32:19Z",
             "is_staff": true,
-            "is_superuser": true,
+            "username": "andrew.diamond@aptrust.org",
+            "user_permissions": []
+        },
+        "pk": 1,
+        "model": "auth.user"
+    },
+    {
+        "fields": {
+            "last_name": "",
+            "is_superuser": false,
+            "password": "pbkdf2_sha256$15000$Vjhj7WKEdpQ6$SqeAlTHG9ViWwlWjt0ETYLFIN97WjOBb5uOb9x3hBSE=",
+            "groups": [
+                1
+            ],
             "email": "",
-            "username": "aptrust_user",
-            "date_joined": "2015-05-04T17:32:19Z",
-            "user_permissions": [],
+            "is_active": true,
+            "last_login": "2015-05-04T17:30:31Z",
+            "first_name": "",
+            "date_joined": "2015-05-04T17:30:31Z",
+            "is_staff": false,
+            "username": "chron_user",
+            "user_permissions": []
+        },
+        "pk": 2,
+        "model": "auth.user"
+    },
+    {
+        "fields": {
+            "last_name": "",
+            "is_superuser": false,
+            "password": "pbkdf2_sha256$15000$6QXSo1C11nc9$C+Dult7lXQtHbHYeJmwqzbyUuCXeF6acDPNtmy9eVqo=",
+            "groups": [
+                1
+            ],
+            "email": "",
+            "is_active": true,
+            "last_login": "2015-05-04T17:30:42Z",
+            "first_name": "",
+            "date_joined": "2015-05-04T17:30:42Z",
+            "is_staff": false,
+            "username": "hathi_user",
+            "user_permissions": []
+        },
+        "pk": 3,
+        "model": "auth.user"
+    },
+    {
+        "fields": {
+            "last_name": "",
+            "is_superuser": false,
+            "password": "pbkdf2_sha256$15000$as2Swb1GL41J$RKGTkc9PtK5lVvqQ+lIgYI0N9EXxbbbiBq7OTausqiA=",
+            "groups": [
+                1
+            ],
+            "email": "",
+            "is_active": true,
+            "last_login": "2015-05-04T17:31:13Z",
+            "first_name": "",
+            "date_joined": "2015-05-04T17:31:13Z",
+            "is_staff": false,
+            "username": "sdr_user",
+            "user_permissions": []
+        },
+        "pk": 4,
+        "model": "auth.user"
+    },
+    {
+        "fields": {
+            "last_name": "",
+            "is_superuser": false,
+            "password": "pbkdf2_sha256$15000$vuhkbKTdL7Y2$73CBo5jQEpVmVLmwshbbTYX4aQNuHm4DOA8b/HW6O8w=",
+            "groups": [
+                1
+            ],
+            "email": "",
+            "is_active": true,
+            "last_login": "2015-05-04T17:31:28Z",
+            "first_name": "",
+            "date_joined": "2015-05-04T17:31:28Z",
+            "is_staff": false,
+            "username": "tdr_user",
+            "user_permissions": []
+        },
+        "pk": 5,
+        "model": "auth.user"
+    },
+    {
+        "fields": {
+            "last_name": "",
+            "is_superuser": true,
+            "password": "pbkdf2_sha256$15000$Quw05XjFKquA$/07Iz2oNKFAYdmG+FOqH5AVtpCc59sQAHuSFBEZrZnE=",
             "groups": [
                 2
             ],
+            "email": "",
             "is_active": true,
-            "password": "pbkdf2_sha256$15000$Quw05XjFKquA$/07Iz2oNKFAYdmG+FOqH5AVtpCc59sQAHuSFBEZrZnE="
+            "last_login": "2015-05-04T17:32:19Z",
+            "first_name": "",
+            "date_joined": "2015-05-04T17:32:19Z",
+            "is_staff": true,
+            "username": "aptrust_user",
+            "user_permissions": []
         },
-        "model": "auth.user",
-        "pk": 6
+        "pk": 6,
+        "model": "auth.user"
     },
     {
         "fields": {
-            "created": "2015-05-04T17:32:48.340Z",
-            "user": 4
+            "user": 4,
+            "created": "2015-05-04T17:32:48.340Z"
         },
-        "model": "authtoken.token",
-        "pk": "4444444444444444444444444444444444444444"
+        "pk": "4444444444444444444444444444444444444444",
+        "model": "authtoken.token"
     },
     {
         "fields": {
-            "created": "2015-05-04T17:32:02.226Z",
-            "user": 2
+            "user": 2,
+            "created": "2015-05-04T17:32:02.226Z"
         },
-        "model": "authtoken.token",
-        "pk": "2222222222222222222222222222222222222222"
+        "pk": "2222222222222222222222222222222222222222",
+        "model": "authtoken.token"
     },
     {
         "fields": {
-            "created": "2015-05-04T17:32:51.887Z",
-            "user": 5
+            "user": 5,
+            "created": "2015-05-04T17:32:51.887Z"
         },
-        "model": "authtoken.token",
-        "pk": "5555555555555555555555555555555555555555"
+        "pk": "5555555555555555555555555555555555555555",
+        "model": "authtoken.token"
     },
     {
         "fields": {
-            "created": "2015-05-04T17:32:44.335Z",
-            "user": 3
+            "user": 3,
+            "created": "2015-05-04T17:32:44.335Z"
         },
-        "model": "authtoken.token",
-        "pk": "3333333333333333333333333333333333333333"
+        "pk": "3333333333333333333333333333333333333333",
+        "model": "authtoken.token"
     },
     {
         "fields": {
-            "created": "2015-05-04T17:32:40.676Z",
-            "user": 6
+            "user": 6,
+            "created": "2015-05-04T17:32:40.676Z"
         },
-        "model": "authtoken.token",
-        "pk": "6666666666666666666666666666666666666666"
+        "pk": "6666666666666666666666666666666666666666",
+        "model": "authtoken.token"
     },
     {
         "fields": {
             "node": 1,
             "user": 1
         },
-        "model": "data.userprofile",
-        "pk": 1
+        "pk": 1,
+        "model": "data.userprofile"
     },
     {
         "fields": {
             "node": 3,
             "user": 2
         },
-        "model": "data.userprofile",
-        "pk": 2
+        "pk": 2,
+        "model": "data.userprofile"
     },
     {
         "fields": {
             "node": 2,
             "user": 3
         },
-        "model": "data.userprofile",
-        "pk": 3
+        "pk": 3,
+        "model": "data.userprofile"
     },
     {
         "fields": {
             "node": 5,
             "user": 4
         },
-        "model": "data.userprofile",
-        "pk": 4
+        "pk": 4,
+        "model": "data.userprofile"
     },
     {
         "fields": {
             "node": 4,
             "user": 5
         },
-        "model": "data.userprofile",
-        "pk": 5
+        "pk": 5,
+        "model": "data.userprofile"
     },
     {
         "fields": {
             "node": 1,
             "user": 6
         },
-        "model": "data.userprofile",
-        "pk": 6
+        "pk": 6,
+        "model": "data.userprofile"
     },
     {
         "fields": {
-            "first_name": "chron",
             "last_name": "admin",
-            "last_login": "2015-06-05T14:46:20.744Z",
-            "is_staff": true,
             "is_superuser": true,
-            "email": "chron_admin@aptrust.org",
-            "username": "chron_admin",
-            "date_joined": "2015-05-04T17:27:12Z",
-            "user_permissions": [],
+            "password": "pbkdf2_sha256$15000$Klz2TFoxY8xE$/I58ocVVFVI2xLCEfaCS0BJXEuKbCMSu7nmBAPENGXo=",
             "groups": [
                 2
             ],
+            "email": "chron_admin@aptrust.org",
             "is_active": true,
-            "password": "pbkdf2_sha256$15000$Klz2TFoxY8xE$/I58ocVVFVI2xLCEfaCS0BJXEuKbCMSu7nmBAPENGXo="
+            "last_login": "2015-06-05T14:46:20.744Z",
+            "first_name": "chron",
+            "date_joined": "2015-05-04T17:27:12Z",
+            "is_staff": true,
+            "username": "chron_admin",
+            "user_permissions": []
         },
-        "model": "auth.user",
-        "pk": 7
+        "pk": 7,
+        "model": "auth.user"
     },
     {
         "fields": {
-            "created": "2015-05-04T17:32:48.340Z",
-            "user": 7
+            "user": 7,
+            "created": "2015-05-04T17:32:48.340Z"
         },
-        "model": "authtoken.token",
-        "pk": "0000000000000000000000000000000000000000"
+        "pk": "0000000000000000000000000000000000000000",
+        "model": "authtoken.token"
     },
     {
         "fields": {
             "node": "3",
             "user": 7
         },
-        "model": "data.userprofile",
-        "pk": 7
+        "pk": 7,
+        "model": "data.userprofile"
     }
 ]

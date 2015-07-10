@@ -230,7 +230,7 @@
 {
     "pk": 2,
     "fields": {
-        "api_root": "https://dpn.hathitrust.org/dpnrest/",
+        "api_root": "https://dpn.hathitrust.org/",
         "replicate_to": [
             1,
             3,
