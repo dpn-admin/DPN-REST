@@ -5,7 +5,7 @@
 """
 from django.utils import timezone
 from rest_framework import serializers
-from rest_framework.exceptions import PermissionDenied
+from rest_framework.exceptions import PermissionDenied, ValidationError
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from dpn.data.models import Node, ReplicationTransfer, RestoreTransfer
@@ -149,6 +149,8 @@ class BasicReplicationSerializer(serializers.ModelSerializer):
         instance.status = validated_data.get('status', instance.status)
         instance.bag_valid = validated_data.get('bag_valid', instance.bag_valid)
         instance.fixity_value = validated_data.get('fixity_value', instance.fixity_value)
+        if instance.updated_at > validated_data.get('updated_at', instance.updated_at):
+            return ValidationError(detail="The updated_at timestamp on the object you submitted is earlier than this system's timestamp for the same object. Your record is out of date and this system will not update the record.")
         if instance.status.lower() == "confirmed" and not was_already_confirmed and not user_is_superuser(self.context):
             raise PermissionDenied("Only the local admin can set replication status to 'Confirmed'")
         if instance.status.lower() == "stored" and not instance.fixity_accept:
@@ -207,6 +209,8 @@ class BasicRestoreSerializer(serializers.ModelSerializer):
         instance.status = validated_data.get('status', instance.status)
         instance.protocol = validated_data.get('protocol', instance.protocol)
         instance.link = validated_data.get('link', instance.link)
+        if instance.updated_at > validated_data.get('updated_at', instance.updated_at):
+            return ValidationError(detail="The updated_at timestamp on the object you submitted is earlier than this system's timestamp for the same object. Your record is out of date and this system will not update the record.")
         if instance.status.lower() == "finished" and not user_is_superuser(self.context):
             raise PermissionDenied("Only the local admin can set replication status to 'Finished'")
         instance.save()
@@ -323,6 +327,8 @@ class BagSerializer(serializers.ModelSerializer):
         # instance.admin_node = validated_data.get('admin_node', instance.admin_node)
         fixities, rights, interpretive, replicating_nodes = self._extract_relations(validated_data)
         self._assign_relations(instance, rights, interpretive, replicating_nodes)
+        if instance.updated_at > validated_data.get('updated_at', instance.updated_at):
+            return ValidationError(detail="The updated_at timestamp on the object you submitted is earlier than this system's timestamp for the same object. Your record is out of date and this system will not update the record.")
         instance.updated_at = timezone.now()
         instance.save()
         return instance
