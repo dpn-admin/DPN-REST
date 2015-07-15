@@ -78,7 +78,7 @@ class BagListViewTest(APITestCase):
         for result in response.data['results']:
             current = dpn_strptime(result["updated_at"])
             if previous:
-                self.assertTrue(current < previous)
+                self.assertTrue(current <= previous)
             previous = current
 
     def test_put(self):

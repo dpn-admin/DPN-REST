@@ -81,7 +81,7 @@ GRAPPELLI_ADMIN_TITLE = 'APTrust Admin'
 # -----------------------
 
 # Date Format
-DPN_DATE_FORMAT = "%Y-%m-%dT%H:%M:%S.%fZ" # ISO 8601 format for strftime functions.
+DPN_DATE_FORMAT = "%Y-%m-%dT%H:%M:%SZ" # ISO 8601 format for strftime functions.
 
 # Max Size of allowable bags
 DPN_MAX_SIZE = 1099511627776 # 1 TB
